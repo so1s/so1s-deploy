@@ -1,0 +1,10 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "backend.serviceAccountName" . }}-clusterRoleBinding
+subjects:
+- kind: ServiceAccount
+  name: {{ include "backend.serviceAccountName" . }}  # 서비스 어카운트 이름
+  namespace: {{ template "backend.namespace" . }}    # 네임스페이스 지정은 필수
+roleRef:
+  {{- include "backend.roleRef" . | nindent 4 }}

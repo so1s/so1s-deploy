@@ -40,6 +40,7 @@ helm.sh/chart: {{ include "backend.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+kind: api
 {{- end }}
 
 {{/*
@@ -60,3 +61,23 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "backend.namespace" -}}
+  {{- if .Values.namespaceOverride -}}
+    {{- .Values.namespaceOverride -}}
+  {{- else -}}
+    {{- .Release.Namespace -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "backend.roleRef" -}}
+{{- if eq .Values.environment "production" -}}
+kind: ClusterRole
+name: production-role
+apiGroup: rbac.authorization.k8s.io
+{{- else -}}
+kind: ClusterRole
+name: cluster-admin
+apiGroup: rbac.authorization.k8s.io
+{{- end -}}
+{{- end -}}

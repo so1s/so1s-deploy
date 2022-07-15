@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: quota        # Quota 이름
+  namespace: {{ template "backend.namespace" . }}
+spec:
+  hard:
+    requests.cpu: {{ .Values.resourceQuota.cpu }}
+    requests.memory: {{ .Values.resourceQuota.memory }}
+    limits.cpu: {{ .Values.resourceQuota.cpu }}
+    limits.memory: {{ .Values.resourceQuota.memory }}

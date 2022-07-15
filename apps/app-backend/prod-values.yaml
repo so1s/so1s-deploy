@@ -1,0 +1,19 @@
+environment: "production"
+
+replicaCount: 2
+
+image:
+  repository:
+  tag:
+
+imagePullSecrets: []
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+resourceQuota:
+  cpu: "1"
+  memory: 2Gi

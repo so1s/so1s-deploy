@@ -1,0 +1,11 @@
+environment: "develop"
+
+image:
+  repository:
+  tag:
+
+imagePullSecrets: []
+
+resourceQuota:
+  cpu: "0.5"
+  memory: 1Gi

@@ -1,11 +1,24 @@
 environment: "develop"
 
 image:
-  repository:
-  tag:
+  repository: "dlatqdlatq/poc-api"
+  tag: "v2-test"
 
 imagePullSecrets: []
 
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 1
+
 resourceQuota:
-  cpu: "0.5"
+  cpu: "1000m"
   memory: 1Gi
+
+resources:
+  limits:
+    memory: "1000Mi"
+    cpu: "1000m"
+  requests:
+    memory: "1000Mi"
+    cpu: "1000m"

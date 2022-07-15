@@ -29,10 +29,9 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            - containerPort: 8080
           livenessProbe:
             httpGet:
               path: /livez

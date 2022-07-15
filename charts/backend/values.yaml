@@ -12,6 +12,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+imagePullPolicy: Always
+
 serviceAccount:
   create: true
   annotations: {}
@@ -31,12 +33,19 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 8080
+  targetPort: 8080
 
-resources: {}
+resources:
+  limits:
+    memory: "2000Mi"
+    cpu: "2000m"
+  requests:
+    memory: "1500Mi"
+    cpu: "1500m"
 
 resourceQuota:
-  cpu: "0.5"
-  memory: 1Gi
+  cpu: "2000m"
+  memory: "2000Mi"
 
 autoscaling:
   enabled: false

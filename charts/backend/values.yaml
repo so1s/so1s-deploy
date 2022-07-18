@@ -2,9 +2,6 @@ environment: "develop"
 
 namespaceOverride: ""
 
-prometheus:
-  enabled: true
-
 replicaCount: 1
 
 image:
@@ -66,3 +63,43 @@ tolerations:
     effect: "NoSchedule"
 
 affinity: {}
+
+
+## kube-prometheus-stack (Prometheus & Grafana) 설정 파일
+##
+
+prometheus:
+  enabled: true
+  
+kube-prometheus-stack:
+  prometheus:
+    prometheusSpec:
+      routePrefix: /prom
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+            selector:
+              matchLabels:
+                app: my-example-prometheus
+  ingress:
+    ingressClassName: nginx
+    enabled: true
+    paths:
+      - /prom
+  grafana:
+    adminPassword: password1234
+    ingress:
+      ingressClassName: nginx
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
+      path: /dashboard(/|$)(.*)
+    grafana.ini:
+      server:
+        domain: so1s.io
+        root_url: http://so1s.io/dashboard/
+        serve_from_sub_path: true

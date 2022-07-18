@@ -37,15 +37,15 @@ service:
 
 resources:
   limits:
-    memory: "2000Mi"
-    cpu: "2000m"
+    memory: "1000Mi"
+    cpu: "1000m"
   requests:
-    memory: "1500Mi"
-    cpu: "1500m"
+    memory: "1000Mi"
+    cpu: "1000m"
 
 resourceQuota:
-  cpu: "2000m"
-  memory: "2000Mi"
+  cpu: "3000m"
+  memory: "3000Mi"
 
 autoscaling:
   enabled: false

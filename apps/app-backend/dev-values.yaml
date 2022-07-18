@@ -12,8 +12,8 @@ autoscaling:
   maxReplicas: 1
 
 resourceQuota:
-  cpu: "1000m"
-  memory: 1Gi
+  cpu: "4000m"
+  memory: 4Gi
 
 resources:
   limits:

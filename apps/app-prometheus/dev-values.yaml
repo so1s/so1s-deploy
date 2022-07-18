@@ -1,3 +1,4 @@
+## Prometheus Configuration
 prometheus:
   prometheusSpec:
     tolerations:
@@ -21,12 +22,13 @@ ingress:
   enabled: true
   paths:
     - /prom
-alertmanager: 
-  tolerations:
-  - key: kind
-    operator: "Equal"
-    value: "api"
-    effect: "NoSchedule"
+alertmanager:
+  alertmanagerSpec: 
+    tolerations:
+      - key: kind
+        operator: "Equal"
+        value: "api"
+        effect: "NoSchedule"
 thanosRuler:
   thanosRulerSpec:
     tolerations:
@@ -41,13 +43,21 @@ prometheusOperator:
       value: "api"
       effect: "NoSchedule"
   admissionWebhooks:
-    tolerations:
-      - key: kind
-        operator: "Equal"
-        value: "api"
-        effect: "NoSchedule"
+    patch: 
+      tolerations:
+        - key: kind
+          operator: "Equal"
+          value: "api"
+          effect: "NoSchedule"
 
+
+## Grafana Configuration
 grafana:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
   adminPassword: password1234
   ingress:
     ingressClassName: nginx
@@ -60,3 +70,19 @@ grafana:
       domain: so1s.io
       root_url: http://so1s.io/dashboard/
       serve_from_sub_path: true
+
+## prometheus-node-exporter Configuration
+prometheus-node-exporter:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+
+## kube-state-metrics Configuration
+kube-state-metrics:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"

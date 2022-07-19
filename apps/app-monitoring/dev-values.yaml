@@ -1,0 +1,88 @@
+## Prometheus Configuration
+prometheus:
+  prometheusSpec:
+    tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+    routePrefix: /prom
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+          selector:
+            matchLabels:
+              app: my-example-prometheus
+ingress:
+  ingressClassName: nginx
+  enabled: true
+  paths:
+    - /prom
+alertmanager:
+  alertmanagerSpec: 
+    tolerations:
+      - key: kind
+        operator: "Equal"
+        value: "api"
+        effect: "NoSchedule"
+thanosRuler:
+  thanosRulerSpec:
+    tolerations:
+      - key: kind
+        operator: "Equal"
+        value: "api"
+        effect: "NoSchedule"
+prometheusOperator:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+  admissionWebhooks:
+    patch: 
+      tolerations:
+        - key: kind
+          operator: "Equal"
+          value: "api"
+          effect: "NoSchedule"
+
+
+## Grafana Configuration
+grafana:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+  adminPassword: password1234
+  ingress:
+    ingressClassName: nginx
+    enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    path: /dashboard(/|$)(.*)
+  grafana.ini:
+    server:
+      domain: so1s.io
+      root_url: http://so1s.io/dashboard/
+      serve_from_sub_path: true
+
+## prometheus-node-exporter Configuration
+prometheus-node-exporter:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+
+## kube-state-metrics Configuration
+kube-state-metrics:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"

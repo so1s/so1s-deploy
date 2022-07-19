@@ -2,18 +2,18 @@ apiVersion: skaffold/v2beta29
 kind: Config
 metadata:
   name: so1s
-build:
-  artifacts:
-  - image: so1s-backend # example
-    jib: {}
-    context: ../backend # 주의! deploy 레포지토리를 벗어난 상대 범위입니다. 반드시 Deploy레포지토리와 backend 레포지토리를 형제 관계로 관리해주세요
+# build:
+#   artifacts:
+#   - image: so1s-backend # example
+#     jib: {}
+#     context: ../backend # 주의! deploy 레포지토리를 벗어난 상대 범위입니다. 반드시 Deploy레포지토리와 backend 레포지토리를 형제 관계로 관리해주세요
 deploy:
   helm:
     releases:
     - name: backend
       chartPath: ./charts/backend
-      artifactOverrides:
-        image: so1s-backend # example
+      # artifactOverrides:
+      #   image: so1s-backend # example
       imageStrategy:
         fqn: {} # provides a fully-qualified image reference
       valuesFiles:

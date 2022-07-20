@@ -1,3 +1,5 @@
+# fullnameOverride: "sungbin-dev"
+
 ## Prometheus Configuration
 prometheus:
   prometheusSpec:
@@ -14,14 +16,11 @@ prometheus:
           resources:
             requests:
               storage: 5Gi
-          selector:
-            matchLabels:
-              app: my-example-prometheus
-ingress:
-  ingressClassName: nginx
-  enabled: true
-  paths:
-    - /prom
+  ingress:
+    ingressClassName: nginx
+    enabled: true
+    paths:
+      - /prom
 alertmanager:
   alertmanagerSpec: 
     tolerations:

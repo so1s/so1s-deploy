@@ -15,5 +15,13 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
 
 resourceQuota:
-  cpu: "1"
-  memory: 2Gi
+  cpu: "4000m"
+  memory: "4Gi"
+
+resources:
+  limits:
+    memory: "1000Mi"
+    cpu: "1000m"
+  requests:
+    memory: "1000Mi"
+    cpu: "1000m"

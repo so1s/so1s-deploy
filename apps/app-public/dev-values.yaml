@@ -1,0 +1,15 @@
+clusterName: "So1s"
+
+region: ap-northeast-2
+
+vpcId: vpc-0252f7e64e41bd6d8
+
+# serviceAccount:
+#   create: false
+#   name: "aws-load-balancer-controller"
+
+tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "public"
+    effect: "NoSchedule"

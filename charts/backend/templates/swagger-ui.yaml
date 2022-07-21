@@ -1,0 +1,69 @@
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: swagger-ui
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
+    alb.ingress.kubernetes.io/healthcheck-port: '443'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
+spec:
+  ingressClassName: alb
+  rules:
+  - host: swagger.so1s.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: swagger-ui
+            port:
+              number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: swagger-ui
+  labels:
+    kind: swagger-ui
+spec:
+  selector:
+    tier: swagger-ui
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swagger-ui
+  labels:
+    kind: swagger-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: swagger-ui
+  template:
+    metadata:
+      labels:
+        tier: swagger-ui
+    spec:
+      containers:
+        - name: swagger
+          image: swaggerapi/swagger-ui
+          imagePullPolicy: Always
+          env:
+            - name: API_URL
+              value: 'https://backend.so1s.io/docs/openapi3.json'

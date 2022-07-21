@@ -35,6 +35,15 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+ingress:
+  enabled: true
+  annotations: {}
+  labels: {}
+  hosts: []
+  paths: []
+  tls: []
+  pathType: ""
+
 service:
   type: LoadBalancer
   port: 80

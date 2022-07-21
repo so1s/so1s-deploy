@@ -69,7 +69,7 @@ spec:
         - --source=ingress
         - --domain-filter=so1s.io
         - --provider=aws
-        - --policy=upsert-only
+        - --policy=sync
         - --aws-zone-type=public # only look at public hosted zones (valid values are public, private or no value for both)
         - --registry=txt
         - --txt-owner-id=Z061949148T1T03TD2DZ

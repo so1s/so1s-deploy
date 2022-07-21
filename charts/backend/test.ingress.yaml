@@ -8,10 +8,11 @@ metadata:
     kubernetes.io/ingress.class: alb #alb를 사용한다는 의미
     alb.ingress.kubernetes.io/target-type: instance #target이 ec2 인스턴스
     alb.ingress.kubernetes.io/scheme: internet-facing #외부에 노출
-    external-dns.alpha.kubernetes.io/hostname: so1s.io
+    external-dns.alpha.kubernetes.io/hostname: www.so1s.io
 spec:
   rules:
-     - http:
+     - host: www.so1s.io
+       http:
         paths:
           - path: /
             pathType: Prefix

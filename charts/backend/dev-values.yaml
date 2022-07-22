@@ -13,6 +13,12 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 1
 
+tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "api"
+    effect: "NoSchedule"
+
 resourceQuota:
   cpu: "2000m"
   memory: 2Gi
@@ -36,3 +42,17 @@ ingress:
   paths:
     - /
   tls: []
+
+swagger:
+  resources:
+    limits:
+      memory: "100Mi"
+      cpu: "100m"
+    requests:
+      memory: "300Mi"
+      cpu: "300m"
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"

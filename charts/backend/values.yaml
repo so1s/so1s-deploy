@@ -49,17 +49,9 @@ service:
   port: 80
   targetPort: 8080
 
-resources:
-  limits:
-    memory: "1000Mi"
-    cpu: "1000m"
-  requests:
-    memory: "1000Mi"
-    cpu: "1000m"
+resources: {}
 
-resourceQuota:
-  cpu: "3000m"
-  memory: "3000Mi"
+resourceQuota: {}
 
 autoscaling:
   enabled: false
@@ -70,10 +62,10 @@ autoscaling:
 
 nodeSelector: {}
 
-tolerations:
-  - key: kind
-    operator: "Equal"
-    value: "api"
-    effect: "NoSchedule"
+tolerations: []
 
 affinity: {}
+
+swagger:
+  resources: {}
+  tolerations: []

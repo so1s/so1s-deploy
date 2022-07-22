@@ -1,0 +1,27 @@
+# helm install external-dns -n kube-system -f charts/public/external-dns/dev-values.yaml charts/public/external-dns --create-namespace --wait
+
+serviceAccount:
+  roleArn: "arn:aws:iam::089143290485:role/external-dns"
+
+image:
+  repository: k8s.gcr.io/external-dns/external-dns
+  tag: v0.10.2
+  pullPolicy: IfNotPresent
+
+
+tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "public"
+    effect: "NoSchedule"
+
+deployment:
+  args:
+    - --source=service
+    - --source=ingress
+    - --domain-filter=so1s.io
+    - --provider=aws
+    - --policy=sync
+    - --aws-zone-type=public # only look at public hosted zones (valid values are public, private or no value for both)
+    - --registry=txt
+    - --txt-owner-id=Z061949148T1T03TD2DZ

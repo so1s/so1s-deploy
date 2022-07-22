@@ -36,6 +36,8 @@ metadata:
   name: swagger-ui
   labels:
     kind: swagger-ui
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
 spec:
   selector:
     tier: swagger-ui
@@ -43,8 +45,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-      nodePort: 30015
-  type: NodePort
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment

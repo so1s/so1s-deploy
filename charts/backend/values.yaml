@@ -1,8 +1,13 @@
-environment: "develop"
+
+vender: "AWS" # AWS | on-premise
+
+environment: "develop" # develop | production
 
 namespaceOverride: ""
 
 replicaCount: 1
+
+hostname: ""
 
 image:
   repository: nginx
@@ -30,9 +35,18 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+ingress:
+  enabled: true
+  annotations: {}
+  labels: {}
+  hosts: []
+  paths: []
+  tls: []
+  pathType: ""
+
 service:
-  type: ClusterIP
-  port: 8080
+  type: LoadBalancer
+  port: 80
   targetPort: 8080
 
 resources:

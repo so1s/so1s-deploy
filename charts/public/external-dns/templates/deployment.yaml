@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "external-dns.fullname" . }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ include "external-dns.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "external-dns.fullname" . }}
+    spec:
+      serviceAccountName: {{ include "external-dns.fullname" . }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ include "external-dns.fullname" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        {{- with .Values.deployment.args }}
+        args:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+      securityContext:
+        fsGroup: 65534 # For ExternalDNS to be able to read Kubernetes and AWS token files

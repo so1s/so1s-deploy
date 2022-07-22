@@ -61,6 +61,11 @@ spec:
       labels:
         tier: swagger-ui
     spec:
+      tolerations:
+        - key: kind
+          operator: "Equal"
+          value: "api"
+          effect: "NoSchedule"
       containers:
         - name: swagger
           image: swaggerapi/swagger-ui

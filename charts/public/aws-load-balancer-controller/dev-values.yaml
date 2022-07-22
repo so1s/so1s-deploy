@@ -1,0 +1,13 @@
+# helm install alb -n kube-system -f charts/public/aws-load-balancer-controller/dev-values.yaml eks/aws-load-balancer-controller --create-namespace --wait
+
+clusterName: "So1s"
+
+region: ap-northeast-2
+
+vpcId: vpc-0252f7e64e41bd6d8
+
+tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "public"
+    effect: "NoSchedule"

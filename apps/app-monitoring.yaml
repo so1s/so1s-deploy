@@ -35,3 +35,4 @@ spec:
     # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.  
     syncOptions:
       - CreateNamespace=true
+      - Replace=true

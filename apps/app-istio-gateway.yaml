@@ -12,7 +12,7 @@ spec:
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-206-argo-cd를-이용한-deploy-레포지토리-배포  # For Helm, this refers to the chart version.
+    targetRevision: HEAD
     path: charts/istio/istio-gateway  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
 
     # helm specific config

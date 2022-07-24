@@ -25,11 +25,11 @@ resourceQuota:
 
 resources:
   limits:
-    memory: "1000Mi"
-    cpu: "1000m"
+    memory: "300Mi"
+    cpu: "300m"
   requests:
-    memory: "1000Mi"
-    cpu: "1000m"
+    memory: "300Mi"
+    cpu: "300m"
 
 ingress:
   annotations:

@@ -9,8 +9,8 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/so1s/poc-nemne
     argocd-image-updater.argoproj.io/backend.update-strategy: latest
-    argocd-image-updater.argoproj.io/backend.helm.image-name: ghcr.io/so1s/poc-nemne
-    argocd-image-updater.argoproj.io/backend.helm.image-tag: latest
+    argocd-image-updater.argoproj.io/backend.helm.image-name: image.repository
+    argocd-image-updater.argoproj.io/backend.helm.image-tag: image.tag
 spec:
   project: so1s-project-dev
 

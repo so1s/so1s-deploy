@@ -37,7 +37,7 @@ metadata:
   labels:
     kind: swagger-ui
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    {{- include "backend.serviceAnnotations" . | nindent 4 }}
 spec:
   selector:
     tier: swagger-ui
@@ -45,7 +45,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-  type: LoadBalancer
+  type: {{ .Values.service.type }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -63,15 +63,16 @@ spec:
       labels:
         tier: swagger-ui
     spec:
-      tolerations:
-        - key: kind
-          operator: "Equal"
-          value: "api"
-          effect: "NoSchedule"
       containers:
         - name: swagger
           image: swaggerapi/swagger-ui
           imagePullPolicy: Always
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: API_URL
               value: 'https://backend.so1s.io/docs/openapi3.json'
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

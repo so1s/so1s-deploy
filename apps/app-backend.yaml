@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: so1s-backend-app-dev
+  namespace: argocd
+  # Add this finalizer ONLY if you want these to cascade delete.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: so1s-project-dev
+
+  # Source of the application manifests
+  source:
+    repoURL: git@github.com:So1S/deploy.git
+    targetRevision: HEAD
+    path: charts/backend  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
+
+    # helm specific config
+    helm:
+      # Release name override (defaults to application name)
+      releaseName: backend
+      valueFiles:
+        - dev-values.yaml
+
+  # Destination cluster and namespace to deploy the application
+  destination:
+    server: https://kubernetes.default.svc
+    # The namespace will only be set for namespace-scoped resources that have not set a value for .metadata.namespace
+    namespace: backend
+
+  syncPolicy:
+    automated: 
+      prune: true 
+      selfHeal: true   
+    # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.  
+    syncOptions:
+      - CreateNamespace=true

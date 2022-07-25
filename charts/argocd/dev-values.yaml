@@ -1,0 +1,68 @@
+# helm install argocd -n argocd -f argocd/dev-values.yaml argo/argo-cd --create-namespace --wait
+
+server:
+  extraArgs: # To avoid internal redirection loops from HTTP to HTTPS
+    - --insecure 
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+  ingress:
+    enabled: true
+    annotations: 
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/target-type: instance 
+      alb.ingress.kubernetes.io/scheme: internet-facing 
+      external-dns.alpha.kubernetes.io/hostname: argo.so1s.io
+    hosts:
+      - argo.so1s.io
+    tls: []
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: "external"
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+
+controller:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+
+dex:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+
+redis:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+
+repoServer:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+
+applicationSet:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+    
+notification:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"

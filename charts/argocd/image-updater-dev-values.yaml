@@ -1,0 +1,24 @@
+# helm install argocd-image-updater -n argocd -f charts/argocd/image-update-dev-values.yaml argo/argocd-image-updater --create-namespace --wait
+
+tolerations:
+ - key: kind
+   operator: "Equal"
+   value: api
+   effect: "NoSchedule"
+
+image:
+  repository: "quay.io/argoprojlabs/argocd-image-updater"
+  tag: "v0.12.0"
+
+config:
+  argocd:
+    grpcWeb: false
+    serverAddress: "http://argo.so1s.io"
+    insecure: true
+    plaintext: true
+  logLevel: "debug"
+  registries:
+    - name: Github Container Registry
+      api_url: https://ghcr.io
+      prefix: ghcr.io
+      credentials: pullsecret:argocd/poc-registry

@@ -17,3 +17,9 @@ config:
     insecure: true
     plaintext: true
   logLevel: "debug"
+  registries:
+    - name: Github Container Registry
+      api_url: https://ghcr.io
+      prefix: ghcr.io
+      credentials: pullsecret:backend/poc-registry
+      insecure: true

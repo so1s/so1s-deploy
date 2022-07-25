@@ -6,7 +6,8 @@ image:
   repository: "ghcr.io/so1s/poc-nemne"
   tag: "latest"
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: poc-registry
 
 autoscaling:
   enabled: true

@@ -59,4 +59,5 @@ swagger:
       effect: "NoSchedule"
 
 pullSecret:
+  enabled: false
   dockerConfigJson: "Selaed-Secret"

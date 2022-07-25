@@ -4,7 +4,7 @@ fullnameOverride: "sungbin-dev" # 중복된 ClusterRole이 생기면 안되므�
 
 image:
   repository: "ghcr.io/so1s/poc-nemne"
-  tag: "latest"
+  tag: "v1"
 
 imagePullSecrets:
   - name: poc-registry
@@ -57,3 +57,6 @@ swagger:
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
+
+pullSecret:
+  dockerConfigJson: "Selaed-Secret"

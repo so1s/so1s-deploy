@@ -70,3 +70,6 @@ affinity: {}
 swagger:
   resources: {}
   tolerations: []
+
+pullSecret:
+  dockerConfigJson: ""

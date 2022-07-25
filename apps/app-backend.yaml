@@ -11,6 +11,7 @@ metadata:
     argocd-image-updater.argoproj.io/backend.update-strategy: latest
     argocd-image-updater.argoproj.io/backend.helm.image-name: image.repository
     argocd-image-updater.argoproj.io/backend.helm.image-tag: image.tag
+    argocd-image-updater.argoproj.io/backend.pull-secret: pullsecret:argocd/poc-registry
 spec:
   project: so1s-project-dev
 

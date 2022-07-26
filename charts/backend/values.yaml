@@ -10,7 +10,8 @@ replicaCount: 1
 hostname: ""
 
 image:
-  repository: nginx
+  name: ""
+  repository: ""
   tag: ""
 
 imagePullSecrets: []
@@ -69,3 +70,7 @@ affinity: {}
 swagger:
   resources: {}
   tolerations: []
+
+pullSecret:
+  enabled: false
+  dockerConfigJson: ""

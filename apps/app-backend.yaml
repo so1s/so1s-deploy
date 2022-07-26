@@ -6,13 +6,18 @@ metadata:
   # Add this finalizer ONLY if you want these to cascade delete.
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/so1s/poc-nemne
+    argocd-image-updater.argoproj.io/backend.update-strategy: latest
+    argocd-image-updater.argoproj.io/backend.helm.image-name: image.repository
+    argocd-image-updater.argoproj.io/backend.helm.image-tag: image.tag
 spec:
   project: so1s-project-dev
 
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: HEAD
+    targetRevision: SO1S-207-argo-cd-image-updater-적용
     path: charts/backend  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
 
     # helm specific config

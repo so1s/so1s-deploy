@@ -14,7 +14,7 @@ spec:
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: HEAD
+    targetRevision: SO1S-207-argo-cd-image-updater-적용
     path: apps
 
   # Destination cluster and namespace to deploy the application

@@ -71,7 +71,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: API_URL
-              value: 'https://backend.so1s.io/docs/openapi3.json'
+              value: 'https://www.so1s.io/docs/openapi3.json'
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}

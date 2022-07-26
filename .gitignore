@@ -65,3 +65,6 @@ Temporary Items
 
 secrets.env
 secrets.json
+
+docker-config.json
+docker-pull-secret.json

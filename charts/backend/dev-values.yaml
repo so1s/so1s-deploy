@@ -57,7 +57,3 @@ swagger:
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
-
-pullSecret:
-  enabled: false
-  dockerConfigJson: "Selaed-Secret"

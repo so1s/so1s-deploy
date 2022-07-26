@@ -62,3 +62,6 @@ Temporary Items
 *.tgz
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode
+
+secrets.env
+secrets.json

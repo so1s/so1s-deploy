@@ -21,8 +21,8 @@ tolerations:
     effect: "NoSchedule"
 
 resourceQuota:
-  cpu: "2000m"
-  memory: 2Gi
+  cpu: "4000m"
+  memory: 4Gi
 
 resources:
   limits:

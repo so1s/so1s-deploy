@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: so1s-backend-app-dev
+  name: so1s-backend-app-prod
   namespace: argocd
   # Add this finalizer ONLY if you want these to cascade delete.
   finalizers:
@@ -12,7 +12,7 @@ metadata:
     argocd-image-updater.argoproj.io/backend.helm.image-name: image.repository
     argocd-image-updater.argoproj.io/backend.helm.image-tag: image.tag
 spec:
-  project: so1s-project-dev
+  project: so1s-project-prod
 
   # Source of the application manifests
   source:

@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: so1s-monitoring-app-dev
+  name: so1s-monitoring-app-prod
   namespace: argocd
   # Add this finalizer ONLY if you want these to cascade delete.
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: so1s-project-dev
+  project: so1s-project-prod
 
   # Source of the application manifests
   source:

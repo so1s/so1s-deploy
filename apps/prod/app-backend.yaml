@@ -25,7 +25,7 @@ spec:
       # Release name override (defaults to application name)
       releaseName: backend
       valueFiles:
-        - dev-values.yaml
+        - prod-values.yaml
 
   # Destination cluster and namespace to deploy the application
   destination:

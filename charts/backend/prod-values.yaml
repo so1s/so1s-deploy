@@ -1,27 +1,64 @@
-environment: "production"
+environment: "develop"
 
-replicaCount: 2
+fullnameOverride: "so1s-prod" # 중복된 ClusterRole이 생기면 안되므로 각자 이름을 써놓고 작업해주세요
 
 image:
-  repository:
-  tag:
+  repository: "ghcr.io/so1s/api-server"
+  tag: "0.0.1"
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: so1s
 
 autoscaling:
   enabled: true
   minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 2
+
+tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "api"
+    effect: "NoSchedule"
 
 resourceQuota:
-  cpu: "4000m"
-  memory: "4Gi"
+  cpu: "2000m"
+  memory: 2Gi
 
 resources:
   limits:
     memory: "1000Mi"
     cpu: "1000m"
   requests:
-    memory: "1000Mi"
-    cpu: "1000m"
+    memory: "500Mi"
+    cpu: "500m"
+
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: alb #alb를 사용한다는 의미
+    alb.ingress.kubernetes.io/target-type: instance #target이 ec2 인스턴스
+    alb.ingress.kubernetes.io/scheme: internet-facing #외부에 노출
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
+    alb.ingress.kubernetes.io/healthcheck-port: '443'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
+    external-dns.alpha.kubernetes.io/hostname: www.so1s.io
+  hosts: 
+    - www.so1s.io
+  paths:
+    - /
+  tls: []
+
+swagger:
+  resources:
+    limits:
+      memory: "100Mi"
+      cpu: "100m"
+    requests:
+      memory: "300Mi"
+      cpu: "300m"
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"

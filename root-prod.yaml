@@ -15,7 +15,7 @@ spec:
   source:
     repoURL: git@github.com:So1S/deploy.git
     targetRevision: SO1S-199-api-서버-이미지화-및-eks-배포
-    path: apps/dev
+    path: apps/prod
 
   # Destination cluster and namespace to deploy the application
   destination:

@@ -37,7 +37,7 @@ spec:
             - name: Github Container Registry
               api_url: https://ghcr.io
               prefix: ghcr.io
-              credentials: pullsecret:argocd/poc-registry
+              credentials: pullsecret:argocd/so1s
 
 
   destination:
@@ -45,8 +45,8 @@ spec:
     namespace: argocd
 
   syncPolicy:
-    automated: 
-      prune: true 
-      selfHeal: true   
+    # automated: 
+    #   prune: true 
+    #   selfHeal: true   
     syncOptions:
       - CreateNamespace=true

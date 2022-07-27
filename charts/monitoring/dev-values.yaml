@@ -4,10 +4,10 @@
 prometheus:
   prometheusSpec:
     tolerations:
-      - key: kind
-        operator: "Equal"
-        value: "api"
-        effect: "NoSchedule"
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
     routePrefix: /graph
     storageSpec:
       volumeClaimTemplate:
@@ -25,10 +25,10 @@ prometheus:
   ingress:
     # ingressClassName: alb
     enabled: true
-    annotations:
+    annotations: 
       kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/target-type: instance
-      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: instance 
+      alb.ingress.kubernetes.io/scheme: internet-facing 
       external-dns.alpha.kubernetes.io/hostname: prom.so1s.io
     hosts:
       - prom.so1s.io
@@ -36,10 +36,10 @@ prometheus:
       - /
     pathType: Prefix
   thanosIngress:
-    enabled: false
+   enabled: false
 
 alertmanager:
-  alertmanagerSpec:
+  alertmanagerSpec: 
     tolerations:
       - key: kind
         operator: "Equal"
@@ -50,14 +50,14 @@ alertmanager:
   #   annotations:
   #     service.beta.kubernetes.io/aws-load-balancer-type: "external"
   #     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
-  #     service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+  #     service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"      
   ingress: # 추후에 설정 예정
     # ingressClassName: alb
     enabled: false
-    # annotations:
+    # annotations: 
     #   kubernetes.io/ingress.class: alb
-    #   alb.ingress.kubernetes.io/target-type: instance
-    #   alb.ingress.kubernetes.io/scheme: internet-facing
+    #   alb.ingress.kubernetes.io/target-type: instance 
+    #   alb.ingress.kubernetes.io/scheme: internet-facing 
     #   external-dns.alpha.kubernetes.io/hostname: dashboard.so1s.io
 
 thanosRuler:
@@ -74,12 +74,13 @@ prometheusOperator:
       value: "api"
       effect: "NoSchedule"
   admissionWebhooks:
-    patch:
+    patch: 
       tolerations:
         - key: kind
           operator: "Equal"
           value: "api"
           effect: "NoSchedule"
+
 
 ## Grafana Configuration
 grafana:
@@ -98,16 +99,11 @@ grafana:
   ingress:
     # ingressClassName: alb
     enabled: true
-    annotations:
+    annotations: 
       kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/target-type: instance
-      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: instance 
+      alb.ingress.kubernetes.io/scheme: internet-facing 
       external-dns.alpha.kubernetes.io/hostname: dashboard.so1s.io
-      alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
-      alb.ingress.kubernetes.io/healthcheck-port: "443"
-      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-      alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
-      alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
       # nginx.ingress.kubernetes.io/rewrite-target: /$2
     hosts:
       - dashboard.so1s.io

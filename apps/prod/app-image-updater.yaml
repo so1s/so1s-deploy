@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: so1s-image-updater-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: so1s-project-prod
+
+  source:
+    repoURL: https://github.com/argoproj/argo-helm.git
+    targetRevision: 48bf6d4a3808636b76ff793a68b50e613e6f009f # Release v0.12.0
+    path: charts/argocd-image-updater
+    
+    helm: 
+      releaseName: argocd-image-updater
+      values: |
+        tolerations:
+          - key: kind
+            operator: "Equal"
+            value: api
+            effect: "NoSchedule"
+
+        image:
+          repository: "quay.io/argoprojlabs/argocd-image-updater"
+          tag: "v0.12.0"
+
+        config:
+          argocd:
+            grpcWeb: false
+            serverAddress: "http://argo.so1s.io"
+            insecure: true
+            plaintext: true
+          logLevel: "debug"
+          registries:
+            - name: Github Container Registry
+              api_url: https://ghcr.io
+              prefix: ghcr.io
+              credentials: pullsecret:argocd/so1s
+
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated: 
+      prune: true 
+      selfHeal: true   
+    syncOptions:
+      - CreateNamespace=true

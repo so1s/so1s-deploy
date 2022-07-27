@@ -17,7 +17,7 @@ spec:
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-206-argo-cd를-이용한-deploy-레포지토리-배포
+    targetRevision: SO1S-199-api-서버-이미지화-및-eks-배포
     path: charts/backend  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
 
     # helm specific config

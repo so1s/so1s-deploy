@@ -4,7 +4,7 @@ fullnameOverride: "so1s-dev" # 중복된 ClusterRole이 생기면 안되므로 �
 
 image:
   repository: "ghcr.io/so1s/api-server"
-  tag: "0.0.1"
+  tag: "latest"
 
 imagePullSecrets:
   - name: so1s

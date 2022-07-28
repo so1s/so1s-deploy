@@ -9,6 +9,8 @@ image:
 imagePullSecrets:
   - name: so1s
 
+imagePullPolicy: Always
+
 autoscaling:
   enabled: true
   minReplicas: 1

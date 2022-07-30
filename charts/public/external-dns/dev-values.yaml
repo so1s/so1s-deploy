@@ -18,8 +18,6 @@ deployment:
   args:
     - --source=service
     - --source=ingress
-    - --source=istio-gateway
-    - --source=istio-virtualservice
     - --domain-filter=so1s.io
     - --provider=aws
     - --policy=sync

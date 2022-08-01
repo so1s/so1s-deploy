@@ -1,0 +1,16 @@
+apiVersion: v2
+name: logging
+description: A Helm chart for So1s AWS-CloudWatch Logging 
+type: application
+maintainers:
+  - name: JihoLee
+    email: optional.int@kakao.com
+  - name: SungbinIm
+    email: dlatqdlatq@naver.com
+  - name: ShinilSeop
+    email: shinilseop12@gmail.com
+sources:
+  - https://github.com/So1S/deploy
+
+version: 0.1.0
+appVersion: "1.16.0"

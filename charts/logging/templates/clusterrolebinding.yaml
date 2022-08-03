@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "logging.fullname" . }}-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "logging.fullname" . }}-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "logging.fullname" . }}
+    namespace: {{ .Release.Namespace }}

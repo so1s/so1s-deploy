@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: so1s-logging-app-dev
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: so1s-project-dev
+
+  source:
+    repoURL: git@github.com:So1S/deploy.git
+    targetRevision: SO1S-209-log-수집-툴-prometheus-연동
+    path: charts/logging
+
+    helm:
+      releaseName: logging
+      valueFiles:
+        - dev-values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging
+
+  syncPolicy:
+    automated: 
+      prune: true 
+      selfHeal: true   
+    syncOptions:
+      - CreateNamespace=true

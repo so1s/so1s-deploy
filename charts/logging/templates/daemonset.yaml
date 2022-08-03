@@ -73,7 +73,7 @@ spec:
         - name: varlibdockercontainers
           mountPath: /var/lib/docker/containers
           readOnly: true
-        - name: fluent-bit-config
+        - name: {{ include "logging.fullname" . }}-config
           mountPath: /fluent-bit/etc/
         - name: runlogjournal
           mountPath: /run/log/journal
@@ -94,9 +94,9 @@ spec:
       - name: varlibdockercontainers
         hostPath:
           path: /var/lib/docker/containers
-      - name: fluent-bit-config
+      - name: {{ include "logging.fullname" . }}-config
         configMap:
-          name: fluent-bit-config
+          name: {{ include "logging.fullname" . }}-config
       - name: runlogjournal
         hostPath:
           path: /run/log/journal

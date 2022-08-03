@@ -103,7 +103,6 @@ spec:
       - name: dmesg
         hostPath:
           path: /var/log/dmesg
-      {{- with .Values.additionalTolerations }}
       tolerations:
       - key: node-role.kubernetes.io/master
         operator: Exists
@@ -112,5 +111,6 @@ spec:
         effect: "NoExecute"
       - operator: "Exists"
         effect: "NoSchedule"
+      {{- with .Values.additionalTolerations }}  
         {{- toYaml . | nindent 8 }}
       {{- end }}

@@ -13,9 +13,29 @@ serviceAccount:
 
 additionalTolerations: []
 
+serviceMonitor:
+  service:
+    type: ClusterIP
+    port: 2020
+    targetPort: 2020
+  enabled: true
+  namespace: monitoring
+  interval: 30s
+  telemetryPath: /api/v1/metrics/prometheus
+  # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
+  labels:
+    release: monitoring
+  # Set timeout for scrape
+  timeout: 10s
+  # Set relabel_configs as per https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
+  # relabelings: []
+  # Set of labels to transfer on the Kubernetes Service onto the target.
+  # targetLabels: []
+  # metricRelabelings: []
+
 awsConfig:
   cluster.name: "So1s"
-  http.server: "Off"
+  http.server: "On"
   http.port: 2020
   read.head: "Off"
   read.tail: "On"

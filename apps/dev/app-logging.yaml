@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-209-log-수집-툴-prometheus-연동
+    targetRevision: SO1S-231-fluent-bit-커스텀-설정
     path: charts/logging
 
     helm:

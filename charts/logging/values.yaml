@@ -114,7 +114,7 @@ config:
 
       [OUTPUT]
           Name                cloudwatch_logs
-          Match               application.*
+          Match               logging.*
           region              ${AWS_REGION}
           log_group_name      /aws/containerinsights/${CLUSTER_NAME}/logging
           log_stream_prefix   ${HOST_NAME}-
@@ -147,7 +147,7 @@ config:
     inference-log.conf: |
       [INPUT]
           Name                tail
-          Tag                 backend.*
+          Tag                 inference.*
           Path                /var/log/containers/inference-*
           Parser              docker
           DB                  /var/fluent-bit/state/inference_log.db
@@ -160,7 +160,7 @@ config:
 
       [OUTPUT]
           Name                cloudwatch_logs
-          Match               backend.*
+          Match               inference.*
           region              ${AWS_REGION}
           log_group_name      /aws/containerinsights/${CLUSTER_NAME}/inference
           log_stream_prefix   ${HOST_NAME}-

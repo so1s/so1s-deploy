@@ -116,6 +116,7 @@ config:
 
       [OUTPUT]
           Name                cloudwatch_logs
+          Alias               logging
           Match               logging.*
           region              ${AWS_REGION}
           log_group_name      /aws/containerinsights/${CLUSTER_NAME}/logging
@@ -140,6 +141,7 @@ config:
 
       [OUTPUT]
           Name                cloudwatch_logs
+          Alias               api-server
           Match               backend.*
           region              ${AWS_REGION}
           log_group_name      /aws/containerinsights/${CLUSTER_NAME}/backend
@@ -164,6 +166,7 @@ config:
 
       [OUTPUT]
           Name                cloudwatch_logs
+          Alias               inference
           Match               inference.*
           region              ${AWS_REGION}
           log_group_name      /aws/containerinsights/${CLUSTER_NAME}/inference
@@ -205,6 +208,7 @@ config:
 
       [OUTPUT]
           Name                cloudwatch_logs
+          Alias               default
           Match               application.*
           region              ${AWS_REGION}
           log_group_name      /aws/containerinsights/${CLUSTER_NAME}/application

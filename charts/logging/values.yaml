@@ -89,6 +89,7 @@ config:
     logging-log.conf: |
       [INPUT]
           Name                tail
+          Alias               fluent-bit
           Tag                 logging.*
           Path                /var/log/containers/fluent-bit*
           Parser              docker
@@ -100,6 +101,7 @@ config:
 
       [INPUT]
           Name                tail
+          Alias               cloudwatch-agent
           Tag                 logging.*
           Path                /var/log/containers/cloudwatch-agent*
           Docker_Mode         On
@@ -124,6 +126,7 @@ config:
     api-log.conf: |
       [INPUT]
           Name                tail
+          Alias               api-server
           Tag                 backend.*
           Path                /var/log/containers/so1s-dev-deployment*
           Parser              docker
@@ -147,6 +150,7 @@ config:
     inference-log.conf: |
       [INPUT]
           Name                tail
+          Alias               inference
           Tag                 inference.*
           Path                /var/log/containers/inference-*
           Parser              docker
@@ -170,6 +174,7 @@ config:
     default-log.conf: |
       [INPUT]
           Name                tail
+          Alias               default
           Tag                 application.*
           Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-dev-deployment*, /var/log/containers/inference-*
           Path                /var/log/containers/*.log

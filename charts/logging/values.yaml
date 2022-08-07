@@ -82,6 +82,7 @@ config:
           
       @INCLUDE default-log.conf
       @INCLUDE api-log.conf
+      @INCLUDE inference-log.conf
       @INCLUDE logging-log.conf
     
 
@@ -136,9 +137,32 @@ config:
 
       [OUTPUT]
           Name                cloudwatch_logs
-          Match               application.backend.*
+          Match               backend.*
           region              ${AWS_REGION}
           log_group_name      /aws/containerinsights/${CLUSTER_NAME}/backend
+          log_stream_prefix   ${HOST_NAME}-
+          auto_create_group   true
+          extra_user_agent    container-insights
+
+    inference-log.conf: |
+      [INPUT]
+          Name                tail
+          Tag                 backend.*
+          Path                /var/log/containers/inference-*
+          Parser              docker
+          DB                  /var/fluent-bit/state/inference_log.db
+          Mem_Buf_Limit       50MB
+          Skip_Long_Lines     On
+          Refresh_Interval    10
+          Rotate_Wait         30
+          storage.type        filesystem
+          Read_from_Head      ${READ_FROM_HEAD}
+
+      [OUTPUT]
+          Name                cloudwatch_logs
+          Match               backend.*
+          region              ${AWS_REGION}
+          log_group_name      /aws/containerinsights/${CLUSTER_NAME}/inference
           log_stream_prefix   ${HOST_NAME}-
           auto_create_group   true
           extra_user_agent    container-insights
@@ -147,7 +171,7 @@ config:
       [INPUT]
           Name                tail
           Tag                 application.*
-          Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-dev-deployment*
+          Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-dev-deployment*, /var/log/containers/inference-*
           Path                /var/log/containers/*.log
           Docker_Mode         On
           Docker_Mode_Flush   5
@@ -160,7 +184,6 @@ config:
           Rotate_Wait         30
           storage.type        filesystem
           Read_from_Head      ${READ_FROM_HEAD}
-
 
       [FILTER]
           Name                kubernetes

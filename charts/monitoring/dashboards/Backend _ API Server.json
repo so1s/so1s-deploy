@@ -1,4 +1,55 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_CLOUDWATCH",
+      "label": "CloudWatch",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "cloudwatch",
+      "pluginName": "CloudWatch"
+    },
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "cloudwatch",
+      "name": "CloudWatch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.0.2"
+    },
+    {
+      "type": "panel",
+      "id": "logs",
+      "name": "Logs",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -25,14 +76,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 28,
+  "id": null,
   "links": [],
   "liveNow": true,
   "panels": [
     {
       "datasource": {
         "type": "cloudwatch",
-        "uid": "P034F075C744B399F"
+        "uid": "${DS_CLOUDWATCH}"
       },
       "description": "",
       "gridPos": {
@@ -57,7 +108,7 @@
         {
           "datasource": {
             "type": "cloudwatch",
-            "uid": "P034F075C744B399F"
+            "uid": "${DS_CLOUDWATCH}"
           },
           "expression": "fields @timestamp, @message\n| sort @timestamp desc\n| filter kubernetes.container_name=\"so1s-backend\"",
           "id": "",
@@ -78,7 +129,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -160,7 +211,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(rate(fluentbit_input_records_total{name=\"api-server\"}[5m]))",
           "refId": "A"
@@ -172,7 +223,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -279,7 +330,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(rate(fluentbit_output_proc_records_total{name=\"api-server\"}[5m]))",
           "refId": "A"
@@ -291,7 +342,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -374,7 +425,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(rate(fluentbit_input_bytes_total{name=\"api-server\"}[5m]))",
           "refId": "A"
@@ -386,7 +437,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -468,7 +519,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(rate(fluentbit_output_proc_bytes_total{name=\"api-server\"}[5m]))",
           "refId": "A"
@@ -480,7 +531,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -555,7 +606,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(fluentbit_output_retries_total{name=\"api-server\"}[1m]))",
@@ -565,7 +616,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(rate(fluentbit_output_retries_failed_total{name=\"api-server\"}[1m]))",
           "hide": false,
@@ -578,7 +629,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -653,7 +704,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(fluentbit_output_errors_total{name=\"api-server\"}[1m]))",
@@ -677,7 +728,7 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -686,6 +737,6 @@
   "timezone": "",
   "title": "Backend / API Server",
   "uid": "N-eosRm4k",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

@@ -113,7 +113,15 @@ grafana:
       domain: so1s.io
       root_url: http://dashboard.so1s.io/
       serve_from_sub_path: true
-
+  
+  additionalDataSources:
+    - name: CloudWatch
+      type: cloudwatch
+      jsonData:
+        authType: default
+        defaultRegion: ap-northeast-2
+        assumeRoleArn: arn:aws:iam::089143290485:role/grafana-cloudwatch
+        
 ## prometheus-node-exporter Configuration
 prometheus-node-exporter:
   tolerations:

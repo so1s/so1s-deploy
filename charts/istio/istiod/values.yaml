@@ -24,9 +24,12 @@ pilot:
 
   # Resources for a small pilot install
   resources:
+    limits:
+      cpu: 200m
+      memory: 512Mi
     requests:
-      cpu: 500m
-      memory: 2048Mi
+      cpu: 200m
+      memory: 512Mi
 
   env: {}
 

@@ -28,6 +28,31 @@ additionalTolerations: []
 
 affinity: {}
 
+
+serviceMonitor:
+  service:
+    type: ClusterIP
+    port: 2020
+    targetPort: 2020
+  # When set true then use a ServiceMonitor to configure scraping
+  enabled: false
+  # Set the namespace the ServiceMonitor should be deployed
+  namespace: default
+  # Set how frequently Prometheus should scrape
+  interval: 30s
+  # Set path of metrics, e.g /api/v1/metrics/prometheus
+  telemetryPath: /api/v1/metrics/prometheus
+  # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
+  labels: ""
+  # Set timeout for scrape
+  timeout: 10s
+  # Set relabel_configs as per https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
+  relabelings: []
+  # Set of labels to transfer on the Kubernetes Service onto the target.
+  targetLabels: []
+  metricRelabelings: []
+
+
 ###############################
 #config-map
 ###############################

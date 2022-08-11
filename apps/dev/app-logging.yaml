@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-231-fluent-bit-커스텀-설정
+    targetRevision: main
     path: charts/logging
 
     helm:

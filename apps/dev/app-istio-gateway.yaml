@@ -12,9 +12,8 @@ spec:
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-199-api-서버-이미지화-및-eks-배포
+    targetRevision: main
     path: charts/istio/istio-gateway # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
-
     # helm specific config
     helm:
       # Release name override (defaults to application name)

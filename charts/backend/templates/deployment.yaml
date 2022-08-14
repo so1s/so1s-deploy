@@ -32,10 +32,12 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports:
             - containerPort: 8080
+              name: api-server
           livenessProbe:
+            initialDelaySeconds: 90
             httpGet:
               path: /livez
-              port: http
+              port: api-server
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:

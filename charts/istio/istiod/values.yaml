@@ -12,11 +12,7 @@ pilot:
   hub: ""
   tag: ""
 
-  tolerations:
-    - key: kind
-      operator: "Equal"
-      value: "api"
-      effect: "NoSchedule"
+  tolerations: []
 
   # Can be a full hub/image:tag
   image: pilot

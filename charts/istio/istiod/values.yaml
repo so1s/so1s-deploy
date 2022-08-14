@@ -12,11 +12,7 @@ pilot:
   hub: ""
   tag: ""
 
-  tolerations:
-    - key: kind
-      operator: "Equal"
-      value: "api"
-      effect: "NoSchedule"
+  tolerations: []
 
   # Can be a full hub/image:tag
   image: pilot
@@ -24,9 +20,12 @@ pilot:
 
   # Resources for a small pilot install
   resources:
+    limits:
+      cpu: 200m
+      memory: 512Mi
     requests:
-      cpu: 500m
-      memory: 2048Mi
+      cpu: 200m
+      memory: 512Mi
 
   env: {}
 
@@ -355,8 +354,8 @@ global:
         cpu: 100m
         memory: 128Mi
       limits:
-        cpu: 2000m
-        memory: 1024Mi
+        cpu: 100m
+        memory: 128Mi
 
     # Default port for Pilot agent health checks. A value of 0 will disable health checking.
     statusPort: 15020
@@ -373,8 +372,8 @@ global:
     image: proxyv2
     resources:
       limits:
-        cpu: 2000m
-        memory: 1024Mi
+        cpu: 10m
+        memory: 10Mi
       requests:
         cpu: 10m
         memory: 10Mi

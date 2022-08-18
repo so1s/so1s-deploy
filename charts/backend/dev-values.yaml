@@ -84,3 +84,9 @@ swagger:
     paths:
       - /
     tls: []
+  
+  service:
+    port: 80
+    targetPort: 8080
+    labels:
+      kind: swagger-ui

@@ -52,13 +52,22 @@ ingress:
   tls: []
 
 swagger:
+  image:
+    repository: swaggerapi/swagger-ui
+    tag: v4.13.2
+
+  imagePullSecrets:
+    - name: so1s
+
+  imagePullPolicy: Always
+
   resources:
     limits:
       memory: "100Mi"
-      cpu: "100m"
+      cpu: "50m"
     requests:
-      memory: "300Mi"
-      cpu: "300m"
+      memory: "50Mi"
+      cpu: "25m"
 
 
   tolerations:
@@ -90,3 +99,5 @@ swagger:
     targetPort: 8080
     labels:
       kind: swagger-ui
+    selectorLabels:
+      tier: swagger-ui

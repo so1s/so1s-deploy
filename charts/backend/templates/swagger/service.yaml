@@ -8,7 +8,7 @@ metadata:
     {{- include "backend.serviceAnnotations" . | nindent 4 }}
 spec:
   selector:
-    tier: swagger-ui
+    {{ toYaml .Values.swagger.service.selectorLabels | nindent 4 }}
   ports:
     - protocol: TCP
       port: {{ .Values.service.port }}

@@ -69,8 +69,17 @@ tolerations: []
 affinity: {}
 
 swagger:
+  image:
+    repository: swaggerapi/swagger-ui
+    tag: v4.13.2
+  imagePullSecrets: []
+  imagePullPolicy: Always
+
+  replicaCount: 1
+
   resources: {}
   tolerations: []
+  
   ingress:
     enabled: true
     annotations: {}
@@ -80,10 +89,12 @@ swagger:
     tls: []
     pathType: ""
     servicePort: 80
+
   service:
     port: 80
     targetPort: 8080
     labels: []
+    selectorLabels: []
 
 pullSecret:
   enabled: false

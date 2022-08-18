@@ -3,25 +3,25 @@ kind: Deployment
 metadata:
   name: swagger-ui
   labels:
-    kind: swagger-ui
+    {{ toYaml .Values.swagger.service.labels | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.swagger.resources }}
   selector:
     matchLabels:
-      tier: swagger-ui
+      {{- toYaml .Values.swagger.service.selectorLabels | nindent 6 }}
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: "false"
       labels:
-        tier: swagger-ui
+        {{- toYaml .Values.swagger.service.selectorLabels | nindent 8 }}
     spec:
       containers:
         - name: swagger
-          image: swaggerapi/swagger-ui
-          imagePullPolicy: Always
+          image: "{{ .Values.swagger.image.repository }}:{{ .Values.swagger.image.tag}}"
+          imagePullPolicy: {{ .Values.swagger.imagePullPolicy}}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.swagger.resources | nindent 12 }}
           env:
             - name: API_URL
               value: 'https://www.so1s.io/docs/openapi3.json'

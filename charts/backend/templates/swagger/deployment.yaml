@@ -12,7 +12,9 @@ spec:
   template:
     metadata:
       annotations:
+      {{ if .Values.swagger.istioInject.enabled }}
         sidecar.istio.io/inject: "false"
+      {{- end }}
       labels:
         {{- toYaml .Values.swagger.service.selectorLabels | nindent 8 }}
     spec:

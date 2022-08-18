@@ -77,6 +77,9 @@ swagger:
 
   replicaCount: 1
 
+  istioInject:
+    enabled: true
+
   resources: {}
   tolerations: []
   

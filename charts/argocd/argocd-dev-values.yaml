@@ -1,6 +1,8 @@
 # helm install argocd -n argocd -f argocd/dev-values.yaml argo/argo-cd --create-namespace --wait
 
 server:
+  logFormat: json
+
   extraArgs: # To avoid internal redirection loops from HTTP to HTTPS
     - --insecure 
   tolerations:
@@ -26,6 +28,8 @@ server:
       service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
 
 controller:
+  logFormat: json
+
   tolerations:
     - key: kind
       operator: "Equal"
@@ -47,6 +51,8 @@ redis:
       effect: "NoSchedule"
 
 repoServer:
+  logFormat: json
+
   tolerations:
     - key: kind
       operator: "Equal"
@@ -66,3 +72,13 @@ notification:
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
+
+notifications:
+  logFormat: json
+
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+  

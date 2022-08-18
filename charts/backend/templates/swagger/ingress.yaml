@@ -1,31 +1,36 @@
-{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- if .Values.ingress.enabled -}}  
+  {{- $pathType := .Values.swagger.ingress.pathType | default "Prefix" -}}
+  {{- $serviceName := printf "%s" (include "backend.fullname" .) -}}
+  {{- $servicePort := .Values.swagger.ingress.servicePort | default 80 -}}
+  {{- $paths := .Values.ingress.paths | default "/" -}}
 apiVersion: networking.k8s.io/v1
-{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
-apiVersion: extensions/v1beta1
-{{- end }}
 kind: Ingress
 metadata:
-  name: swagger-ui
+  namespace: {{ template "backend.namespace" . }}
+  name: {{ include "backend.fullname" . }}-swagger-ingress
+  # name: swagger-ui
+{{- if .Values.ingress.annotations }}
   annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
-    alb.ingress.kubernetes.io/healthcheck-port: '443'
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
-    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
-    external-dns.alpha.kubernetes.io/hostname: swagger.so1s.io
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{- end }}
 spec:
   rules:
-  - host: swagger.so1s.io
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: swagger-ui
-            port:
-              number: 80
+    {{- if .Values.ingress.hosts }}
+    {{- range $host := .Values.ingress.hosts }}
+      - host: {{ tpl $host $ }}
+        http:
+          paths:
+    {{- range $p := $paths }}
+            - path: {{ tpl $p $ }}
+              pathType: {{ $pathType }}
+              backend:
+                service:
+                  name: {{ $serviceName }}
+                  port:
+                    number: {{ $servicePort }}
+      {{- end }}
+      {{- end -}}
+    {{- end }}
+  tls:
+{{ tpl (toYaml .Values.ingress.tls | indent 4) . }}
+{{- end -}}

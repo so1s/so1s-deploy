@@ -44,6 +44,7 @@ ingress:
   paths: []
   tls: []
   pathType: ""
+  servicePort: 80
 
 service:
   type: LoadBalancer
@@ -70,6 +71,15 @@ affinity: {}
 swagger:
   resources: {}
   tolerations: []
+  ingress:
+    enabled: true
+    annotations: {}
+    labels: {}
+    hosts: []
+    paths: []
+    tls: []
+    pathType: ""
+    servicePort: 80
 
 pullSecret:
   enabled: false

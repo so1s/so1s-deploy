@@ -97,7 +97,3 @@ swagger:
   service:
     port: 80
     targetPort: 8080
-    labels:
-      kind: swagger-ui
-    selectorLabels:
-      tier: swagger-ui

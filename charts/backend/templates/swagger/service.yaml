@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: {{ include "backend.fullname" . }}-swagger
   labels:
-{{ toYaml .Values.swagger.service.labels | indent 4 }}
+    {{- include "swagger.labels" . | nindent 4 }}
   annotations:
     {{- include "backend.serviceAnnotations" . | nindent 4 }}
 spec:
   selector:
-    {{ toYaml .Values.swagger.service.selectorLabels | nindent 4 }}
+    {{- include "swagger.selectorLabels" . | nindent 4 }}
   ports:
     - protocol: TCP
       port: {{ .Values.service.port }}

@@ -96,8 +96,6 @@ swagger:
   service:
     port: 80
     targetPort: 8080
-    labels: []
-    selectorLabels: []
 
 pullSecret:
   enabled: false

@@ -2,21 +2,21 @@
   {{- $pathType := .Values.swagger.ingress.pathType | default "Prefix" -}}
   {{- $serviceName := printf "%s" (include "backend.fullname" .) -}}
   {{- $servicePort := .Values.swagger.ingress.servicePort | default 80 -}}
-  {{- $paths := .Values.ingress.paths | default "/" -}}
+  {{- $paths := .Values.swagger.ingress.paths | default "/" -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: {{ template "backend.namespace" . }}
   name: {{ include "backend.fullname" . }}-swagger-ingress
   # name: swagger-ui
-{{- if .Values.ingress.annotations }}
+{{- if .Values.swagger.ingress.annotations }}
   annotations:
-{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{ toYaml .Values.swagger.ingress.annotations | indent 4 }}
 {{- end }}
 spec:
   rules:
-    {{- if .Values.ingress.hosts }}
-    {{- range $host := .Values.ingress.hosts }}
+    {{- if .Values.swagger.ingress.hosts }}
+    {{- range $host := .Values.swagger.ingress.hosts }}
       - host: {{ tpl $host $ }}
         http:
           paths:
@@ -32,5 +32,5 @@ spec:
       {{- end -}}
     {{- end }}
   tls:
-{{ tpl (toYaml .Values.ingress.tls | indent 4) . }}
+{{ tpl (toYaml .Values.swagger.ingress.tls | indent 4) . }}
 {{- end -}}

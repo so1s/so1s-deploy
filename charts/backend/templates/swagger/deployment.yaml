@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: swagger-ui
   labels:
-    {{ toYaml .Values.swagger.service.labels | nindent 4 }}
+    {{- include "swagger.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.swagger.resources }}
+  replicas: {{ .Values.swagger.replicaCount }}
   selector:
     matchLabels:
-      {{- toYaml .Values.swagger.service.selectorLabels | nindent 6 }}
+      {{- include "swagger.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -16,7 +16,7 @@ spec:
         sidecar.istio.io/inject: "false"
       {{- end }}
       labels:
-        {{- toYaml .Values.swagger.service.selectorLabels | nindent 8 }}
+        {{- include "swagger.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: swagger

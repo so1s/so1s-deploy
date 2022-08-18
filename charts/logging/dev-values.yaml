@@ -7,12 +7,6 @@ resources:
     cpu: 150m
     memory: 100Mi
 
-serviceAccount:
-  annotations:
-   eks.amazonaws.com/role-arn: "arn:aws:iam::ACCOUNT_ID:role/IAM_ROLE_NAME"
-
-additionalTolerations: []
-
 serviceMonitor:
   service:
     type: ClusterIP

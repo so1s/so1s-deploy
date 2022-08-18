@@ -111,6 +111,3 @@ spec:
         effect: "NoExecute"
       - operator: "Exists"
         effect: "NoSchedule"
-      {{- with .Values.additionalTolerations }}  
-        {{- toYaml . | nindent 8 }}
-      {{- end }}

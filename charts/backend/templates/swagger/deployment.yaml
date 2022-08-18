@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swagger-ui
+  labels:
+    kind: swagger-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: swagger-ui
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+      labels:
+        tier: swagger-ui
+    spec:
+      containers:
+        - name: swagger
+          image: swaggerapi/swagger-ui
+          imagePullPolicy: Always
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: API_URL
+              value: 'https://www.so1s.io/docs/openapi3.json'
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -16,6 +16,8 @@ tolerations:
 
 deployment:
   args:
+    - --log-level=info
+    - --log-format=json
     - --source=service
     - --source=ingress
     - --domain-filter=so1s.io

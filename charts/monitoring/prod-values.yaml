@@ -340,9 +340,14 @@ prometheus:
       kubernetes.io/ingress.class: alb
       alb.ingress.kubernetes.io/target-type: instance 
       alb.ingress.kubernetes.io/scheme: internet-facing 
-      external-dns.alpha.kubernetes.io/hostname: test.prom.so1s.io
+      alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
+      alb.ingress.kubernetes.io/healthcheck-port: '443'
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
+      external-dns.alpha.kubernetes.io/hostname: prom.so1s.io
     hosts:
-      - test.prom.so1s.io
+      - prom.so1s.io
     paths:
       - /
     pathType: Prefix
@@ -417,15 +422,19 @@ grafana:
       kubernetes.io/ingress.class: alb
       alb.ingress.kubernetes.io/target-type: instance 
       alb.ingress.kubernetes.io/scheme: internet-facing 
-      external-dns.alpha.kubernetes.io/hostname: test.dashboard.so1s.io
-      # nginx.ingress.kubernetes.io/rewrite-target: /$2
+      alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
+      alb.ingress.kubernetes.io/healthcheck-port: '443'
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
+      external-dns.alpha.kubernetes.io/hostname: dashboard.so1s.io
     hosts:
-      - test.dashboard.so1s.io
+      - dashboard.so1s.io
     path: /
   grafana.ini:
     server:
       domain: so1s.io
-      root_url: http://test.dashboard.so1s.io/
+      root_url: http://dashboard.so1s.io/
       serve_from_sub_path: true
   
   additionalDataSources:

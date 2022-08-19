@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}  
   {{- $pathType := .Values.swagger.ingress.pathType | default "Prefix" -}}
-  {{- $serviceName := printf "%s" (include "backend.fullname" .) -}}
+  {{- $serviceName := printf "%s-%s" (include "backend.fullname" .) "swagger" -}}
   {{- $servicePort := .Values.swagger.ingress.servicePort | default 80 -}}
   {{- $paths := .Values.swagger.ingress.paths | default "/" -}}
 apiVersion: networking.k8s.io/v1

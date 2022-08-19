@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: main
+    targetRevision: release/v0.2.0
     path: charts/istio/istiod
 
     helm:

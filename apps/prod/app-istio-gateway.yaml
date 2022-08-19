@@ -9,8 +9,8 @@ spec:
   project: so1s-project-prod
 
   source:
-    repoURL: git@github.com:So1aS/deploy.git
-    targetRevision: main
+    repoURL: git@github.com:So1S/deploy.git
+    targetRevision: release/v0.2.0
     path: charts/istio/istio-gateway
 
     helm:

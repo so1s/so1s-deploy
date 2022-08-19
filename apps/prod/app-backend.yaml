@@ -5,17 +5,12 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/so1s/api-server
-    argocd-image-updater.argoproj.io/backend.update-strategy: latest
-    argocd-image-updater.argoproj.io/backend.helm.image-name: image.repository
-    argocd-image-updater.argoproj.io/backend.helm.image-tag: image.tag
 spec:
   project: so1s-project-prod
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: main
+    targetRevision: release/v0.2.0
     path: charts/backend
 
     helm:

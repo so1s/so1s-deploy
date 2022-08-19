@@ -14,7 +14,7 @@ spec:
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-199-api-서버-이미지화-및-eks-배포
+    targetRevision: release/v0.2.0
     path: apps/prod
 
   # Destination cluster and namespace to deploy the application

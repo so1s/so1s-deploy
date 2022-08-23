@@ -16,7 +16,7 @@ prometheus:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 5Gi
+              storage: 32Gi
     additionalScrapeConfigs:
     - job_name: 'istiod'
       kubernetes_sd_configs:

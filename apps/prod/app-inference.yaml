@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: so1s-inference-app-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: so1s-project-prod
+
+  source:
+    repoURL: git@github.com:So1S/deploy.git
+    targetRevision: main
+    path: charts/inference
+
+    helm:
+      releaseName: inference
+      valueFiles:
+        - prod-values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: backend
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

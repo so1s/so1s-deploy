@@ -17,8 +17,8 @@ spec:
   rules:
     - http:
         paths:
-         - pathType: Prefix
-           path: /
+         - path: /*
+           pathType: ImplementationSpecific
            backend:
             service:
               name: istio-gateway

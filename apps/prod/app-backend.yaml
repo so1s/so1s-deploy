@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: release/v0.2.0
+    targetRevision: release/v0.3.0
     path: charts/backend
 
     helm:

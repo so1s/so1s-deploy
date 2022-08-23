@@ -17,10 +17,10 @@ spec:
   rules:
     - http:
         paths:
-         - path: /
-           pathType: Prefix
+         - path: /*
+           pathType: ImplementationSpecific
            backend:
             service:
-              name: istio-ingressgateway
+              name: istio-gateway
               port:
                 number: 80

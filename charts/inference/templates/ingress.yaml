@@ -20,13 +20,6 @@ spec:
          - pathType: Prefix
            path: /
            backend:
-             service:
-               name: ssl-redirect
-               port:
-                name: use-annotation
-         - pathType: Prefix
-           path: /
-           backend:
             service:
               name: istio-gateway
               port:

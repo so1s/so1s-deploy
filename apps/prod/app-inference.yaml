@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: main
+    targetRevision: release/v0.3.0
     path: charts/inference
 
     helm:

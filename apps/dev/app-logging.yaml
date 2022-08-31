@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: main
+    targetRevision: SO1S-349-deploy-alb-nlb-걷어내기
     path: charts/logging
 
     helm:
@@ -23,8 +23,8 @@ spec:
     namespace: logging
 
   syncPolicy:
-    automated: 
-      prune: true 
-      selfHeal: true   
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

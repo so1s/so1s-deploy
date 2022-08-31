@@ -4,7 +4,7 @@ resources:
   limits:
     memory: 300Mi
   requests:
-    cpu: 150m
+    cpu: 50m
     memory: 100Mi
 
 serviceMonitor:

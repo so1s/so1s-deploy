@@ -2,9 +2,9 @@ vender: "AWS"
 
 resources:
   limits:
-    memory: 200Mi
+    memory: 150Mi
   requests:
-    cpu: 100m
+    cpu: 50m
     memory: 100Mi
 
 serviceMonitor:

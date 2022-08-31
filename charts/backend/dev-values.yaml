@@ -42,7 +42,7 @@ ingress:
     alb.ingress.kubernetes.io/target-type: instance #target이 ec2 인스턴스
     alb.ingress.kubernetes.io/scheme: internet-facing #외부에 노출
     external-dns.alpha.kubernetes.io/hostname: test.www.so1s.io
-  hosts: 
+  hosts:
     - test.www.so1s.io
   paths:
     - /
@@ -66,26 +66,24 @@ swagger:
       memory: "50Mi"
       cpu: "25m"
 
-
   tolerations:
     - key: kind
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
 
-
   ingress:
-    enabled: true
-    annotations: 
+    enabled: false
+    annotations:
       kubernetes.io/ingress.class: alb
       alb.ingress.kubernetes.io/scheme: internet-facing
       external-dns.alpha.kubernetes.io/hostname: test.swagger.so1s.io
-    hosts: 
+    hosts:
       - test.swagger.so1s.io
     paths:
       - /
     tls: []
-  
+
   service:
     port: 80
     targetPort: 8080

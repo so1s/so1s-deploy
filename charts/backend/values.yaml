@@ -1,4 +1,3 @@
-
 vender: "AWS" # AWS | on-premise
 
 environment: "develop" # develop | production
@@ -25,10 +24,12 @@ serviceAccount:
   annotations: {}
   name: ""
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -47,7 +48,7 @@ ingress:
   servicePort: 80
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
   targetPort: 8080
 
@@ -82,9 +83,9 @@ swagger:
 
   resources: {}
   tolerations: []
-  
+
   ingress:
-    enabled: true
+    enabled: false
     annotations: {}
     labels: {}
     hosts: []

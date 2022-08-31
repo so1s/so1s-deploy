@@ -42,12 +42,12 @@ ingress:
     alb.ingress.kubernetes.io/target-type: instance #target이 ec2 인스턴스
     alb.ingress.kubernetes.io/scheme: internet-facing #외부에 노출
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
-    alb.ingress.kubernetes.io/healthcheck-port: '443'
+    alb.ingress.kubernetes.io/healthcheck-port: "443"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
     external-dns.alpha.kubernetes.io/hostname: www.so1s.io
-  hosts: 
+  hosts:
     - www.so1s.io
   paths:
     - /
@@ -66,19 +66,19 @@ swagger:
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
-  
+
   ingress:
-    enabled: true
-    annotations: 
+    enabled: false
+    annotations:
       kubernetes.io/ingress.class: alb
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
-      alb.ingress.kubernetes.io/healthcheck-port: '443'
+      alb.ingress.kubernetes.io/healthcheck-port: "443"
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/ssl-redirect: "443"
       alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
       external-dns.alpha.kubernetes.io/hostname: swagger.so1s.io
-    hosts: 
+    hosts:
       - swagger.so1s.io
     paths:
       - /

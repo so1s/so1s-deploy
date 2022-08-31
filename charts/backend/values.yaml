@@ -37,7 +37,7 @@ securityContext: {}
   # runAsUser: 1000
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
   labels: {}
   hosts: []
@@ -47,7 +47,7 @@ ingress:
   servicePort: 80
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
   targetPort: 8080
 
@@ -94,6 +94,7 @@ swagger:
     servicePort: 80
 
   service:
+    type: ClusterIP
     port: 80
     targetPort: 8080
 

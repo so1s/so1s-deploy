@@ -104,7 +104,7 @@ apiGroup: rbac.authorization.k8s.io
 {{- end -}}
 
 {{- define "backend.serviceAnnotations" -}}
-{{- if eq .Values.vender "AWS" -}}
+{{- if and (eq .Values.vender "AWS") (eq .Values.environment "production") -}}
 service.beta.kubernetes.io/aws-load-balancer-type: "external"
 service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
 service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"

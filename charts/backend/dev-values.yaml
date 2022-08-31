@@ -2,7 +2,7 @@ vender: "AWS" # AWS | on-premise
 
 environment: "develop"
 
-fullnameOverride: "so1s-dev" # 중복된 ClusterRole이 생기면 안되므로 각자 이름을 써놓고 작업해주세요
+fullnameOverride: "so1s-dev"
 
 image:
   repository: "ghcr.io/so1s/api-server"
@@ -37,16 +37,10 @@ resources:
     cpu: "300m"
 
 ingress:
-  annotations:
-    kubernetes.io/ingress.class: alb #alb를 사용한다는 의미
-    alb.ingress.kubernetes.io/target-type: instance #target이 ec2 인스턴스
-    alb.ingress.kubernetes.io/scheme: internet-facing #외부에 노출
-    external-dns.alpha.kubernetes.io/hostname: test.www.so1s.io
-  hosts: 
-    - test.www.so1s.io
-  paths:
-    - /
-  tls: []
+  enabled: false
+
+service:
+  type: "ClusterIP"
 
 swagger:
   image:
@@ -75,17 +69,9 @@ swagger:
 
 
   ingress:
-    enabled: true
-    annotations: 
-      kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      external-dns.alpha.kubernetes.io/hostname: test.swagger.so1s.io
-    hosts: 
-      - test.swagger.so1s.io
-    paths:
-      - /
-    tls: []
+    enabled: false
   
   service:
+    type: "ClusterIP"
     port: 80
     targetPort: 8080

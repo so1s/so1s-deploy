@@ -4,7 +4,7 @@ server:
   logFormat: json
 
   extraArgs: # To avoid internal redirection loops from HTTP to HTTPS
-    - --insecure 
+    - --insecure
   tolerations:
     - key: kind
       operator: "Equal"
@@ -12,25 +12,22 @@ server:
       effect: "NoSchedule"
   ingress:
     enabled: true
-    annotations: 
+    annotations:
       kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/target-type: instance 
-      alb.ingress.kubernetes.io/scheme: internet-facing 
+      alb.ingress.kubernetes.io/target-type: instance
+      alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
-      alb.ingress.kubernetes.io/healthcheck-port: '443'
+      alb.ingress.kubernetes.io/healthcheck-port: "443"
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/ssl-redirect: "443"
       alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:089143290485:certificate/8f20bc85-876b-47a2-8c9f-27e9f5455ca9"
       external-dns.alpha.kubernetes.io/hostname: argo.so1s.io
     hosts:
       - argo.so1s.io
     tls: []
   service:
-    type: LoadBalancer
-    annotations:
-      service.beta.kubernetes.io/aws-load-balancer-type: "external"
-      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
-      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    type: ClusterIP
+    annotations: {}
 
 controller:
   logFormat: json
@@ -70,7 +67,7 @@ applicationSet:
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
-    
+
 notification:
   tolerations:
     - key: kind
@@ -86,4 +83,3 @@ notifications:
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
-  

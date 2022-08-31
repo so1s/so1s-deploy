@@ -129,7 +129,7 @@ config:
           Name                tail
           Alias               api-server
           Tag                 backend.*
-          Path                /var/log/containers/so1s-dev-deployment*
+          Path                /var/log/containers/so1s-prod-deployment*
           Parser              docker
           DB                  /var/fluent-bit/state/backend_log.db
           Mem_Buf_Limit       50MB
@@ -179,7 +179,7 @@ config:
           Name                tail
           Alias               default
           Tag                 application.*
-          Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-dev-deployment*, /var/log/containers/inference-*
+          Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-prod-deployment*, /var/log/containers/inference-*
           Path                /var/log/containers/*.log
           Docker_Mode         On
           Docker_Mode_Flush   5

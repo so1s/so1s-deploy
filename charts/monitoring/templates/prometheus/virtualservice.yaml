@@ -14,5 +14,5 @@ spec:
     route:
     - destination:
         port:
-          number: 80
+          number: {{ .Values.prometheus.service.port }}
         host: {{ include "kube-prometheus-stack.fullname" . }}-prometheus

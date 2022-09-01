@@ -204,7 +204,7 @@ ingress:
   pathType: Prefix
 
   hosts:
-    - test-dashboard.so1s.io
+    - chart-example.local
   ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
   extraPaths: []
   # - path: /*

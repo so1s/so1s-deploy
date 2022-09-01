@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-349-deploy-alb-nlb-걷어내기
+    targetRevision: main
     path: charts/istio/istio-gateway
     helm:
       releaseName: istio-gateway

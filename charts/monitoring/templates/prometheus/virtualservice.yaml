@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "kube-prometheus-stack.fullname" . }}-prometheus
+spec:
+  hosts:
+    {{ toYaml .Values.prometheus.ingress.hosts | indent 4 }}
+  gateways:
+  - {{ include "kube-prometheus-stack.fullname" . }}-prometheus
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: {{ include "kube-prometheus-stack.fullname" . }}-prometheus

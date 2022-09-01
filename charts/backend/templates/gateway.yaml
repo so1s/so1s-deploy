@@ -9,4 +9,4 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    {{- include "ingress.hosts" . | nindent 4 }}
+    {{ toYaml .Values.ingress.hosts | indent 4 }}

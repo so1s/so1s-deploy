@@ -4,7 +4,7 @@ metadata:
   name: {{ include "backend.fullname" . }}
 spec:
   hosts:
-    {{- include "ingress.hosts" . | nindent 4 }}
+    {{ toYaml .Values.ingress.hosts | indent 4 }}
   gateways:
   - {{ include "backend.fullname" . }}
   http:

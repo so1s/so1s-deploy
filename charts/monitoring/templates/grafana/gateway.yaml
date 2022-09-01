@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: {{ include "grafana.fullname" . }}
+  name: {{ include "kube-prometheus-stack.fullname" . }}-grafana
 spec:
   servers:
   - port:

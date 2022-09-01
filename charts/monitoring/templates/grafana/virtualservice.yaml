@@ -1,12 +1,12 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: {{ include "grafana.fullname" . }}
+  name: {{ include "kube-prometheus-stack.fullname" . }}-grafana
 spec:
   hosts:
     {{ toYaml .Values.grafana.ingress.hosts | indent 4 }}
   gateways:
-  - {{ include "grafana.fullname" . }}
+  - {{ include "kube-prometheus-stack.fullname" . }}-grafana
   http:
   - match:
     - uri:
@@ -15,4 +15,4 @@ spec:
     - destination:
         port:
           number: 80
-        host: {{ include "grafana.fullname" . }}
+        host: {{ include "kube-prometheus-stack.fullname" . }}-grafana

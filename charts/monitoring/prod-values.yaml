@@ -337,7 +337,6 @@ prometheus:
     type: ClusterIP
     annotations: {}
   ingress:
-    # ingressClassName: alb
     enabled: false
     annotations: {}
     hosts:

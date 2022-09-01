@@ -10,7 +10,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: {{ .Values.prometheus.prometheusSpec.routePrefix }}
+        prefix: /
     route:
     - destination:
         port:

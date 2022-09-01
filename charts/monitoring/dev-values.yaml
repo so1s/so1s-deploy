@@ -9,7 +9,7 @@ prometheus:
         operator: "Equal"
         value: "api"
         effect: "NoSchedule"
-    routePrefix: /
+    routePrefix: /graph
     storageSpec:
       volumeClaimTemplate:
         spec:

@@ -340,7 +340,7 @@ prometheus:
     enabled: false
     annotations: {}
     hosts:
-      - test.prom.so1s.io
+      - test-prom.so1s.io
     paths:
       - /
     pathType: Prefix
@@ -409,7 +409,7 @@ grafana:
     enabled: false
     annotations: {}
     hosts:
-      - test.dashboard.so1s.io
+      - test-dashboard.so1s.io
     path: /
   grafana.ini:
     server:

@@ -39,7 +39,7 @@ resources:
 ingress:
   annotations: {}
   hosts:
-    - test.www.so1s.io
+    - test-www.so1s.io
   paths:
     - /
   tls: []
@@ -72,7 +72,7 @@ swagger:
     enabled: false
     annotations: {}
     hosts:
-      - test.swagger.so1s.io
+      - test-swagger.so1s.io
     paths:
       - /
     tls: []

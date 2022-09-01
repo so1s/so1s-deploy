@@ -16,7 +16,7 @@ spec:
     helm:
       releaseName: istio
       valueFiles:
-        - values.yaml
+        - dev-values.yaml
 
   destination:
     server: https://kubernetes.default.svc

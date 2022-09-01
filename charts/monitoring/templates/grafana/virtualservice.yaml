@@ -4,7 +4,7 @@ metadata:
   name: {{ include "grafana.fullname" . }}
 spec:
   hosts:
-    {{- include "grafana.ingress.hosts" . | nindent 4 }}
+    {{ toYaml .Values.grafana.ingress.hosts | indent 4 }}
   gateways:
   - {{ include "grafana.fullname" . }}
   http:

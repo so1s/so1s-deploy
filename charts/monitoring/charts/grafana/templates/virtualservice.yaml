@@ -6,7 +6,7 @@ spec:
   hosts:
     {{ toYaml .Values.grafana.ingress.hosts | indent 4 }}
   gateways:
-  - {{ include "kube-prometheus-stack.fullname" . }}-grafana
+  - {{ include "grafana.fullname" . }}
   http:
   - match:
     - uri:
@@ -15,4 +15,4 @@ spec:
     - destination:
         port:
           number: 80
-        host: {{ include "kube-prometheus-stack.fullname" . }}-grafana
+        host: {{ include "grafana.fullname" . }}

@@ -14,18 +14,15 @@ spec:
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-199-api-서버-이미지화-및-eks-배포
+    targetRevision: main
     path: apps/dev
 
   # Destination cluster and namespace to deploy the application
   destination:
     server: https://kubernetes.default.svc
     namespace: default
-  
+
   syncPolicy:
-    automated: 
-      prune: true 
-      selfHeal: true   
-    # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.  
+    # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
     syncOptions:
       - CreateNamespace=true

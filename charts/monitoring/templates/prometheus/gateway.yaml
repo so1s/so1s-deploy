@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ include "kube-prometheus-stack.fullname" . }}-prometheus
+spec:
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+      {{ toYaml .Values.prometheus.ingress.hosts | indent 4 }}

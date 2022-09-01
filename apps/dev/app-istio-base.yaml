@@ -23,5 +23,8 @@ spec:
     namespace: istio-system
 
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

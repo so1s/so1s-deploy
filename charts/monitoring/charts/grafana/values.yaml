@@ -17,9 +17,9 @@ serviceAccount:
   create: true
   name:
   nameTest:
-## Service account annotations. Can be templated.
-#  annotations:
-#    eks.amazonaws.com/role-arn: arn:aws:iam::123456789000:role/iam-role-name-here
+  ## Service account annotations. Can be templated.
+  #  annotations:
+  #    eks.amazonaws.com/role-arn: arn:aws:iam::123456789000:role/iam-role-name-here
   autoMount: true
 
 replicas: 1
@@ -99,23 +99,22 @@ securityContext:
   runAsGroup: 472
   fsGroup: 472
 
-containerSecurityContext:
-  {}
+containerSecurityContext: {}
 
 # Extra configmaps to mount in grafana pods
 # Values are templated.
-extraConfigmapMounts: []
+extraConfigmapMounts:
+  []
   # - name: certs-configmap
   #   mountPath: /etc/grafana/ssl/
   #   subPath: certificates.crt # (optional)
   #   configMap: certs-configmap
   #   readOnly: true
 
-
-extraEmptyDirMounts: []
+extraEmptyDirMounts:
+  []
   # - name: provisioning-notifiers
   #   mountPath: /etc/grafana/provisioning/notifiers
-
 
 # Apply extra labels to common labels.
 extraLabels: {}
@@ -153,7 +152,8 @@ service:
   enabled: true
   type: ClusterIP
   port: 80
-  targetPort: 3000
+  targetPort:
+    3000
     # targetPort: 4181 To be used with a proxy extraContainer
   annotations: {}
   labels: {}
@@ -173,14 +173,16 @@ serviceMonitor:
   scrapeTimeout: 30s
   relabelings: []
 
-extraExposePorts: []
- # - name: keycloak
- #   port: 8080
- #   targetPort: 8080
- #   type: ClusterIP
+extraExposePorts:
+  []
+  # - name: keycloak
+  #   port: 8080
+  #   targetPort: 8080
+  #   type: ClusterIP
 
 # overrides pod.spec.hostAliases in the grafana deployment's pods
-hostAliases: []
+hostAliases:
+  []
   # - ip: "1.2.3.4"
   #   hostnames:
   #     - "my.host.com"
@@ -191,7 +193,8 @@ ingress:
   # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
   # ingressClassName: nginx
   # Values can be templated
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   labels: {}
@@ -216,7 +219,6 @@ ingress:
   #       name: ssl-redirect
   #       port:
   #         name: use-annotation
-
 
   tls: []
   #  - secretName: chart-example-tls
@@ -332,7 +334,6 @@ initChownData:
   #    cpu: 100m
   #    memory: 128Mi
 
-
 # Administrator credentials when not using an existing secret (see below)
 adminUser: admin
 # adminPassword: strongpassword
@@ -388,7 +389,8 @@ env: {}
 ##     - name: <key>
 ##       valueFrom:
 ##         <value rendered as YAML>
-envValueFrom: {}
+envValueFrom:
+  {}
   #  ENV_NAME:
   #    configMapKeyRef:
   #      name: configmap-name
@@ -423,7 +425,8 @@ enableServiceLinks: true
 
 ## Additional grafana server secret mounts
 # Defines additional mounts with secrets. Secrets must be manually created in the namespace.
-extraSecretMounts: []
+extraSecretMounts:
+  []
   # - name: secret-files
   #   mountPath: /etc/secrets
   #   secretName: grafana-secret-files
@@ -456,7 +459,8 @@ extraSecretMounts: []
 
 ## Additional grafana server volume mounts
 # Defines additional volume mounts.
-extraVolumeMounts: []
+extraVolumeMounts:
+  []
   # - name: extra-volume-0
   #   mountPath: /mnt/volume0
   #   readOnly: true
@@ -467,14 +471,16 @@ extraVolumeMounts: []
   #   hostPath: /usr/shared/
 
 ## Container Lifecycle Hooks. Execute a specific bash command or make an HTTP request
-lifecycleHooks: {}
+lifecycleHooks:
+  {}
   # postStart:
   #   exec:
   #     command: []
 
 ## Pass the plugins you want installed as a list.
 ##
-plugins: []
+plugins:
+  []
   # - digrich-bubblechart-panel
   # - grafana-clock-panel
 
@@ -541,7 +547,8 @@ dashboardProviders: {}
 ##
 ## dashboards per provider, use provider name as key.
 ##
-dashboards: {}
+dashboards:
+  {}
   # default:
   #   some-dashboard:
   #     json: |
@@ -588,27 +595,27 @@ grafana.ini:
   grafana_net:
     url: https://grafana.net
 ## grafana Authentication can be enabled with the following values on grafana.ini
- # server:
-      # The full public facing url you use in browser, used for redirects and emails
- #    root_url:
- # https://grafana.com/docs/grafana/latest/auth/github/#enable-github-in-grafana
- # auth.github:
- #    enabled: false
- #    allow_sign_up: false
- #    scopes: user:email,read:org
- #    auth_url: https://github.com/login/oauth/authorize
- #    token_url: https://github.com/login/oauth/access_token
- #    api_url: https://api.github.com/user
- #    team_ids:
- #    allowed_organizations:
- #    client_id:
- #    client_secret:
+# server:
+# The full public facing url you use in browser, used for redirects and emails
+#    root_url:
+# https://grafana.com/docs/grafana/latest/auth/github/#enable-github-in-grafana
+# auth.github:
+#    enabled: false
+#    allow_sign_up: false
+#    scopes: user:email,read:org
+#    auth_url: https://github.com/login/oauth/authorize
+#    token_url: https://github.com/login/oauth/access_token
+#    api_url: https://api.github.com/user
+#    team_ids:
+#    allowed_organizations:
+#    client_id:
+#    client_secret:
 ## LDAP Authentication can be enabled with the following values on grafana.ini
 ## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
-  # auth.ldap:
-  #   enabled: true
-  #   allow_sign_up: true
-  #   config_file: /etc/grafana/ldap.toml
+# auth.ldap:
+#   enabled: true
+#   allow_sign_up: true
+#   config_file: /etc/grafana/ldap.toml
 
 ## Grafana's LDAP configuration
 ## Templated by the template in _helpers.tpl
@@ -652,12 +659,12 @@ sidecar:
     sha: ""
   imagePullPolicy: IfNotPresent
   resources: {}
-#   limits:
-#     cpu: 100m
-#     memory: 100Mi
-#   requests:
-#     cpu: 50m
-#     memory: 50Mi
+  #   limits:
+  #     cpu: 100m
+  #     memory: 100Mi
+  #   requests:
+  #     cpu: 50m
+  #     memory: 50Mi
   securityContext: {}
   # skipTlsVerify Set to true to skip tls verification for kube api calls
   # skipTlsVerify: true
@@ -705,7 +712,7 @@ sidecar:
       # orgid as configured in grafana
       orgid: 1
       # folder in which the dashboards should be imported in grafana
-      folder: ''
+      folder: ""
       # type of the provider
       type: file
       # disableDelete to activate a import-only behaviour
@@ -810,12 +817,12 @@ imageRenderer:
   # image-renderer deployment Host Aliases
   hostAliases: []
   # image-renderer deployment priority class
-  priorityClassName: ''
+  priorityClassName: ""
   service:
     # Enable the image-renderer service
     enabled: true
     # image-renderer service port name
-    portName: 'http'
+    portName: "http"
     # image-renderer service port used by both service and deployment
     port: 8081
     targetPort: 8081
@@ -833,12 +840,12 @@ imageRenderer:
     # Enable a NetworkPolicy to limit outbound traffic to only the created grafana pods
     limitEgress: false
   resources: {}
-#   limits:
-#     cpu: 100m
-#     memory: 100Mi
-#   requests:
-#     cpu: 50m
-#     memory: 50Mi
+  #   limits:
+  #     cpu: 100m
+  #     memory: 100Mi
+  #   requests:
+  #     cpu: 50m
+  #     memory: 50Mi
   ## Node labels for pod assignment
   ## ref: https://kubernetes.io/docs/user-guide/node-selection/
   #
@@ -899,8 +906,8 @@ networkPolicy:
     ## Add ports to the egress by specifying - port: <port number>
     ## E.X.
     ## ports:
-      ## - port: 80
-      ## - port: 443
+    ## - port: 80
+    ## - port: 443
   ##
   ##
   ##
@@ -912,7 +919,8 @@ networkPolicy:
 enableKubeBackwardCompatibility: false
 useStatefulSet: false
 # Create a dynamic manifests via values:
-extraObjects: []
+extraObjects:
+  []
   # - apiVersion: "kubernetes-client.io/v1"
   #   kind: ExternalSecret
   #   metadata:

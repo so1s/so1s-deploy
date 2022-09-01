@@ -11,14 +11,9 @@ server:
       value: "api"
       effect: "NoSchedule"
   ingress:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/target-type: instance
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      external-dns.alpha.kubernetes.io/hostname: argo.so1s.io
-    hosts:
-      - test.argo.so1s.io
+    enabled: false
+    annotations: {}
+    hosts: []
     tls: []
   service:
     type: ClusterIP

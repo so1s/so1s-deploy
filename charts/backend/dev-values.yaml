@@ -37,11 +37,7 @@ resources:
     cpu: "300m"
 
 ingress:
-  annotations:
-    kubernetes.io/ingress.class: alb #alb를 사용한다는 의미
-    alb.ingress.kubernetes.io/target-type: instance #target이 ec2 인스턴스
-    alb.ingress.kubernetes.io/scheme: internet-facing #외부에 노출
-    external-dns.alpha.kubernetes.io/hostname: test.www.so1s.io
+  annotations: {}
   hosts:
     - test.www.so1s.io
   paths:
@@ -74,10 +70,7 @@ swagger:
 
   ingress:
     enabled: false
-    annotations:
-      kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      external-dns.alpha.kubernetes.io/hostname: test.swagger.so1s.io
+    annotations: {}
     hosts:
       - test.swagger.so1s.io
     paths:

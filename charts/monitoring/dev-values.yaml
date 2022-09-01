@@ -338,11 +338,7 @@ prometheus:
   ingress:
     # ingressClassName: alb
     enabled: false
-    annotations:
-      kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/target-type: instance
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      external-dns.alpha.kubernetes.io/hostname: test.prom.so1s.io
+    annotations: {}
     hosts:
       - test.prom.so1s.io
     paths:
@@ -407,19 +403,11 @@ grafana:
   adminPassword: password1234
   service:
     type: ClusterIP
-    annotations:
-      service.beta.kubernetes.io/aws-load-balancer-type: "external"
-      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
-      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    annotations: {}
   ingress:
     # ingressClassName: alb
     enabled: false
-    annotations:
-      kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/target-type: instance
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      external-dns.alpha.kubernetes.io/hostname: test.dashboard.so1s.io
-      # nginx.ingress.kubernetes.io/rewrite-target: /$2
+    annotations: {}
     hosts:
       - test.dashboard.so1s.io
     path: /

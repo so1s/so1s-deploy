@@ -9,4 +9,4 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-      {{ toYaml .Values.grafana.ingress.hosts | indent 4 }}
+      {{ toYaml .Values.ingress.hosts | indent 4 }}

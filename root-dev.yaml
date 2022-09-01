@@ -23,6 +23,9 @@ spec:
     namespace: default
 
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
     syncOptions:
       - CreateNamespace=true

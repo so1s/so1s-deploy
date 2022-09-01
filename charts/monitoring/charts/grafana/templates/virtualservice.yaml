@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: {{ include "kube-prometheus-stack.fullname" . }}-grafana
+  name: {{ include "grafana.fullname" . }}
 spec:
   hosts:
     {{ toYaml .Values.ingress.hosts | indent 4 }}

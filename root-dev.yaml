@@ -14,7 +14,7 @@ spec:
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: main
+    targetRevision: SO1S-258-deploy-istio-helm-chart-리팩토링
     path: apps/dev
 
   # Destination cluster and namespace to deploy the application

@@ -1,0 +1,17 @@
+istiod:
+  global:
+    logAsJson: true
+
+  pilot:
+    tolerations:
+      - key: kind
+        operator: "Equal"
+        value: "api"
+        effect: "NoSchedule"
+
+gateway:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"

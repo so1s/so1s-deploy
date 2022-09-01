@@ -1,0 +1,14 @@
+istiod:
+  pilot:
+    tolerations:
+      - key: kind
+        operator: "Equal"
+        value: "api"
+        effect: "NoSchedule"
+
+gateway:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"

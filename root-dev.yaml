@@ -14,7 +14,7 @@ spec:
   # Source of the application manifests
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: SO1S-352-deploy-istio-서브차트-통합-및-root-dev-auto-sync-활성화
+    targetRevision: main
     path: apps/dev
 
   # Destination cluster and namespace to deploy the application

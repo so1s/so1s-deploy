@@ -1,0 +1,12 @@
+dependencies:
+- name: istio-base
+  repository: ""
+  version: 1.14.2
+- name: istio-gateway
+  repository: ""
+  version: 1.14.2
+- name: istiod
+  repository: ""
+  version: 1.14.2
+digest: sha256:d468f1595fb447a9287b474e0f35023cb433885372fe97c7d21847aa54dc6261
+generated: "2022-09-05T13:01:45.35802856+09:00"

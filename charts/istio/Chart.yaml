@@ -1,0 +1,24 @@
+apiVersion: v2
+appVersion: "1.16.0"
+version: 0.1.0
+
+name: so1s-istio
+description: A Helm chart for So1s istio deployment
+type: application
+maintainers:
+  - name: JihoLee
+    email: optional.int@kakao.com
+  - name: SungbinIm
+    email: dlatqdlatq@naver.com
+  - name: ShinilSeop
+    email: shinilseop12@gmail.com
+sources:
+  - https://github.com/So1S/deploy
+
+dependencies:
+  - name: istio-base
+    version: 1.14.2
+  - name: istio-gateway
+    version: 1.14.2
+  - name: istiod
+    version: 1.14.2

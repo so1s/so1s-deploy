@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: git@github.com:So1S/deploy.git
-    targetRevision: main
+    targetRevision: SO1S-352-deploy-istio-서브차트-통합-및-root-dev-auto-sync-활성화
     path: charts/istio
 
     helm:

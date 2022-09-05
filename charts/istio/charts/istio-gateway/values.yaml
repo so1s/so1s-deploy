@@ -81,7 +81,7 @@ annotations: {}
 
 nodeSelector: {}
 
-tolerations: {}
+tolerations: []
 
 affinity: {}
 

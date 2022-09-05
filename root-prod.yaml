@@ -13,7 +13,7 @@ spec:
 
   # Source of the application manifests
   source:
-    repoURL: git@github.com:So1S/deploy.git
+    repoURL: https://github.com/So1S/deploy.git
     targetRevision: release/v0.3.0
     path: apps/prod
 
@@ -21,11 +21,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: default
-  
+
   syncPolicy:
-    automated: 
-      prune: true 
-      selfHeal: true   
-    # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.  
+    automated:
+      prune: true
+      selfHeal: true
+    # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
     syncOptions:
       - CreateNamespace=true

@@ -9,7 +9,7 @@ spec:
   project: so1s-project-dev
 
   source:
-    repoURL: git@github.com:So1S/deploy.git
+    repoURL: https://github.com/So1S/deploy.git
     targetRevision: main
     path: charts/logging
 

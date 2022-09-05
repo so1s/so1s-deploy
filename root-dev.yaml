@@ -13,7 +13,7 @@ spec:
 
   # Source of the application manifests
   source:
-    repoURL: git@github.com:So1S/deploy.git
+    repoURL: https://github.com/So1S/deploy.git
     targetRevision: main
     path: apps/dev
 

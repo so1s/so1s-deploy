@@ -81,11 +81,7 @@ annotations: {}
 
 nodeSelector: {}
 
-tolerations:
-  - key: kind
-    operator: "Equal"
-    value: "api"
-    effect: "NoSchedule"
+tolerations: {}
 
 affinity: {}
 

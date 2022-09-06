@@ -1,2 +1,5 @@
+ingress:
+  enabled: false
+
 istio-gateway: {}
 istiod: {}

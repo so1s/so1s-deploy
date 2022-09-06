@@ -1,3 +1,7 @@
+vender: "AWS" # AWS | on-premise
+
+environment: "develop"
+
 ingress:
   enabled: false
 

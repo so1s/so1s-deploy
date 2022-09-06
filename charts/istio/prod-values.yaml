@@ -1,2 +1,6 @@
+vender: "AWS" # AWS | on-premise
+
+environment: "production"
+
 ingress:
   enabled: true

@@ -4,6 +4,7 @@ environment: "develop"
 
 ingress:
   enabled: false
+  annotations: {}
 
 istio-gateway: {}
 istiod: {}

@@ -11,8 +11,8 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  {{- with .Values.affinity }}
-  affinity:
+  {{- with .Values.nodeAffinity }}
+  nodeAffinity:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- with .Values.nodeSelector }}

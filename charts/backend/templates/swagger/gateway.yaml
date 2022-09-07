@@ -10,3 +10,9 @@ spec:
       protocol: HTTP
     hosts:
       {{ toYaml .Values.swagger.ingress.hosts | indent 4 }}
+  - port:
+      number: 9443
+      name: http-dev
+      protocol: HTTP
+    hosts:
+      {{ toYaml .Values.swagger.ingress.hosts | indent 4 }}

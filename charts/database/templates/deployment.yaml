@@ -40,6 +40,9 @@ spec:
           volumeMounts:
           - name: postgresql-storage
             mountPath: /var/lib/postgresql
+          envFrom:
+          - secretRef:
+              name: application-secret
       volumes:
       - name: postgresql-storage
         persistentVolume:

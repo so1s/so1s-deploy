@@ -45,8 +45,8 @@ spec:
               name: application-secret
       volumes:
       - name: postgresql-storage
-        persistentVolume:
-          claimName: mysql-pv-claim
+        persistentVolumeClaim:
+          claimName: {{ include "database.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

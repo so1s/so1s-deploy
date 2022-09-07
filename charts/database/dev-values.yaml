@@ -1,7 +1,7 @@
 tolerations:
   - key: kind
     operator: "Equal"
-    value: "api"
+    value: "database"
     effect: "NoSchedule"
 
 nodeAffinity:
@@ -9,6 +9,5 @@ nodeAffinity:
     nodeSelectorTerms:
       - matchExpressions:
           - key: kind
-            operator: In
-            values:
-              - api
+            operator: Equal
+            value: database

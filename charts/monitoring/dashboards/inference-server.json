@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 35,
-  "iteration": 1662456709210,
+  "id": 38,
+  "iteration": 1662544188463,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -428,12 +428,14 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:51",
           "format": "ops",
           "logBase": 1,
           "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:52",
           "format": "short",
           "logBase": 1,
           "show": false
@@ -1818,6 +1820,91 @@
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "destination"
+          ],
+          "value": [
+            "destination"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(reporter)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Reporter",
+        "multi": true,
+        "name": "qrep",
+        "options": [],
+        "query": {
+          "query": "label_values(reporter)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 2,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\"}) by (source_workload_namespace) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\"}) by (source_workload_namespace))",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Inbound Workload Namespace",
+        "multi": true,
+        "name": "srcns",
+        "options": [],
+        "query": {
+          "query": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\"}) by (source_workload_namespace) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\"}) by (source_workload_namespace))",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "/.*namespace=\"([^\"]*).*/",
+        "skipUrlSync": false,
+        "sort": 2,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload_namespace=~\"$srcns\"}) by (source_workload) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload_namespace=~\"$srcns\"}) by (source_workload))",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Inbound Workload",
+        "multi": true,
+        "name": "srcwl",
+        "options": [],
+        "query": {
+          "query": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload_namespace=~\"$srcns\"}) by (source_workload) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload_namespace=~\"$srcns\"}) by (source_workload))",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "/.*workload=\"([^\"]*).*/",
+        "skipUrlSync": false,
+        "sort": 3,
+        "type": "query"
       }
     ]
   },
@@ -1828,7 +1915,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "So1s Inference Server Dashboard",
-  "uid": "K1ZW-uxGz",
-  "version": 5,
+  "uid": "maXYDhM4z",
+  "version": 2,
   "weekStart": ""
 }

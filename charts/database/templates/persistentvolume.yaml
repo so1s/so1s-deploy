@@ -11,6 +11,10 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  {{- with .Values.affinity }}
+  nodeAffinity:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
   storageClassName: local-storage
   local:
     path: /var/local/data/so1s/database

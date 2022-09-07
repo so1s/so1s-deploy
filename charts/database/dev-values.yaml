@@ -3,5 +3,12 @@ tolerations:
     operator: "Equal"
     value: "api"
     effect: "NoSchedule"
-nodeSelector:
-  kind: api
+
+nodeAffinity:
+  required:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kind
+            operator: In
+            values:
+              - api

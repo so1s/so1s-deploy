@@ -49,3 +49,11 @@ tolerations: []
 affinity: {}
 
 nodeAffinity: {}
+
+resources:
+  limits:
+    memory: "450Mi"
+    cpu: "300m"
+  requests:
+    memory: "450Mi"
+    cpu: "300m"

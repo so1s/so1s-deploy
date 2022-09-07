@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: SO1S-280-deploy-온프레미스-차트-개발
+    targetRevision: main
     path: charts/database
 
     helm:

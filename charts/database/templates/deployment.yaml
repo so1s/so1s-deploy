@@ -45,8 +45,9 @@ spec:
               name: application-secret
       volumes:
       - name: postgresql-storage
-        persistentVolumeClaim:
-          claimName: {{ include "database.fullname" . }}
+        hostPath:
+          path: /var/local/data/so1s/database
+          type: DirectoryOrCreate
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

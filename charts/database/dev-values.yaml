@@ -3,3 +3,5 @@ tolerations:
     operator: "Equal"
     value: "api"
     effect: "NoSchedule"
+nodeSelector:
+  kind: api

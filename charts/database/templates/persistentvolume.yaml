@@ -12,8 +12,12 @@ spec:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   {{- with .Values.affinity }}
-  nodeAffinity:
-    {{- toYaml . | nindent 8 }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.nodeSelector }}
+  nodeSelector:
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   storageClassName: local-storage
   local:

@@ -1,0 +1,13 @@
+tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "database"
+    effect: "NoSchedule"
+
+nodeAffinity:
+  required:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kind
+            operator: Equal
+            value: database

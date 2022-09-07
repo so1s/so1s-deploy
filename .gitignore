@@ -68,3 +68,5 @@ secrets.json
 
 docker-config.json
 docker-pull-secret.json
+
+cert.yaml

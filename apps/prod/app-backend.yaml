@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: release/v0.3.0
+    targetRevision: SO1S-374-deploy-alb-적용을-위한-service-수정
     path: charts/backend
 
     helm:

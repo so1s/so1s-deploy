@@ -334,7 +334,7 @@ prometheus:
           ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
           insecure_skip_verify: true
   service:
-    type: NodePort
+    type: ClusterIP
     annotations: {}
   ingress:
     enabled: false
@@ -402,7 +402,7 @@ grafana:
       effect: "NoSchedule"
   adminPassword: password1234
   service:
-    type: NodePort
+    type: ClusterIP
     annotations: {}
   ingress:
     enabled: false

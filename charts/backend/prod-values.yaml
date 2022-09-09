@@ -82,6 +82,3 @@ swagger:
     paths:
       - /
     tls: []
-    
-  service:
-    type: NodePort

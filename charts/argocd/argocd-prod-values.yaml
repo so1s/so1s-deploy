@@ -14,7 +14,7 @@ server:
     enabled: true
     annotations:
       kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/target-type: instance
+      alb.ingress.kubernetes.io/target-type: ip
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
       alb.ingress.kubernetes.io/healthcheck-port: "443"
@@ -26,7 +26,7 @@ server:
       - argo.so1s.io
     tls: []
   service:
-    type: ClusterIP
+    type: NodePort
     annotations: {}
 
 controller:

@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"service.beta.kubernetes.io/aws-load-balancer-nlb-target-type":"instance","service.beta.kubernetes.io/aws-load-balancer-scheme":"internet-facing","service.beta.kubernetes.io/aws-load-balancer-type":"external"},"labels":{"app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/version":"1.16.0","argocd.argoproj.io/instance":"so1s-backend-app-prod","helm.sh/chart":"so1s-backend-0.1.0","kind":"swagger-ui","tier":"swagger-ui"},"name":"so1s-prod-swagger","namespace":"backend"},"spec":{"ports":[{"port":80,"protocol":"TCP","targetPort":8080}],"selector":{"tier":"swagger-ui"},"type":"ClusterIP"}}
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+  creationTimestamp: "2022-09-13T05:06:31Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: 1.16.0
+    argocd.argoproj.io/instance: so1s-backend-app-prod
+    helm.sh/chart: so1s-backend-0.1.0
+    kind: swagger-ui
+    tier: swagger-ui
+  name: so1s-prod-swagger
+  namespace: backend
+  resourceVersion: "7504"
+  uid: faac46d4-78e3-4829-8e41-603abe37af06
+spec:
+  clusterIP: 172.20.123.190
+  clusterIPs:
+  - 172.20.123.190
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    tier: swagger-ui
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

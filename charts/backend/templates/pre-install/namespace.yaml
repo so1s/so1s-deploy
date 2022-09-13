@@ -35,3 +35,4 @@ spec:
         args:
           - kubectl label ns default istio-injection=enabled --overwrite;
             kubectl label ns {{ .Release.Namespace }} istio-injection=enabled --overwrite;
+            kubectl label ns monitoring istio-injection=enabled --overwrite;

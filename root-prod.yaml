@@ -2,22 +2,17 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: root-so1s-app-prod
-  # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
-  # Add this finalizer ONLY if you want these to cascade delete.
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  # The project the application belongs to.
   project: so1s-project-prod
 
-  # Source of the application manifests
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: release/v0.3.0
+    targetRevision: release/v0.4.0
     path: apps/prod
 
-  # Destination cluster and namespace to deploy the application
   destination:
     server: https://kubernetes.default.svc
     namespace: default
@@ -26,6 +21,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
     syncOptions:
       - CreateNamespace=true

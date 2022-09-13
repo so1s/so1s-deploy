@@ -44,6 +44,19 @@ ingress:
     - /
   tls: []
 
+serviceMonitor:
+  enabled: true
+  service:
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
+  namespace: backend
+  interval: 30s
+  telemetryPath: /actuator/prometheus
+  labels:
+    release: monitoring
+  timeout: 10s
+
 swagger:
   resources:
     limits:

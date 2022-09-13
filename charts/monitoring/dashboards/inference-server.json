@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 40,
-  "iteration": 1662544444697,
+  "id": 38,
+  "iteration": 1662544188463,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -40,6 +40,193 @@
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "id": 18,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Model Metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 0,
+        "y": 1
+      },
+      "id": 10,
+      "options": {
+        "content": "# Model Predictions\n\nThis model is responsible for predicting \nthe quality of wine given a number of chemical \nattributes. The scores range from 0-10 where\n0 is the worst and 10 is the best.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 10,
+          "min": 0,
+          "noValue": "No Data",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 3
+              },
+              {
+                "color": "#EAB839",
+                "value": 7
+              },
+              {
+                "color": "red",
+                "value": 9
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 5,
+        "y": 1
+      },
+      "id": 8,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum(rate(fastapi_regression_model_output_sum[30m])) / sum(rate(fastapi_regression_model_output_count[30m]))",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Model Score (30m avg)",
+      "type": "gauge"
+    },
+    {
+      "cards": {},
+      "color": {
+        "cardColor": "#F2495C",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateViridis",
+        "exponent": 0.5,
+        "mode": "spectrum"
+      },
+      "dataFormat": "tsbuckets",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Average per second count of predictions which fall into each bucket.",
+      "gridPos": {
+        "h": 9,
+        "w": 15,
+        "x": 9,
+        "y": 1
+      },
+      "heatmap": {},
+      "hideZeroBuckets": true,
+      "highlightCards": true,
+      "id": 6,
+      "legend": {
+        "show": true
+      },
+      "pluginVersion": "7.2.1",
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum(rate(fastapi_regression_model_output_bucket[1m])) by (le)",
+          "format": "heatmap",
+          "interval": "",
+          "legendFormat": "{{le}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Model Prediction Distribution",
+      "tooltip": {
+        "show": true,
+        "showHistogram": false
+      },
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "yAxis": {
+        "format": "short",
+        "logBase": 1,
+        "show": true
+      },
+      "yBucketBound": "auto"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
       },
       "id": 16,
       "panels": [],
@@ -64,7 +251,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 1
+        "y": 11
       },
       "id": 12,
       "options": {
@@ -120,7 +307,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 1
+        "y": 11
       },
       "id": 14,
       "options": {
@@ -166,7 +353,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 1
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 37,
@@ -268,7 +455,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 10
+        "y": 20
       },
       "id": 20,
       "options": {
@@ -316,7 +503,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 10
+        "y": 20
       },
       "id": 23,
       "options": {
@@ -365,7 +552,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 10
+        "y": 20
       },
       "hiddenSeries": false,
       "id": 35,
@@ -475,7 +662,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 19
+        "y": 29
       },
       "id": 29,
       "options": {
@@ -524,7 +711,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 19
+        "y": 29
       },
       "id": 31,
       "options": {
@@ -572,7 +759,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 19
+        "y": 29
       },
       "hiddenSeries": false,
       "id": 39,
@@ -750,7 +937,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 28
+        "y": 38
       },
       "id": 52,
       "options": {
@@ -799,7 +986,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 28
+        "y": 38
       },
       "id": 53,
       "options": {
@@ -847,7 +1034,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 28
+        "y": 38
       },
       "hiddenSeries": false,
       "id": 55,
@@ -1026,7 +1213,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 47
       },
       "id": 25,
       "panels": [],
@@ -1051,7 +1238,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 38
+        "y": 48
       },
       "id": 40,
       "options": {
@@ -1101,7 +1288,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 38
+        "y": 48
       },
       "id": 45,
       "interval": "1m",
@@ -1148,7 +1335,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 38
+        "y": 48
       },
       "hiddenSeries": false,
       "id": 43,
@@ -1278,7 +1465,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 47
+        "y": 57
       },
       "id": 46,
       "options": {
@@ -1328,7 +1515,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 47
+        "y": 57
       },
       "id": 49,
       "interval": "1m",
@@ -1375,7 +1562,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 47
+        "y": 57
       },
       "hiddenSeries": false,
       "id": 51,
@@ -1505,11 +1692,11 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 56
+        "y": 66
       },
       "id": 47,
       "options": {
-        "content": "# Storage Usage\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 \n\n",
+        "content": "# GPU Usage\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 \n\n",
         "mode": "markdown"
       },
       "pluginVersion": "9.0.2",
@@ -1528,7 +1715,12 @@
   "refresh": "5s",
   "schemaVersion": 36,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "So1s",
+    "Inference",
+    "Istio",
+    "kubernetes"
+  ],
   "templating": {
     "list": [
       {
@@ -1578,9 +1770,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "unknown",
-          "value": "unknown"
+          "selected": false,
+          "text": "default",
+          "value": "default"
         },
         "datasource": {
           "type": "prometheus",
@@ -1605,8 +1797,8 @@
       {
         "current": {
           "selected": false,
-          "text": "unknown",
-          "value": "unknown"
+          "text": "inference-finetunedserving-a",
+          "value": "inference-finetunedserving-a"
         },
         "datasource": {
           "type": "prometheus",
@@ -1631,9 +1823,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "source",
-          "value": "source"
+          "selected": true,
+          "text": [
+            "destination"
+          ],
+          "value": [
+            "destination"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -1718,8 +1914,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "So1s API Server Dashboard",
-  "uid": "_7NVhhMVk",
-  "version": 1,
+  "title": "So1s Inference Server Dashboard",
+  "uid": "maXYDhM4z",
+  "version": 2,
   "weekStart": ""
 }

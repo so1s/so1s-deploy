@@ -11,7 +11,7 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: istio-gateway
+      name: istio
       port:
         number: 80
   rules:
@@ -21,7 +21,7 @@ spec:
            pathType: Prefix
            backend:
             service:
-              name: istio-gateway
+              name: istio
               port:
                 number: 80
 {{ end -}}

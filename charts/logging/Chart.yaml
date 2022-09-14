@@ -14,6 +14,10 @@ dependencies:
     repository: "https://helm.elastic.co"
     version: 7.17.3
     condition: elasticsearch.enabled
+  - name: kibana
+    repository: "https://helm.elastic.co"
+    version: 7.17.3
+    condition: kibana.enabled
 sources:
   - https://github.com/So1S/deploy
 

@@ -17,6 +17,8 @@ serviceAccount:
 
 elasticsearch:
   enabled: false
+kibana:
+  enabled: false
 
 resources:
   {}

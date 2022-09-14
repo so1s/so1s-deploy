@@ -29,6 +29,8 @@ serviceMonitor:
 
 elasticsearch:
   enabled: true
+kibana:
+  enabled: true
 
 awsConfig:
   cluster.name: "So1s"

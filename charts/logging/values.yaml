@@ -118,14 +118,13 @@ config:
         Read_from_Head      ${READ_FROM_HEAD}
 
     [OUTPUT]
-        Name                cloudwatch_logs
+        Name                es
         Alias               logging
         Match               logging.*
-        region              ${AWS_REGION}
-        log_group_name      /aws/containerinsights/${CLUSTER_NAME}/logging
-        log_stream_prefix   ${HOST_NAME}-
-        auto_create_group   true
-        extra_user_agent    container-insights
+        Host                elasticsearch-master
+        Port                9200
+        Logstash_format     on
+        Replace_dots        on
 
   api-log.conf: |
     [INPUT]
@@ -143,14 +142,13 @@ config:
         Read_from_Head      ${READ_FROM_HEAD}
 
     [OUTPUT]
-        Name                cloudwatch_logs
-        Alias               api-server
-        Match               backend.*
-        region              ${AWS_REGION}
-        log_group_name      /aws/containerinsights/${CLUSTER_NAME}/backend
-        log_stream_prefix   ${HOST_NAME}-
-        auto_create_group   true
-        extra_user_agent    container-insights
+        Name                es
+        Alias               backend
+        match               backend.*
+        Host                elasticsearch-master
+        Port                9200
+        Logstash_format     on
+        Replace_dots        on
 
   inference-log.conf: |
     [INPUT]
@@ -168,14 +166,13 @@ config:
         Read_from_Head      ${READ_FROM_HEAD}
 
     [OUTPUT]
-        Name                cloudwatch_logs
+        Name                es
         Alias               inference
         Match               inference.*
-        region              ${AWS_REGION}
-        log_group_name      /aws/containerinsights/${CLUSTER_NAME}/inference
-        log_stream_prefix   ${HOST_NAME}-
-        auto_create_group   true
-        extra_user_agent    container-insights
+        Host                elasticsearch-master
+        Port                9200
+        Logstash_format     on
+        Replace_dots        on
 
   default-log.conf: |
     [INPUT]
@@ -210,14 +207,13 @@ config:
         Buffer_Size         0
 
     [OUTPUT]
-        Name                cloudwatch_logs
+        Name                es
         Alias               default
         Match               application.*
-        region              ${AWS_REGION}
-        log_group_name      /aws/containerinsights/${CLUSTER_NAME}/application
-        log_stream_prefix   ${HOST_NAME}-
-        auto_create_group   true
-        extra_user_agent    container-insights
+        Host                elasticsearch-master
+        Port                9200
+        Logstash_format     on
+        Replace_dots        on
 
   parsers.conf: |
     [PARSER]

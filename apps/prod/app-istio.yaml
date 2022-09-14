@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: so1s-istio-istiod-app-prod
+  name: so1s-istio-app-prod
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,13 +10,13 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: release/v0.3.0
-    path: charts/istio/istiod
+    targetRevision: release/v0.4.1
+    path: charts/istio
 
     helm:
-      releaseName: istiod
+      releaseName: istio
       valueFiles:
-        - dev-values.yaml
+        - prod-values.yaml
 
   destination:
     server: https://kubernetes.default.svc

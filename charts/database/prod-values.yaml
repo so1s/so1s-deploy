@@ -1,0 +1,21 @@
+tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "database"
+    effect: "NoSchedule"
+
+nodeAffinity:
+  required:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kind
+            operator: Equal
+            value: database
+
+resources:
+  limits:
+    memory: "300Mi"
+    cpu: "300m"
+  requests:
+    memory: "300Mi"
+    cpu: "300m"

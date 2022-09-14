@@ -58,6 +58,9 @@ serviceMonitor:
   timeout: 10s
 
 swagger:
+  istioInject:
+    enabled: true
+
   resources:
     limits:
       memory: "100Mi"

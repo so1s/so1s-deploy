@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: so1s-inference-app-prod
+  name: so1s-database-app-prod
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,17 +10,17 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: release/v0.3.0
-    path: charts/inference
+    targetRevision: release/v0.4.1
+    path: charts/database
 
     helm:
-      releaseName: inference
+      releaseName: database
       valueFiles:
         - prod-values.yaml
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: istio-system
+    namespace: backend
 
   syncPolicy:
     automated:

@@ -13,7 +13,7 @@ spec:
     metadata:
       annotations:
       {{ if .Values.swagger.istioInject.enabled }}
-        sidecar.istio.io/inject: "false"
+        sidecar.istio.io/inject: "true"
       {{- end }}
       labels:
         {{- include "swagger.selectorLabels" . | nindent 8 }}

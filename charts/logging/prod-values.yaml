@@ -29,8 +29,18 @@ serviceMonitor:
 
 elasticsearch:
   enabled: true
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
 kibana:
   enabled: true
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
 
 awsConfig:
   cluster.name: "So1s"

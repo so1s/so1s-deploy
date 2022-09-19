@@ -136,7 +136,7 @@ config:
         Index               logging
         Host                elasticsearch-master-headless
         Port                9200
-        Logstash_format     on
+        Logstash_format     off
         Trace_Output        on
         Trace_Error         on
 
@@ -162,7 +162,7 @@ config:
         Index               api-server
         Host                elasticsearch-master-headless
         Port                9200
-        Logstash_format     on
+        Logstash_format     off
         Trace_Output        on
         Trace_Error         on
 
@@ -188,7 +188,7 @@ config:
         Index               inference
         Host                elasticsearch-master-headless
         Port                9200
-        Logstash_format     on
+        Logstash_format     off
         Trace_Output        on
         Trace_Error         on
 
@@ -231,7 +231,7 @@ config:
         Index               default
         Host                elasticsearch-master-headless
         Port                9200
-        Logstash_format     on
+        Logstash_format     off
         Trace_Output        on
         Trace_Error         on
 

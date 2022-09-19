@@ -133,7 +133,7 @@ config:
         Name                es
         Alias               logging
         Match               logging.*
-        Host                elasticsearch-master
+        Host                elasticsearch-master-headless
         Port                9200
         Logstash_format     on
         Replace_dots        on
@@ -157,7 +157,7 @@ config:
         Name                es
         Alias               api-server
         Match               backend.*
-        Host                elasticsearch-master
+        Host                elasticsearch-master-headless
         Port                9200
         Logstash_format     on
         Replace_dots        on
@@ -181,7 +181,7 @@ config:
         Name                es
         Alias               inference
         Match               inference.*
-        Host                elasticsearch-master
+        Host                elasticsearch-master-headless
         Port                9200
         Logstash_format     on
         Replace_dots        on
@@ -222,7 +222,7 @@ config:
         Name                es
         Alias               default
         Match               application.*
-        Host                elasticsearch-master
+        Host                elasticsearch-master-headless
         Port                9200
         Logstash_format     on
         Replace_dots        on

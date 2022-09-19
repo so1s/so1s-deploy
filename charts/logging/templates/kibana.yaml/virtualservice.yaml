@@ -15,4 +15,4 @@ spec:
     - destination:
         port:
           number: 5601
-        host: elasticsearch-master-headless
+        host: {{ include "logging.fullname" . }}-kibana

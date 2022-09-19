@@ -56,6 +56,7 @@ elasticsearch:
 
 kibana:
   enabled: true
+  elasticsearchHosts: "http://elasticsearch-master:9200"
   tolerations:
     - key: kind
       operator: "Equal"

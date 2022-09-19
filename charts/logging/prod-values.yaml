@@ -137,7 +137,8 @@ config:
         Host                elasticsearch-master-headless
         Port                9200
         Logstash_format     on
-        Replace_dots        on
+        Trace_Output        on
+        Trace_Error         on
 
   api-log.conf: |
     [INPUT]
@@ -162,7 +163,8 @@ config:
         Host                elasticsearch-master-headless
         Port                9200
         Logstash_format     on
-        Replace_dots        on
+        Trace_Output        on
+        Trace_Error         on
 
   inference-log.conf: |
     [INPUT]
@@ -187,7 +189,8 @@ config:
         Host                elasticsearch-master-headless
         Port                9200
         Logstash_format     on
-        Replace_dots        on
+        Trace_Output        on
+        Trace_Error         on
 
   default-log.conf: |
     [INPUT]
@@ -229,7 +232,8 @@ config:
         Host                elasticsearch-master-headless
         Port                9200
         Logstash_format     on
-        Replace_dots        on
+        Trace_Output        on
+        Trace_Error         on
 
   parsers.conf: |
     [PARSER]

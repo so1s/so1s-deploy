@@ -61,6 +61,13 @@ kibana:
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "250m"
+      memory: "512Mi"
 
 awsConfig:
   cluster.name: "So1s"

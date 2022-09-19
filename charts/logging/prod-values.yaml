@@ -44,6 +44,8 @@ elasticsearch:
       xpack:
         security:
           enabled: false
+  replicas: 3
+  minimumMasterNodes: 2
 
 kibana:
   enabled: true

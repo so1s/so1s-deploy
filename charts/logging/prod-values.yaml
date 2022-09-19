@@ -69,6 +69,9 @@ kibana:
     limits:
       cpu: "250m"
       memory: "512Mi"
+  gateway:
+    hosts:
+      - kibana.so1s.io
 
 awsConfig:
   cluster.name: "So1s"

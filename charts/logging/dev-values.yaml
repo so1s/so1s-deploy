@@ -26,11 +26,3 @@ serviceMonitor:
   # Set of labels to transfer on the Kubernetes Service onto the target.
   # targetLabels: []
   # metricRelabelings: []
-
-awsConfig:
-  cluster.name: "So1s"
-  http.server: "On"
-  http.port: 2020
-  read.head: "Off"
-  read.tail: "On"
-  logs.region: "ap-northeast-2"

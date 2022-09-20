@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: "{{ .Release.Name }}"
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
     app.kubernetes.io/instance: {{ .Release.Name | quote }}
@@ -33,6 +34,8 @@ spec:
             memory: 100Mi
         command: ["/bin/bash", "-c"]
         args:
-          - kubectl label ns default istio-injection=enabled --overwrite;
-            kubectl label ns {{ .Release.Namespace }} istio-injection=enabled --overwrite;
-            kubectl label ns monitoring istio-injection=enabled --overwrite;
+          - kubectl label ns {{ .Release.Namespace }} istio-injection=enabled --overwrite;
+      {{- with .Values.preInstall.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

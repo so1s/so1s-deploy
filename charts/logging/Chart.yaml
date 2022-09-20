@@ -1,6 +1,6 @@
 apiVersion: v2
 name: logging
-description: A Helm chart for So1s AWS-CloudWatch Logging
+description: A Helm chart for So1s EFK Logging
 type: application
 maintainers:
   - name: JihoLee

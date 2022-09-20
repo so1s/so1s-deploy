@@ -14,7 +14,7 @@ spec:
   # Source of the application manifests
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: main
+    targetRevision: SO1S-409-deploy-backend-차트-helm-pre-install-job-tolerations-설정하기
     path: apps/dev
 
   # Destination cluster and namespace to deploy the application

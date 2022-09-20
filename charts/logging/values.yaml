@@ -26,11 +26,7 @@ elasticsearch:
     limits:
       cpu: "250m"
       memory: "512Mi"
-  tolerations:
-    - key: kind
-      operator: "Equal"
-      value: "api"
-      effect: "NoSchedule"
+  tolerations: []
   volumeClaimTemplate:
     accessModes: ["ReadWriteOnce"]
     resources:
@@ -45,11 +41,7 @@ elasticsearch:
 kibana:
   enabled: true
   elasticsearchHosts: "http://elasticsearch-master-headless:9200"
-  tolerations:
-    - key: kind
-      operator: "Equal"
-      value: "api"
-      effect: "NoSchedule"
+  tolerations: []
   resources:
     requests:
       cpu: "250m"

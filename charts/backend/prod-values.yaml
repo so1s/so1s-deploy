@@ -82,3 +82,10 @@ swagger:
     paths:
       - /
     tls: []
+
+preInstall:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"

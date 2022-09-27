@@ -387,8 +387,6 @@ thanosRuler:
         effect: "NoSchedule"
 prometheusOperator:
   logFormat: json
-  podAnnotations:
-    sidecar.istio.io/inject: "false"
   tolerations:
     - key: kind
       operator: "Equal"
@@ -396,8 +394,6 @@ prometheusOperator:
       effect: "NoSchedule"
   admissionWebhooks:
     patch:
-      podAnnotations:
-        sidecar.istio.io/inject: "false"
       tolerations:
         - key: kind
           operator: "Equal"
@@ -431,16 +427,6 @@ grafana:
       serve_from_sub_path: true
     security:
       allow_embedding: true
-
-
-  additionalDataSources:
-    - name: CloudWatch
-      type: cloudwatch
-      uid: so1s_cloudwatch
-      jsonData:
-        authType: default
-        defaultRegion: ap-northeast-2
-        assumeRoleArn: arn:aws:iam::089143290485:role/grafana-cloudwatch
 
 ## prometheus-node-exporter Configuration
 prometheus-node-exporter:

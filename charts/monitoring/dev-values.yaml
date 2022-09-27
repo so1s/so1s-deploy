@@ -387,6 +387,8 @@ thanosRuler:
         effect: "NoSchedule"
 prometheusOperator:
   logFormat: json
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
   tolerations:
     - key: kind
       operator: "Equal"
@@ -394,6 +396,8 @@ prometheusOperator:
       effect: "NoSchedule"
   admissionWebhooks:
     patch:
+      podAnnotations:
+        sidecar.istio.io/inject: "false"
       tolerations:
         - key: kind
           operator: "Equal"
@@ -402,6 +406,8 @@ prometheusOperator:
 
 ## Grafana Configuration
 grafana:
+  podAnnotations:
+    sidecar.istio.io/inject: "true"
   tolerations:
     - key: kind
       operator: "Equal"
@@ -423,8 +429,6 @@ grafana:
       domain: so1s.io
       root_url: http://test.dashboard.so1s.io/
       serve_from_sub_path: true
-    auth:
-      disable_login_form: true
     security:
       allow_embedding: true
 

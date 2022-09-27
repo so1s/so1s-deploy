@@ -423,6 +423,11 @@ grafana:
       domain: so1s.io
       root_url: http://test.dashboard.so1s.io/
       serve_from_sub_path: true
+    auth:
+      disable_login_form: true
+    security:
+      allow_embedding: true
+
 
   additionalDataSources:
     - name: CloudWatch

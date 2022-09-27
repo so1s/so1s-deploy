@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: main
+    targetRevision: SO1S-408-monitoring-namespace-label-추가시-job-sidecar-생성-이슈
     path: charts/monitoring
 
     helm:

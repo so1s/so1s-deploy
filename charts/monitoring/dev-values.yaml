@@ -402,6 +402,8 @@ prometheusOperator:
 
 ## Grafana Configuration
 grafana:
+  podAnnotations:
+    sidecar.istio.io/inject: "true"
   tolerations:
     - key: kind
       operator: "Equal"
@@ -423,15 +425,8 @@ grafana:
       domain: so1s.io
       root_url: http://test.dashboard.so1s.io/
       serve_from_sub_path: true
-
-  additionalDataSources:
-    - name: CloudWatch
-      type: cloudwatch
-      uid: so1s_cloudwatch
-      jsonData:
-        authType: default
-        defaultRegion: ap-northeast-2
-        assumeRoleArn: arn:aws:iam::089143290485:role/grafana-cloudwatch
+    security:
+      allow_embedding: true
 
 ## prometheus-node-exporter Configuration
 prometheus-node-exporter:

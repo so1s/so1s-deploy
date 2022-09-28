@@ -40,9 +40,6 @@ spec:
           volumeMounts:
           - name: registry-storage
             mountPath: /var/lib/registry
-          envFrom:
-          - secretRef:
-              name: application-secret
       volumes:
       - name: registry-storage
         hostPath:

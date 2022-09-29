@@ -6,8 +6,8 @@ tolerations:
 
 resources:
   limits:
-    memory: "300Mi"
-    cpu: "300m"
+    memory: "200Mi"
+    cpu: "100m"
   requests:
-    memory: "300Mi"
-    cpu: "300m"
+    memory: "200Mi"
+    cpu: "100m"

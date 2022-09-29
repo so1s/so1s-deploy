@@ -4,14 +4,6 @@ tolerations:
     value: "database"
     effect: "NoSchedule"
 
-nodeAffinity:
-  required:
-    nodeSelectorTerms:
-      - matchExpressions:
-          - key: kind
-            operator: Equal
-            value: database
-
 resources:
   limits:
     memory: "300Mi"

@@ -43,7 +43,7 @@ jobs:
         run: |
           helm dependency build ./charts/logging \
           && helm dependency list ./charts/logging \
-          && helm lint ./charts/logging --strict \
+          && helm lint ./charts/logging \
           && helm template logging -n logging -f ./charts/logging/dev-values.yaml ./charts/logging  --create-namespace --wait > dev-logging.yaml \
           && helm template logging -n logging -f ./charts/logging/prod-values.yaml ./charts/logging  --create-namespace --wait > prod-logging.yaml
       - name: lint monitoring

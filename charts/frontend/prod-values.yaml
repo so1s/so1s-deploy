@@ -1,0 +1,29 @@
+replicaCount: 2
+
+image:
+  repository: "ghcr.io/so1s/frontend"
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+resources:
+  limits:
+    memory: "350Mi"
+  requests:
+    memory: "150Mi"
+
+autoscaling:
+  enabled: false
+
+ingress:
+  hosts:
+    - www.so1s.io
+
+tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "api"
+    effect: "NoSchedule"

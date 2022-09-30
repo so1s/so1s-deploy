@@ -27,3 +27,6 @@ tolerations:
     operator: "Equal"
     value: "api"
     effect: "NoSchedule"
+
+podAnnotations: 
+  sidecar.istio.io/inject: "true"

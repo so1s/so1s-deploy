@@ -1,0 +1,62 @@
+name: CI
+on: pull_request
+
+jobs:
+  lint:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Set up Helm
+        uses: azure/setup-helm@v3.3
+        with:
+          version: v3.8.2
+      - name: lint backend
+        run: |
+          helm dependency build ./charts/backend \
+          && helm dependency list ./charts/backend \
+          && helm lint ./charts/backend --strict \
+          && helm template backend -n backend -f ./charts/backend/dev-values.yaml ./charts/backend  --create-namespace --wait > dev-backend.yaml
+          && helm template backend -n backend -f ./charts/backend/prod-values.yaml ./charts/backend  --create-namespace --wait > prod-backend.yaml
+      - name: lint database
+        run: |
+          helm dependency build ./charts/database \
+          && helm dependency list ./charts/database \
+          && helm lint ./charts/database --strict \
+          && helm template database -n database -f ./charts/database/dev-values.yaml ./charts/database  --create-namespace --wait > dev-database.yaml
+          && helm template database -n database -f ./charts/database/prod-values.yaml ./charts/database  --create-namespace --wait > prod-database.yaml
+      - name: lint frontend
+        run: |
+          helm dependency build ./charts/frontend \
+          && helm dependency list ./charts/frontend \
+          && helm lint ./charts/frontend --strict \
+          && helm template frontend -n frontend -f ./charts/frontend/dev-values.yaml ./charts/frontend  --create-namespace --wait > dev-frontend.yaml
+          && helm template frontend -n frontend -f ./charts/frontend/prod-values.yaml ./charts/frontend  --create-namespace --wait > prod-frontend.yaml
+      - name: lint istio
+        run: |
+          helm dependency build ./charts/istio \
+          && helm dependency list ./charts/istio \
+          && helm lint ./charts/istio --strict \
+          && helm template istio -n istio -f ./charts/istio/dev-values.yaml ./charts/istio  --create-namespace --wait > dev-istio.yaml
+          && helm template istio -n istio -f ./charts/istio/prod-values.yaml ./charts/istio  --create-namespace --wait > prod-istio.yaml
+      - name: lint logging
+        run: |
+          helm dependency build ./charts/logging \
+          && helm dependency list ./charts/logging \
+          && helm lint ./charts/logging --strict \
+          && helm template logging -n logging -f ./charts/logging/dev-values.yaml ./charts/logging  --create-namespace --wait > dev-logging.yaml
+          && helm template logging -n logging -f ./charts/logging/prod-values.yaml ./charts/logging  --create-namespace --wait > prod-logging.yaml
+      - name: lint monitoring
+        run: |
+          helm dependency build ./charts/monitoring \
+          && helm dependency list ./charts/monitoring \
+          && helm lint ./charts/monitoring --strict \
+          && helm template monitoring -n monitoring -f ./charts/monitoring/dev-values.yaml ./charts/monitoring  --create-namespace --wait > dev-monitoring.yaml
+          && helm template monitoring -n monitoring -f ./charts/monitoring/prod-values.yaml ./charts/monitoring  --create-namespace --wait > prod-monitoring.yaml
+      - name: lint registry
+        run: |
+          helm dependency build ./charts/registry \
+          && helm dependency list ./charts/registry \
+          && helm lint ./charts/registry --strict \
+          && helm template registry -n registry -f ./charts/registry/dev-values.yaml ./charts/registry  --create-namespace --wait > dev-registry.yaml
+          && helm template registry -n registry -f ./charts/registry/prod-values.yaml ./charts/registry  --create-namespace --wait > prod-registry.yaml

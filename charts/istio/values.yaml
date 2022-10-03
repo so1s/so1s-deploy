@@ -8,3 +8,7 @@ ingress:
 
 istio-gateway: {}
 istiod: {}
+
+
+preInstall:
+  tolerations: []

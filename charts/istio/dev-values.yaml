@@ -19,3 +19,10 @@ istiod:
         operator: "Equal"
         value: "api"
         effect: "NoSchedule"
+
+preInstall:
+  tolerations:
+      - key: kind
+        operator: "Equal"
+        value: "api"
+        effect: "NoSchedule"

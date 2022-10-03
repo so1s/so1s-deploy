@@ -39,7 +39,7 @@ resources:
 ingress:
   annotations: {}
   hosts:
-    - test-www.so1s.io
+    - test-backend.so1s.io
   paths:
     - /
   tls: []

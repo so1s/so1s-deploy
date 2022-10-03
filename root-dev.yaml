@@ -14,7 +14,7 @@ spec:
   # Source of the application manifests
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: main
+    targetRevision: SO1S-414-frontend-쿠버네티스-deployment-생성
     path: apps/dev
 
   # Destination cluster and namespace to deploy the application

@@ -8,5 +8,8 @@ dependencies:
 - name: grafana
   repository: file://./charts/grafana
   version: 6.32.2
-digest: sha256:7a8b1d81d7e8175019593aaa7fe29d719d76d5f81eaa638bc2533b60761db669
-generated: "2022-10-01T00:01:29.598591+09:00"
+- name: metrics-server
+  repository: https://kubernetes-sigs.github.io/metrics-server/
+  version: 3.8.2
+digest: sha256:a8274faddebf6461f869b03c39fdcbf052304f8d7f719c711a8bc869763c0d53
+generated: "2022-10-04T14:59:49.451541+09:00"

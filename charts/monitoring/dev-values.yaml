@@ -1,11 +1,23 @@
-# fullnameOverride: "sungbin-dev"
-
 preInstall:
   tolerations:
     - key: kind
       operator: "Equal"
       value: "api"
       effect: "NoSchedule"
+
+## Metrics Server Configuration
+metricsServer:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+      
+  metrics:
+    enabled: true
+  
+  serviceMonitor:
+    enabled: true
 
 ## Prometheus Configuration
 prometheus:

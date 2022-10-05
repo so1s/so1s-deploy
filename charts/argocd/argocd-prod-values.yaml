@@ -8,7 +8,7 @@ server:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "application"
+      value: "library"
       effect: "NoSchedule"
   ingress:
     enabled: true
@@ -35,21 +35,21 @@ controller:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "application"
+      value: "library"
       effect: "NoSchedule"
 
 dex:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "application"
+      value: "library"
       effect: "NoSchedule"
 
 redis:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "application"
+      value: "library"
       effect: "NoSchedule"
 
 repoServer:
@@ -58,21 +58,21 @@ repoServer:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "application"
+      value: "library"
       effect: "NoSchedule"
 
 applicationSet:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "application"
+      value: "library"
       effect: "NoSchedule"
 
 notification:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "application"
+      value: "library"
       effect: "NoSchedule"
 
 notifications:
@@ -81,5 +81,5 @@ notifications:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "application"
+      value: "library"
       effect: "NoSchedule"

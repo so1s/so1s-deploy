@@ -3,7 +3,7 @@ prometheus-adapter:
   enabled: true
 
   prometheus: 
-    url: http://monitoring-kube-prometheus-prometheus.monitoring
+    url: http://{{ .Release.Namespace }}-kube-prometheus-prometheus.{{ .Release.Namespace }}
     port: 9090
     path: ""
 
@@ -1892,6 +1892,8 @@ prometheusOperator:
 ##
 prometheus:
   enabled: true
+
+  serviceName: 'http://{{ template "kube-prometheus-stack.fullname" . }}-prometheus.{{ template "kube-prometheus-stack.namespace" . }}'
 
   ## Annotations for Prometheus
   ##

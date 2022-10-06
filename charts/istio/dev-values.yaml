@@ -9,7 +9,7 @@ istio-gateway:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"
 
 istiod:
@@ -17,12 +17,12 @@ istiod:
     tolerations:
       - key: kind
         operator: "Equal"
-        value: "api"
+        value: "library"
         effect: "NoSchedule"
 
 preInstall:
   tolerations:
       - key: kind
         operator: "Equal"
-        value: "api"
+        value: "library"
         effect: "NoSchedule"

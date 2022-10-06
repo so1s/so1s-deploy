@@ -3,7 +3,7 @@ prometheus-adapter:
   enabled: true
 
   prometheus: 
-    url: http://{{ .Release.Namespace }}.default.svc
+    url: http://{{ template "kube-prometheus-stack.fullname" . }}-prometheus
     port: 9090
     path: ""
 

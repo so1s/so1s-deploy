@@ -19,6 +19,11 @@ metricsServer:
   serviceMonitor:
     enabled: true
 
+## Prometheus Adapter Configuration
+
+
+
+
 ## Prometheus Configuration
 prometheus:
   prometheusSpec:

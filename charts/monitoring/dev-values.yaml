@@ -19,6 +19,16 @@ metricsServer:
   serviceMonitor:
     enabled: true
 
+## Prometheus Adapter Configuration
+prometheusAdapter:
+  eanbled: true
+  
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "library"
+      effect: "NoSchedule"
+
 ## Prometheus Configuration
 prometheus:
   prometheusSpec:

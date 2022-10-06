@@ -25,7 +25,7 @@ dependencies:
   repository: https://kubernetes-sigs.github.io/metrics-server/
   version: 3.8.*
 - condition: prometheusAdapter.enabled
-  name: proemtheus-adapter
+  name: prometheus-adapter
   repository: https://prometheus-community.github.io/helm-charts
   version: 3.4.*
 home: https://github.com/prometheus-operator/kube-prometheus

@@ -30,7 +30,7 @@ ingress:
 tolerations:
   - key: kind
     operator: "Equal"
-    value: "application"
+    value: "api"
     effect: "NoSchedule"
 
 podAnnotations: 

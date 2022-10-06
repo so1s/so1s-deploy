@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: SO1S-414-frontend-쿠버네티스-deployment-생성
+    targetRevision: main
     path: charts/registry
 
     helm:

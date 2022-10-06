@@ -1,4 +1,36 @@
-metricsServer:
+## Prometheus Adapter Configuration
+prometheus-adapter:
+  enabled: true
+
+  prometheus: 
+    url: http://prometheus.default.svc
+    port: 9090
+    path: ""
+
+  replicas: 1
+
+  resource: {}
+
+  rules:
+    default: true
+
+    custom: []
+      # - seriesQuery: '{__name__=~"^some_metric_count$"}'
+      #   resources:
+      #     template: <<.Resource>>
+      #   name:
+      #     matches: ""
+      #     as: "my_custom_metric"
+      #   metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
+
+    existing:
+
+    external: []
+
+
+
+## Metrics Server Configuration
+metrics-server:
   enabled: true
 
 preInstall:

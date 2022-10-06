@@ -6,7 +6,7 @@ preInstall:
       effect: "NoSchedule"
 
 ## Metrics Server Configuration
-metricsServer:
+metrics-server:
   tolerations:
     - key: kind
       operator: "Equal"
@@ -18,6 +18,14 @@ metricsServer:
   
   serviceMonitor:
     enabled: true
+
+## Prometheus Adapter Configuration
+prometheus-adapter:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "library"
+      effect: "NoSchedule"
 
 ## Prometheus Configuration
 prometheus:

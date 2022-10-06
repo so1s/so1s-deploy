@@ -3,7 +3,7 @@ prometheus-adapter:
   enabled: true
 
   prometheus: 
-    url: http://prometheus.default.svc
+    url: http://{{ .Release.Namespace }}.default.svc
     port: 9090
     path: ""
 

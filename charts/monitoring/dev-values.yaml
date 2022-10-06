@@ -2,7 +2,7 @@ preInstall:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"
 
 ## Metrics Server Configuration
@@ -26,7 +26,7 @@ prometheus:
     tolerations:
       - key: kind
         operator: "Equal"
-        value: "api"
+        value: "library"
         effect: "NoSchedule"
     routePrefix: /
     storageSpec:
@@ -372,7 +372,7 @@ alertmanager:
     tolerations:
       - key: kind
         operator: "Equal"
-        value: "api"
+        value: "library"
         effect: "NoSchedule"
   # service:
   #   type: LoadBalancer
@@ -395,21 +395,21 @@ thanosRuler:
     tolerations:
       - key: kind
         operator: "Equal"
-        value: "api"
+        value: "library"
         effect: "NoSchedule"
 prometheusOperator:
   logFormat: json
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"
   admissionWebhooks:
     patch:
       tolerations:
         - key: kind
           operator: "Equal"
-          value: "api"
+          value: "library"
           effect: "NoSchedule"
 
 ## Grafana Configuration
@@ -419,7 +419,7 @@ grafana:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"
   adminPassword: password1234
   service:
@@ -445,7 +445,7 @@ prometheus-node-exporter:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"
 
 ## kube-state-metrics Configuration
@@ -453,5 +453,5 @@ kube-state-metrics:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"

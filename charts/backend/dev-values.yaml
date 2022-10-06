@@ -21,7 +21,7 @@ autoscaling:
 tolerations:
   - key: kind
     operator: "Equal"
-    value: "api"
+    value: "application"
     effect: "NoSchedule"
 
 resourceQuota:
@@ -81,7 +81,7 @@ swagger:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "application"
       effect: "NoSchedule"
 
   ingress:
@@ -101,5 +101,5 @@ preInstall:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "application"
       effect: "NoSchedule"

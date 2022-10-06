@@ -14,8 +14,12 @@ jobs:
       - name: Helm Deps
         run: |
           for dir in $(ls -d charts/*); do
-            helm dependency update $dir;
-            helm dependency list $dir;
+            FILE="Chart.yaml"
+ 
+            if [ -e $dir/$FILE ];then
+              helm dependency update $dir;
+              helm dependency list $dir;
+            fi
           done
       - name: lint backend
         run: |

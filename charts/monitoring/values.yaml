@@ -3,7 +3,7 @@ prometheus-adapter:
   enabled: true
 
   prometheus: 
-    url: http://monitoring-kube-prometheus-prometheus.monitoring:9090
+    url: http://monitoring-kube-prometheus-prometheus.monitoring
     port: 9090
     path: ""
 

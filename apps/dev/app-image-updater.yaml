@@ -19,7 +19,7 @@ spec:
         tolerations:
           - key: kind
             operator: "Equal"
-            value: api
+            value: library
             effect: "NoSchedule"
 
         image:

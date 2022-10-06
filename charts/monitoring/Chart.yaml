@@ -20,11 +20,11 @@ dependencies:
   name: grafana
   repository: file://./charts/grafana
   version: 6.32.*
-- condition: metricsServer.enabled
+- condition: metrics-server.enabled
   name: metrics-server
   repository: https://kubernetes-sigs.github.io/metrics-server/
   version: 3.8.*
-- condition: prometheusAdapter.enabled
+- condition: prometheus-adapter.enabled
   name: prometheus-adapter
   repository: https://prometheus-community.github.io/helm-charts
   version: 3.4.*

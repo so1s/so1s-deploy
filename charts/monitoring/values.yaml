@@ -1,5 +1,5 @@
 ## Prometheus Adapter Configuration
-prometheusAdapter:
+prometheus-adapter:
   enabled: true
 
   prometheus: 
@@ -30,7 +30,7 @@ prometheusAdapter:
 
 
 ## Metrics Server Configuration
-metricsServer:
+metrics-server:
   enabled: true
 
 preInstall:

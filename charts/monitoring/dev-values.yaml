@@ -28,17 +28,15 @@ prometheus-adapter:
       effect: "NoSchedule"
   rules:
     custom:
-      - seriesQuery: 'istio_requests_total{connection_security_policy!="mutual_tls", destination_workload_namespace!="", destination_workload!="", reporter="source", source_workload!="", source_workload_namespace!=""}'
+      - seriesQuery: 'istio_requests_total{connection_security_policy!="mutual_tls", destination_workload_namespace!="", destination_workload!="", reporter="destination"}'
         resources:
           overrides:
             destination_workload_namespace: { resource: "namespace" }
             destination_workload: { resource: "deployment" }
-            source_workload: { resource: "deployment" }
-            source_workload_namespace: { resource: "namespace" }
         name:
           matches: "^(.*)_total"
           as: "${1}_per_second"
-        metricsQuery: round(sum(irate(<<.Series>>{<<.LabelMatchers>>}[5m]) by (<<.GroupBy>>)
+        metricsQuery: round(sum(irate(<<.Series>>{<<.LabelMatchers>>}[5m])) by (<<.GroupBy>>), 0.001)
 
 ## Prometheus Configuration
 prometheus:

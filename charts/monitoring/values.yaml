@@ -3,7 +3,7 @@ prometheus-adapter:
   enabled: true
 
   prometheus: 
-    url: http://{{ template "kube-prometheus-stack.fullname" . }}-prometheus
+    url: http://monitoring-kube-prometheus-prometheus.monitoring:9090
     port: 9090
     path: ""
 

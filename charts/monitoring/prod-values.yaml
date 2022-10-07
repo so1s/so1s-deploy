@@ -1,6 +1,26 @@
-# fullnameOverride: "sungbin-dev"
-
 preInstall:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "library"
+      effect: "NoSchedule"
+
+## Metrics Server Configuration
+metrics-server:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "library"
+      effect: "NoSchedule"
+      
+  metrics:
+    enabled: true
+  
+  serviceMonitor:
+    enabled: true
+
+## Prometheus Adapter Configuration
+prometheus-adapter:
   tolerations:
     - key: kind
       operator: "Equal"

@@ -1,11 +1,42 @@
-# fullnameOverride: "sungbin-dev"
-
 preInstall:
   tolerations:
     - key: kind
       operator: "Equal"
       value: "library"
       effect: "NoSchedule"
+
+## Metrics Server Configuration
+metrics-server:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "library"
+      effect: "NoSchedule"
+      
+  metrics:
+    enabled: true
+  
+  serviceMonitor:
+    enabled: true
+
+## Prometheus Adapter Configuration
+prometheus-adapter:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "library"
+      effect: "NoSchedule"
+  rules:
+    custom:
+      - seriesQuery: 'istio_request_duration_milliseconds_bucket{reporter="destination",destination_workload!="", destination_workload_namespace!=""}'
+        resources:
+            overrides:
+              destination_workload_namespace: { resource: "namespace" }
+              destination_workload: { resource: "deployment" }
+        name:
+          matches: "istio_(.*)_bucket"
+          as: "${1}"
+        metricsQuery: (histogram_quantile(0.90, sum(irate(<<.Series>>{<<.LabelMatchers>>}[1m])) by (le, <<.GroupBy>>)) / 1000)
 
 ## Prometheus Configuration
 prometheus:

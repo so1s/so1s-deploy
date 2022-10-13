@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: main  # 추후에 변경
+    targetRevision: release/v0.5.0
     path: charts/frontend
 
     helm:

@@ -34,7 +34,7 @@ spec:
             - containerPort: 8080
               name: api-server
           livenessProbe:
-            initialDelaySeconds: 90
+            initialDelaySeconds: 300
             httpGet:
               path: /livez
               port: api-server

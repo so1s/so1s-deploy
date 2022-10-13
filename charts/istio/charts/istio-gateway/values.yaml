@@ -7,6 +7,8 @@ replicaCount: 1
 
 kind: Deployment
 
+imagePullPolicy: Always
+
 rbac:
   # If enabled, roles will be created to enable accessing certificates from Gateways. This is not needed
   # when using http://gateway-api.org/.

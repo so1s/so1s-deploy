@@ -1,5 +1,8 @@
 replicaCount: 1
 
+preInstall:
+  tolerations: []
+
 image:
   repository: nginx
   pullPolicy: IfNotPresent

@@ -32,3 +32,11 @@ tolerations:
     operator: "Equal"
     value: "application"
     effect: "NoSchedule"
+
+
+preInstall:
+  tolerations:
+  - key: kind
+    operator: "Equal"
+    value: "application"
+    effect: "NoSchedule"

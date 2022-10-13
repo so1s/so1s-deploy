@@ -17,8 +17,6 @@ prometheus-adapter:
     existing:
     external: []
 
-
-
 ## Metrics Server Configuration
 metrics-server:
   enabled: true

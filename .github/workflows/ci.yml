@@ -21,38 +21,14 @@ jobs:
               helm dependency list $dir;
             fi
           done
-      - name: lint backend
+      - name: lint chart
         run: |
-          helm lint ./charts/backend --strict \
-          && helm template backend -n backend -f ./charts/backend/dev-values.yaml ./charts/backend  --create-namespace --wait > dev-backend.yaml \
-          && helm template backend -n backend -f ./charts/backend/prod-values.yaml ./charts/backend  --create-namespace --wait > prod-backend.yaml
-      - name: lint database
-        run: |
-          helm lint ./charts/database --strict \
-          && helm template database -n database -f ./charts/database/dev-values.yaml ./charts/database  --create-namespace --wait > dev-database.yaml \
-          && helm template database -n database -f ./charts/database/prod-values.yaml ./charts/database  --create-namespace --wait > prod-database.yaml
-      - name: lint frontend
-        run: |
-          helm lint ./charts/frontend --strict \
-          && helm template frontend -n frontend -f ./charts/frontend/dev-values.yaml ./charts/frontend  --create-namespace --wait > dev-frontend.yaml \
-          && helm template frontend -n frontend -f ./charts/frontend/prod-values.yaml ./charts/frontend  --create-namespace --wait > prod-frontend.yaml
-      - name: lint istio
-        run: |
-          helm lint ./charts/istio --strict \
-          && helm template istio -n istio -f ./charts/istio/dev-values.yaml ./charts/istio  --create-namespace --wait > dev-istio.yaml \
-          && helm template istio -n istio -f ./charts/istio/prod-values.yaml ./charts/istio  --create-namespace --wait > prod-istio.yaml
-      - name: lint logging
-        run: |
-          helm lint ./charts/logging \
-          && helm template logging -n logging -f ./charts/logging/dev-values.yaml ./charts/logging  --create-namespace --wait > dev-logging.yaml \
-          && helm template logging -n logging -f ./charts/logging/prod-values.yaml ./charts/logging  --create-namespace --wait > prod-logging.yaml
-      - name: lint monitoring
-        run: |
-          helm lint ./charts/monitoring --strict \
-          && helm template monitoring -n monitoring -f ./charts/monitoring/dev-values.yaml ./charts/monitoring  --create-namespace --wait > dev-monitoring.yaml \
-          && helm template monitoring -n monitoring -f ./charts/monitoring/prod-values.yaml ./charts/monitoring  --create-namespace --wait > prod-monitoring.yaml
-      - name: lint registry
-        run: |
-          helm lint ./charts/registry --strict \
-          && helm template registry -n registry -f ./charts/registry/dev-values.yaml ./charts/registry  --create-namespace --wait > dev-registry.yaml \
-          && helm template registry -n registry -f ./charts/registry/prod-values.yaml ./charts/registry  --create-namespace --wait > prod-registry.yaml
+          for dir in $(ls -d charts/*); do
+            FILE="Chart.yaml"
+            NAME= $dir | sed 's/charts\///g'
+            if [ -e $dir/$FILE ];then
+              helm lint $dir \
+              && helm template backend -n backend -f ./charts/backend/dev-values.yaml ./charts/backend  --create-namespace --wait > dev-backend.yaml \
+              && helm template backend -n backend -f ./charts/backend/prod-values.yaml ./charts/backend  --create-namespace --wait > prod-backend.yaml
+            fi
+          done

@@ -23,12 +23,14 @@ jobs:
           done
       - name: lint chart
         run: |
+          set -e
+          FILE="Chart.yaml"
           for dir in $(ls -d charts/*); do
-            FILE="Chart.yaml"
-            NAME= $dir | sed 's/charts\///g'
-            if [ -e $dir/$FILE ];then
+          NAME=$(echo $dir | cut -d '/' -f2)
+
+          if [ -e $dir/$FILE ];then
               helm lint $dir \
-              && helm template backend -n backend -f ./charts/backend/dev-values.yaml ./charts/backend  --create-namespace --wait > dev-backend.yaml \
-              && helm template backend -n backend -f ./charts/backend/prod-values.yaml ./charts/backend  --create-namespace --wait > prod-backend.yaml
-            fi
+              && helm template $NAME -n $NAME -f ./charts/$NAME/dev-values.yaml ./charts/$NAME  --create-namespace --with-subcharts --wait > dev-$NAME-template.yaml
+              && helm template $NAME -n $NAME -f ./charts/$NAME/prod-values.yaml ./charts/$NAME  --create-namespace --with-subcharts --wait > prod-$NAME-template.yaml
+          fi
           done

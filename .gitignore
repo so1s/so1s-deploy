@@ -70,3 +70,5 @@ docker-config.json
 docker-pull-secret.json
 
 cert.yaml
+
+*-template.yaml

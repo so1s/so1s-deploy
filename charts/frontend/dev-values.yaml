@@ -1,8 +1,8 @@
 replicaCount: 1
 
 image:
-  repository: "so1s/nginx-test"
-  tag: "v2"
+  repository: "ghcr.io/so1s/frontend"
+  tag: "latest"
 
 imagePullSecrets:
   - name: so1s

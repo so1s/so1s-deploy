@@ -49,7 +49,7 @@ config:
 
     server {
       include /etc/nginx/mime.types;
-
+      client_max_body_size 0;
       listen 80;
 
       location / {

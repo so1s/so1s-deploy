@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "frontend.labels" . | nindent 4 }}
 data:
-  {{- range $key, $val := .Values.config.nginxConf }}
+  {{- with .Values.config.nginxConf }}
   nginx.conf: |
-    {{- (tpl $val $) | nindent 4 }}
+    {{- . | nindent 4 }}
   {{- end }}

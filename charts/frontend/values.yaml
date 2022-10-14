@@ -46,3 +46,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+config:
+  nginxConf: {}

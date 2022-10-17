@@ -425,6 +425,8 @@ prometheusOperator:
       effect: "NoSchedule"
   admissionWebhooks:
     patch:
+      podAnnotations:
+       sidecar.istio.io/inject: "false"
       tolerations:
         - key: kind
           operator: "Equal"

@@ -22,7 +22,7 @@ gpu-operator:
   
   operator:
     defaultRuntime: containerd
-    cleanupCRD: true
+    cleanupCRD: false
     upgradeCRD: false
     initContainer:
       image: cuda

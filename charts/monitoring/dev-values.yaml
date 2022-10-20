@@ -255,7 +255,6 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          persistentVolumeReclaimPolicy: "Delete"
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:

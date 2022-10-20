@@ -25,6 +25,9 @@ istio-gateway:
       effect: "NoSchedule"
 
 istiod:
+  global:
+    proxy:
+      autoInject: disabled
   pilot:
     tolerations:
       - key: kind

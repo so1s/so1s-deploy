@@ -23,7 +23,7 @@ gpu-operator:
   operator:
     defaultRuntime: containerd
     cleanupCRD: true
-    upgradeCRD: true
+    upgradeCRD: false
     initContainer:
       image: cuda
       repository: nvcr.io/nvidia

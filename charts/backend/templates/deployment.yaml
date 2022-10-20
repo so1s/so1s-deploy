@@ -16,6 +16,10 @@ spec:
     metadata:
       labels:
         {{- include "backend.selectorLabels" . | nindent 8 }}
+      annotations:
+      {{ if .Values.istioInject.enabled }}
+        sidecar.istio.io/inject: "true"
+      {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

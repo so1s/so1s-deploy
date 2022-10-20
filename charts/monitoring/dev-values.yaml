@@ -16,7 +16,7 @@ gpu-operator:
   daemonsets:
     tolerations:
     - key: kind
-      value: infernece
+      value: inference
       operator: Equal
       effect: NoSchedule
   

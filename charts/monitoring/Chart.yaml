@@ -28,6 +28,10 @@ dependencies:
   name: prometheus-adapter
   repository: https://prometheus-community.github.io/helm-charts
   version: 3.4.*
+- condition: gpuOperator.enabled
+  name: gpu-operator
+  repository: https://nvidia.github.io/gpu-operator
+  version: v22.9.0
 home: https://github.com/prometheus-operator/kube-prometheus
 icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
 keywords:

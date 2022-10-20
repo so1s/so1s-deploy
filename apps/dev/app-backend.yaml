@@ -15,7 +15,7 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: SO1S-487-deploy-monitoring-istio-sidecar-생성-방식-변경
+    targetRevision: main
     path: charts/backend
 
     helm:

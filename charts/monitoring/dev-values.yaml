@@ -49,7 +49,7 @@ gpu-operator:
                   values: [""]
     # Development Mode defaults(encoder=consoleEncoder,logLevel=Debug,stackTraceLevel=Warn)
     # Production Mode defaults(encoder=jsonEncoder,logLevel=Info,stackTraceLevel=Error)
-    develMode: false
+    develMode: true
     resources:
       limits:
         cpu: 500m

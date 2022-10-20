@@ -6,6 +6,9 @@ namespaceOverride: ""
 
 replicaCount: 1
 
+istioInject:
+    enabled: false
+
 hostname: ""
 
 image:

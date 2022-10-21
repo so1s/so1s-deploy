@@ -61,17 +61,17 @@ gpu-operator:
   # so1s's infra environment have been installed nvidia driver by accerlated eks gpu node ami
   # but if you don't install nvidia driver in your node then you must install that :).
   driver:
-    enabled: false
-    # repository: nvcr.io/nvidia
-    # image: driver
-    # version: "515.65.01"
-    # imagePullPolicy: IfNotPresent
-    # imagePullSecrets: []
-    # manager:
-    #   image: k8s-driver-manager
-    #   repository: nvcr.io/nvidia/cloud-native
-    #   version: v0.4.2
-    #   imagePullPolicy: IfNotPresent
+    enabled: true
+    repository: nvcr.io/nvidia
+    image: driver
+    version: "515.65.01"
+    imagePullPolicy: IfNotPresent
+    imagePullSecrets: []
+    manager:
+      image: k8s-driver-manager
+      repository: nvcr.io/nvidia/cloud-native
+      version: v0.4.2
+      imagePullPolicy: IfNotPresent
 
   toolkit:
     enabled: true

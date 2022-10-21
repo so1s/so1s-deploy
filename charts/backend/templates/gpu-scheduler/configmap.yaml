@@ -1,0 +1,34 @@
+{{- if .Values.gpuScheduler.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gpu-scheduler-config
+  namespace: kube-system
+data:
+  gpu-scheduler-config.yaml: |
+    apiVersion: kubescheduler.config.k8s.io/v1beta2
+    kind: KubeSchedulerConfiguration
+    profiles:
+    - schedulerName: gpu-resource-scheduler
+        plugins:
+            score:
+                enabled:
+                - name: NodeResourcesFit
+        pluginConfig:
+        - name: NodeResourcesFit
+            args: 
+                scoringStrategy:
+                    shape:
+                    - utilization: 0
+                        score: 0
+                    - utilization: 100
+                        score: 10
+                    resources:
+                    - name: nvidia.com/gpu
+                        weight: 100
+                    - name: cpu
+                        weight: 1
+                    - name: memory
+                        weight: 1
+                    type: RequestedToCapacityRatio
+{{- end }}

@@ -77,14 +77,14 @@ gpu-operator:
     enabled: true
     repository: nvcr.io/nvidia/k8s
     image: container-toolkit
-    version: v1.12.0-rc.1
+    version: v1.12.0-rc.1-ubi8
     imagePullPolicy: IfNotPresent
 
   devicePlugin:
     enabled: true
     repository: nvcr.io/nvidia
     image: k8s-device-plugin
-    version: v0.13.0-rc.1 # v0.12.3-ubi8
+    version: v0.12.3-ubi8 # v0.13.0-rc.1
     imagePullPolicy: IfNotPresent
     imagePullSecrets: []
 
@@ -94,7 +94,7 @@ gpu-operator:
 
   dcgmExporter:
     enabled: true
-    repository: d
+    repository: nvcr.io/nvidia/k8s
     image: dcgm-exporter
     version: 3.0.4-3.0.0-ubi8
     imagePullPolicy: IfNotPresent

@@ -4,6 +4,9 @@ environment: "develop" # develop | production
 
 namespaceOverride: ""
 
+gpuScheduler:
+  enabled: false
+
 replicaCount: 1
 
 istioInject:

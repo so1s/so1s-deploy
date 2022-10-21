@@ -7,6 +7,9 @@ fullnameOverride: "so1s-dev" # 중복된 ClusterRole이 생기면 안되므로 �
 istioInject:
     enabled: true
 
+gpuScheduler:
+  enabled: true
+
 image:
   repository: "ghcr.io/so1s/api-server"
   tag: "latest"

@@ -61,30 +61,30 @@ gpu-operator:
   # so1s's infra environment have been installed nvidia driver by accerlated eks gpu node ami
   # but if you don't install nvidia driver in your node then you must install that :).
   driver:
-    enabled: true
-    repository: nvcr.io/nvidia
-    image: driver
-    version: "515.65.01"
-    imagePullPolicy: IfNotPresent
-    imagePullSecrets: []
-    manager:
-      image: k8s-driver-manager
-      repository: nvcr.io/nvidia/cloud-native
-      version: v0.4.2
-      imagePullPolicy: IfNotPresent
+    enabled: false
+    # repository: nvcr.io/nvidia
+    # image: driver
+    # version: "470.141.03"
+    # imagePullPolicy: IfNotPresent
+    # imagePullSecrets: []
+    # manager:
+    #   image: k8s-driver-manager
+    #   repository: nvcr.io/nvidia/cloud-native
+    #   version: v0.4.2
+    #   imagePullPolicy: IfNotPresent
 
   toolkit:
     enabled: true
     repository: nvcr.io/nvidia/k8s
     image: container-toolkit
-    version: v1.11.0-ubuntu20.04
+    version: v1.12.0-rc.1
     imagePullPolicy: IfNotPresent
 
   devicePlugin:
     enabled: true
     repository: nvcr.io/nvidia
     image: k8s-device-plugin
-    version: v0.12.3-ubi8  # v0.13.0-rc.1
+    version: v0.13.0-rc.1 # v0.12.3-ubi8
     imagePullPolicy: IfNotPresent
     imagePullSecrets: []
 
@@ -94,9 +94,9 @@ gpu-operator:
 
   dcgmExporter:
     enabled: true
-    repository: nvcr.io/nvidia/k8s
+    repository: d
     image: dcgm-exporter
-    version: 3.0.4-3.0.0-ubuntu20.04
+    version: 3.0.4-3.0.0-ubi8
     imagePullPolicy: IfNotPresent
     env:
       - name: DCGM_EXPORTER_LISTEN

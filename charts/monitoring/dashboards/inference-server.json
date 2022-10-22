@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 38,
-  "iteration": 1662544188463,
+  "id": 37,
+  "iteration": 1666424365066,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1710,17 +1710,109 @@
         }
       ],
       "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 19,
+        "x": 5,
+        "y": 66
+      },
+      "hiddenSeries": false,
+      "id": 57,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.0.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "DCGM_FI_DEV_GPU_UTIL{node=~\"${gpu_node}\", gpu=~\"${gpu_per_gpu_node}\"}",
+          "interval": "",
+          "legendFormat": "GPU {{gpu}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "GPU Utilization",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "logBase": 1,
+          "max": "100",
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
     }
   ],
   "refresh": "5s",
   "schemaVersion": 36,
   "style": "dark",
-  "tags": [
-    "So1s",
-    "Inference",
-    "Istio",
-    "kubernetes"
-  ],
+  "tags": [],
   "templating": {
     "list": [
       {
@@ -1770,9 +1862,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "default",
-          "value": "default"
+          "selected": true,
+          "text": "backend",
+          "value": "backend"
         },
         "datasource": {
           "type": "prometheus",
@@ -1796,9 +1888,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "inference-finetunedserving-a",
-          "value": "inference-finetunedserving-a"
+          "selected": true,
+          "text": "so1s-dev-deployment",
+          "value": "so1s-dev-deployment"
         },
         "datasource": {
           "type": "prometheus",
@@ -1854,9 +1946,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -1905,6 +2001,58 @@
         "skipUrlSync": false,
         "sort": 3,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "ip-10-0-2-192.ap-northeast-2.compute.internal",
+          "value": "ip-10-0-2-192.ap-northeast-2.compute.internal"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(DCGM_FI_DEV_GPU_UTIL, node)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "gpu_node",
+        "options": [],
+        "query": {
+          "query": "label_values(DCGM_FI_DEV_GPU_UTIL, node)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "0",
+          "value": "0"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(DCGM_FI_DEV_GPU_UTIL{node=\"$gpu_node\"}, gpu)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "gpu_per_gpu_node",
+        "options": [],
+        "query": {
+          "query": "label_values(DCGM_FI_DEV_GPU_UTIL{node=\"$gpu_node\"}, gpu)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
@@ -1915,7 +2063,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "So1s Inference Server Dashboard",
-  "uid": "maXYDhM4z",
+  "uid": "FrRcimH4k",
   "version": 2,
   "weekStart": ""
 }

@@ -133,32 +133,9 @@ gpu-operator:
 
   vfioManager:
     enabled: false
-    # repository: nvcr.io/nvidia
-    # image: cuda
-    # version: 11.7.1-base-ubi8
-    # imagePullPolicy: IfNotPresent
-    # imagePullSecrets: []
-    # env: []
-    # resources: {}
-    # driverManager:
-    #   image: k8s-driver-manager
-    #   repository: nvcr.io/nvidia/cloud-native
-    #   version: v0.4.2
-    #   imagePullPolicy: IfNotPresent
-    #   env:
-    #     - name: ENABLE_AUTO_DRAIN
-    #       value: "false"
 
   sandboxDevicePlugin:
     enabled: false
-    # repository: nvcr.io/nvidia
-    # image: kubevirt-gpu-device-plugin
-    # version: v1.2.1
-    # imagePullPolicy: IfNotPresent
-    # imagePullSecrets: []
-    # args: []
-    # env: []
-    # resources: {}
 
   node-feature-discovery:
     worker:

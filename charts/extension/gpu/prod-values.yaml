@@ -3,6 +3,11 @@
 # Use Custom Pod Scheduling that suited GPU Node
 binpackScheduling:
   enabled: true
+  tolerations:
+    - key: "kind"
+      operator: "Equal"
+      value: "library"
+      effect: "NoSchedule"
 
 daemonsets:
   tolerations:

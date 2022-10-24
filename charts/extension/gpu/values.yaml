@@ -1,6 +1,7 @@
 # Use Custom Pod Scheduling that suited GPU Node
 binpackScheduling:
   enabled: true
+  tolerations: []
   configMap: |
       apiVersion: kubescheduler.config.k8s.io/v1beta2
       kind: KubeSchedulerConfiguration

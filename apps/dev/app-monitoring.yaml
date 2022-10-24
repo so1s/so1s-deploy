@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: SO1S-450-deploy-gpu-모니터링-환경-구축-테스트
+    targetRevision: main
     path: charts/monitoring
 
     helm:

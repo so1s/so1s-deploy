@@ -1,0 +1,159 @@
+# Use Custom Pod Scheduling that suited GPU Node
+binpackScheduling:
+  enabled: true
+
+gpuOperator:
+  enabled: true
+  
+  daemonsets:
+    tolerations:
+    - key: kind
+      value: inference
+      operator: Equal
+      effect: NoSchedule
+
+  operator:
+    repository: nvcr.io/nvidia
+    image: gpu-operator
+    version: v22.9.0-ubi8
+    defaultRuntime: containerd
+    cleanupCRD: false
+    upgradeCRD: false
+    initContainer:
+      image: cuda
+      repository: nvcr.io/nvidia
+      version: 11.7.1-base-ubi8
+      imagePullPolicy: IfNotPresent
+    tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Equal"
+        value: ""
+        effect: "NoSchedule"
+      - key: "kind"
+        operator: "Equal"
+        value: "inference"
+        effect: "NoSchedule"
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+                - key: "node-role.kubernetes.io/master"
+                  operator: In
+                  values: [""]
+    # Development Mode defaults(encoder=consoleEncoder,logLevel=Debug,stackTraceLevel=Warn)
+    # Production Mode defaults(encoder=jsonEncoder,logLevel=Info,stackTraceLevel=Error)
+    develMode: true
+    resources:
+      limits:
+        cpu: 350m
+        memory: 256Mi
+      requests:
+        cpu: 350m
+        memory: 256Mi
+
+  # so1s's infra environment have been installed nvidia driver by accerlated eks gpu node ami
+  # but if you don't install nvidia driver in your node then you must install that :).
+  driver:
+    enabled: false
+
+  toolkit:
+    enabled: false
+
+  devicePlugin:
+    enabled: true
+    repository: nvcr.io/nvidia
+    image: k8s-device-plugin
+    version: v0.12.3-ubi8 # v0.13.0-rc.1
+    imagePullPolicy: IfNotPresent
+    imagePullSecrets: []
+
+  dcgm:
+    # disabled by default to use embedded nv-hostengine by exporter
+    enabled: false
+
+  dcgmExporter:
+    enabled: true
+    repository: nvcr.io/nvidia/k8s
+    image: dcgm-exporter
+    version: 3.0.4-3.0.0-ubi8
+    imagePullPolicy: IfNotPresent
+    env:
+      - name: DCGM_EXPORTER_LISTEN
+        value: ":9400"
+      - name: DCGM_EXPORTER_KUBERNETES
+        value: "true"
+      - name: DCGM_EXPORTER_COLLECTORS
+        value: "/etc/dcgm-exporter/dcp-metrics-included.csv"
+    resources: {}
+    serviceMonitor:
+      enabled: true
+      interval: 15s
+      honorLabels: false
+      additionalLabels: {}
+
+  gfd:
+    enabled: true
+    repository: nvcr.io/nvidia
+    image: gpu-feature-discovery
+    version: v0.6.2-ubi8
+    imagePullPolicy: IfNotPresent
+    imagePullSecrets: []
+    env:
+      - name: GFD_SLEEP_INTERVAL
+        value: 60s
+      - name: GFD_FAIL_ON_INIT_ERROR
+        value: "true"
+    resources: {}
+
+  migManager:
+    enabled: false
+
+  nodeStatusExporter:
+    enabled: false
+
+  # Experimental and only deploys nvidia-fs driver on Ubuntu
+  gds:
+    enabled: false
+
+  vgpuManager:
+    enabled: false
+
+  vgpuDeviceManager:
+    enabled: false
+
+  vfioManager:
+    enabled: false
+
+  sandboxDevicePlugin:
+    enabled: false
+
+  node-feature-discovery:
+    worker:
+      tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Equal"
+        effect: "NoSchedule"
+      - key: "kind"
+        operator: "Equal"
+        value: "inference"
+        effect: "NoSchedule"
+
+      config:
+        sources:
+          pci:
+            deviceClassWhitelist:
+            - "02"
+            - "0200"
+            - "0207"
+            - "0300"
+            - "0302"
+            deviceLabelFields:
+            - vendor
+
+    master:
+      extraLabelNs:
+        - nvidia.com
+      serviceAccount:
+        name: node-feature-discovery

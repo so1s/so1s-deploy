@@ -55,11 +55,11 @@ gpu-operator:
     develMode: false
     resources:
       limits:
-        cpu: 500m
-        memory: 350Mi
+        cpu: 350m
+        memory: 256Mi
       requests:
-        cpu: 200m
-        memory: 100Mi
+        cpu: 350m
+        memory: 256Mi
 
   # so1s's infra environment have been installed nvidia driver by accerlated eks gpu node ami
   # but if you don't install nvidia driver in your node then you must install that :).

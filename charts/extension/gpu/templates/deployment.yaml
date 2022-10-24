@@ -1,57 +1,59 @@
-{{- if .Values.binpackScheduling.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     component: scheduler
     tier: control-plane
-  name: my-scheduler
+  name: gpu-binpack-scheduler
   namespace: kube-system
 spec:
+  replicas: 1
   selector:
     matchLabels:
       component: scheduler
       tier: control-plane
-  replicas: 1
   template:
     metadata:
       labels:
         component: scheduler
         tier: control-plane
-        version: second
     spec:
       serviceAccountName: my-scheduler
       containers:
-      - command:
+      - name: gpu-custom-scheduler
+        image: registry.k8s.io/kube-scheduler:v1.22.5
+        command:
         - /usr/local/bin/kube-scheduler
+        - --authentication-kubeconfig=/etc/kubernetes/scheduler.conf
+        - --authorization-kubeconfig=/etc/kubernetes/scheduler.conf
         - --config=/etc/kubernetes/my-scheduler/gpu-scheduler-config.yaml
-        image: gcr.io/my-gcp-project/my-kube-scheduler:1.0
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 10251
-          initialDelaySeconds: 15
-        name: kube-second-scheduler
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 10251
+        - --kubeconfig=/etc/kubernetes/scheduler.conf
+        - --bind-address=0.0.0.0
+        - --port=0
         resources:
+          limits:
+            cpu: 350m
+            memory: 256Mi
           requests:
-            cpu: '0.1'
-        securityContext:
-          privileged: false
+            cpu: 350m
+            memory: 256Mi
         volumeMounts:
           - name: config-volume
             mountPath: /etc/kubernetes/my-scheduler
-      hostNetwork: false
-      hostPID: false
+            readOnly: true
+          - name: kubeconfig
+            mountPath: /etc/kubernetes/scheduler.conf
+            readOnly: true  
       volumes:
         - name: config-volume
           configMap:
             name: gpu-scheduler-config
-      {{- with .Values.binpackScheduling.tolerations }}
+        - name: kubeconfig
+          hostPath:
+            path: /etc/kubernetes/scheduler.conf
+            type: FileOrCreate
       tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-{{- end }}
+      - key: kind
+        operator: "Equal"
+        value: "library"
+        effect: "NoSchedule"

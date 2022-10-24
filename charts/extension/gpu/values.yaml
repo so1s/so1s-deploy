@@ -7,27 +7,28 @@ binpackScheduling:
       kind: KubeSchedulerConfiguration
       profiles:
       - schedulerName: gpu-resource-scheduler
-          plugins:
-              score:
-                  enabled:
-                  - name: NodeResourcesFit
-          pluginConfig:
-          - name: NodeResourcesFit
-              args: 
-                  scoringStrategy:
-                      shape:
-                      - utilization: 0
-                          score: 0
-                      - utilization: 100
-                          score: 10
-                      resources:
-                      - name: nvidia.com/gpu
-                          weight: 100
-                      - name: cpu
-                          weight: 1
-                      - name: memory
-                          weight: 1
-                      type: RequestedToCapacityRatio
+        plugins:
+          score:
+            enabled:
+            - name: NodeResourcesFit
+        pluginConfig:
+        - name: NodeResourcesFit
+          args: 
+            scoringStrategy:
+              requestedToCapacityRatio:
+                shape:
+                - utilization: 0
+                  score: 0
+                - utilization: 100
+                  score: 10
+              resources:
+              - name: nvidia.com/gpu
+                weight: 100
+              - name: cpu
+                weight: 1
+              - name: memory
+                weight: 1
+              type: RequestedToCapacityRatio
 
 gpuOperator:
   enabled: true

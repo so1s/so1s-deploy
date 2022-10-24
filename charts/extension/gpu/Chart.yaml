@@ -1,0 +1,11 @@
+apiVersion: v2
+name: So1s GPU Operator + BinPacking Scheduling
+description: GPU Operator + Custom BinPacking Scheduling Chart
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+dependencies:
+  - condition: gpuOperator.enabled
+    name: gpu-operator
+    repository: https://nvidia.github.io/gpu-operator
+    version: v22.9.0

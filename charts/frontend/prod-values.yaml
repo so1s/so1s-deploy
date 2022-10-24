@@ -20,6 +20,9 @@ resources:
   requests:
     memory: "150Mi"
 
+podAnnotations:
+  sidecar.istio.io/inject: "true"
+
 autoscaling:
   enabled: false
 

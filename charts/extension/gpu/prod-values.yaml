@@ -9,14 +9,18 @@ binpackScheduling:
       value: "library"
       effect: "NoSchedule"
 
-gpuOperator:
+gpu-operator:
   enabled: true
   daemonsets:
     tolerations:
-    - key: kind
-      value: inference
-      operator: Equal
-      effect: NoSchedule
+    - key: "kind"
+      value: "inference"
+      operator: "Equal"
+      effect: "NoSchedule"
+    - key: "kind"
+      value: "model_builder"
+      operator: "Equal"
+      effect: "NoSchedule"
 
   operator:
     repository: nvcr.io/nvidia
@@ -31,14 +35,14 @@ gpuOperator:
       version: 11.7.1-base-ubi8
       imagePullPolicy: IfNotPresent
     tolerations:
-      - key: "node-role.kubernetes.io/master"
-        operator: "Equal"
-        value: ""
-        effect: "NoSchedule"
-      - key: "kind"
-        operator: "Equal"
-        value: "inference"
-        effect: "NoSchedule"
+    - key: "kind"
+      value: "inference"
+      operator: "Equal"
+      effect: "NoSchedule"
+    - key: "kind"
+      value: "model_builder"
+      operator: "Equal"
+      effect: "NoSchedule"
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -138,12 +142,13 @@ gpuOperator:
   node-feature-discovery:
     worker:
       tolerations:
-      - key: "node-role.kubernetes.io/master"
+      - key: "kind"
+        value: "inference"
         operator: "Equal"
         effect: "NoSchedule"
       - key: "kind"
+        value: "model_builder"
         operator: "Equal"
-        value: "inference"
         effect: "NoSchedule"
 
       config:

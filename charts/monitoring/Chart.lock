@@ -14,8 +14,5 @@ dependencies:
 - name: prometheus-adapter
   repository: https://prometheus-community.github.io/helm-charts
   version: 3.4.1
-- name: gpu-operator
-  repository: https://nvidia.github.io/gpu-operator
-  version: v22.9.0
-digest: sha256:0254f52d6d20d26f73e114176ef3e25f0a2e9d798cab06a3d74de5e76fee7d7e
-generated: "2022-10-20T13:53:13.194995+09:00"
+digest: sha256:c147dab6943d7c27a02dfaabecf834de135a71ea5231b0053140e9752ac2f0ba
+generated: "2022-10-25T18:39:43.312251+09:00"

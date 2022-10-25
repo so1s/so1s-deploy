@@ -29,14 +29,12 @@ binpackScheduling:
               - name: memory
                 weight: 1
               type: RequestedToCapacityRatio
-
-gpuOperator:
-  enabled: true
   
   # Default values for gpu-operator.
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
-
+gpu-operator:
+  enabled: true
   platform:
     openshift: false
 

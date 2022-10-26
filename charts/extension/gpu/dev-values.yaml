@@ -17,7 +17,7 @@ gpu-operator:
       operator: "Equal"
       effect: "NoSchedule"
     - key: "kind"
-      value: "model_builder"
+      value: "model-builder"
       operator: "Equal"
       effect: "NoSchedule"
 
@@ -39,7 +39,7 @@ gpu-operator:
         operator: "Equal"
         effect: "NoSchedule"
       - key: "kind"
-        value: "model_builder"
+        value: "model-builder"
         operator: "Equal"
         effect: "NoSchedule"
     affinity:
@@ -139,7 +139,7 @@ gpu-operator:
         operator: "Equal"
         effect: "NoSchedule"
       - key: "kind"
-        value: "model_builder"
+        value: "model-builder"
         operator: "Equal"
         effect: "NoSchedule"
       config:

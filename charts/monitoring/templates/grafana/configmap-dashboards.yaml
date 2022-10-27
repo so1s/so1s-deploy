@@ -3,6 +3,8 @@
 {{- if $files }}
 apiVersion: v1
 kind: ConfigMapList
+metadata:
+  name: {{ include "kube-prometheus-stack.fullname" . }}-configmaplist
 items:
 {{- range $path, $fileContents := $files }}
 {{- $dashboardName := regexReplaceAll "(^.*/)(.*)\\.json$" $path "${2}" }}

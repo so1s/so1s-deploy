@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: so1s-frontend-app-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: so1s-project-prod
+
+  source:
+    repoURL: https://github.com/So1S/deploy.git
+    targetRevision: release/v0.5.0
+    path: charts/frontend
+
+    helm:
+      releaseName: frontend
+      valueFiles:
+        - prod-values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: frontend
+
+  syncPolicy:
+    automated:
+        prune: true
+        selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

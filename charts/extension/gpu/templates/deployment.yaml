@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: scheduler
+    tier: control-plane
+  name: gpu-binpack-scheduler
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: scheduler
+      tier: control-plane
+  template:
+    metadata:
+      labels:
+        component: scheduler
+        tier: control-plane
+    spec:
+      serviceAccountName: my-scheduler
+      containers:
+      - name: gpu-custom-scheduler
+        image: registry.k8s.io/kube-scheduler:v1.22.5
+        command:
+        - /usr/local/bin/kube-scheduler
+        - --authentication-kubeconfig=/etc/kubernetes/scheduler.conf
+        - --authorization-kubeconfig=/etc/kubernetes/scheduler.conf
+        - --config=/etc/kubernetes/my-scheduler/gpu-scheduler-config.yaml
+        - --kubeconfig=/etc/kubernetes/scheduler.conf
+        - --bind-address=0.0.0.0
+        - --port=0
+        resources:
+          limits:
+            cpu: 350m
+            memory: 256Mi
+          requests:
+            cpu: 350m
+            memory: 256Mi
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/kubernetes/my-scheduler
+            readOnly: true
+          - name: kubeconfig
+            mountPath: /etc/kubernetes/scheduler.conf
+            readOnly: true  
+      volumes:
+        - name: config-volume
+          configMap:
+            name: gpu-scheduler-config
+        - name: kubeconfig
+          hostPath:
+            path: /etc/kubernetes/scheduler.conf
+            type: FileOrCreate
+      tolerations:
+      - key: kind
+        operator: "Equal"
+        value: "library"
+        effect: "NoSchedule"

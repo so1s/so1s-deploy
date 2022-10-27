@@ -33,6 +33,8 @@ spec:
             memory: 100Mi
         command: ["/bin/bash", "-c"]
         args:
-          - kubectl label ns default istio-injection=enabled --overwrite;
-            kubectl label ns {{ .Release.Namespace }} istio-injection=enabled --overwrite;
-            kubectl label ns monitoring istio-injection=enabled --overwrite;
+          - kubectl label ns {{ .Release.Namespace }} istio-injection=enabled --overwrite;
+      {{- with .Values.preInstall.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -24,8 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 37,
-  "iteration": 1666424365066,
+  "id": 39,
+  "iteration": 1666944179195,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -40,193 +40,6 @@
         "w": 24,
         "x": 0,
         "y": 0
-      },
-      "id": 18,
-      "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "Model Metrics",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 0,
-        "y": 1
-      },
-      "id": 10,
-      "options": {
-        "content": "# Model Predictions\n\nThis model is responsible for predicting \nthe quality of wine given a number of chemical \nattributes. The scores range from 0-10 where\n0 is the worst and 10 is the best.",
-        "mode": "markdown"
-      },
-      "pluginVersion": "9.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
-      "type": "text"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "max": 10,
-          "min": 0,
-          "noValue": "No Data",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
-              },
-              {
-                "color": "green",
-                "value": 3
-              },
-              {
-                "color": "#EAB839",
-                "value": 7
-              },
-              {
-                "color": "red",
-                "value": 9
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 5,
-        "y": 1
-      },
-      "id": 8,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "9.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "sum(rate(fastapi_regression_model_output_sum[30m])) / sum(rate(fastapi_regression_model_output_count[30m]))",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Model Score (30m avg)",
-      "type": "gauge"
-    },
-    {
-      "cards": {},
-      "color": {
-        "cardColor": "#F2495C",
-        "colorScale": "sqrt",
-        "colorScheme": "interpolateViridis",
-        "exponent": 0.5,
-        "mode": "spectrum"
-      },
-      "dataFormat": "tsbuckets",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "description": "Average per second count of predictions which fall into each bucket.",
-      "gridPos": {
-        "h": 9,
-        "w": 15,
-        "x": 9,
-        "y": 1
-      },
-      "heatmap": {},
-      "hideZeroBuckets": true,
-      "highlightCards": true,
-      "id": 6,
-      "legend": {
-        "show": true
-      },
-      "pluginVersion": "7.2.1",
-      "reverseYBuckets": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "sum(rate(fastapi_regression_model_output_bucket[1m])) by (le)",
-          "format": "heatmap",
-          "interval": "",
-          "legendFormat": "{{le}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Model Prediction Distribution",
-      "tooltip": {
-        "show": true,
-        "showHistogram": false
-      },
-      "type": "heatmap",
-      "xAxis": {
-        "show": true
-      },
-      "yAxis": {
-        "format": "short",
-        "logBase": 1,
-        "show": true
-      },
-      "yBucketBound": "auto"
-    },
-    {
-      "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 10
       },
       "id": 16,
       "panels": [],
@@ -251,7 +64,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 11
+        "y": 1
       },
       "id": 12,
       "options": {
@@ -307,7 +120,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 11
+        "y": 1
       },
       "id": 14,
       "options": {
@@ -329,7 +142,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(irate(istio_requests_total{reporter=~\"$qrep\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$workload\",response_code!~\"5.*\"}[5m])) / sum(irate(istio_requests_total{reporter=~\"$qrep\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$workload\"}[5m]))",
+          "expr": "sum(irate(istio_requests_total{reporter=~\"$qrep\",destination_workload_namespace=\"default\",destination_workload=~\"$workload\",response_code!~\"5.*\"}[5m])) / sum(irate(istio_requests_total{reporter=~\"$qrep\",destination_workload_namespace=\"default\",destination_workload=~\"$workload\"}[5m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -353,7 +166,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 11
+        "y": 1
       },
       "hiddenSeries": false,
       "id": 37,
@@ -389,10 +202,12 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "round(sum(irate(istio_requests_total{connection_security_policy=\"mutual_tls\", destination_workload_namespace=~\"$namespace\", destination_workload=~\"$workload\", reporter=~\"$qrep\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[5m])) by (source_workload, source_workload_namespace, response_code), 0.001)",
+          "editorMode": "code",
+          "expr": "round(sum(irate(istio_requests_total{connection_security_policy=\"mutual_tls\", destination_workload_namespace=\"default\", destination_workload=~\"$workload\", reporter=~\"$qrep\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[5m])) by (source_workload, source_workload_namespace, response_code), 0.001)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{ source_workload }}.{{ source_workload_namespace }} : {{ response_code }} (🔐mTLS)",
+          "range": true,
           "refId": "A",
           "step": 2
         },
@@ -401,7 +216,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "round(sum(irate(istio_requests_total{connection_security_policy!=\"mutual_tls\", destination_workload_namespace=~\"$namespace\", destination_workload=~\"$workload\", reporter=~\"$qrep\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[5m])) by (source_workload, source_workload_namespace, response_code), 0.001)",
+          "expr": "round(sum(irate(istio_requests_total{connection_security_policy!=\"mutual_tls\", destination_workload_namespace=\"default\", destination_workload=~\"$workload\", reporter=~\"$qrep\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[5m])) by (source_workload, source_workload_namespace, response_code), 0.001)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -455,7 +270,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 20
+        "y": 10
       },
       "id": 20,
       "options": {
@@ -475,69 +290,6 @@
       "type": "text"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 5,
-        "y": 20
-      },
-      "id": 23,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "sum(fastapi_inprogress)",
-          "instant": false,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Requests In Progress (WIP)",
-      "type": "stat"
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -550,9 +302,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 15,
-        "x": 9,
-        "y": 20
+        "w": 19,
+        "x": 5,
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 35,
@@ -591,7 +343,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter=~\"$qrep\",destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le)) / 1000) or histogram_quantile(0.50, sum(irate(istio_request_duration_seconds_bucket{reporter=~\"$qrep\",destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+          "expr": "(histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter=~\"$qrep\",destination_workload=~\"$workload\", destination_workload_namespace=\"default\"}[1m])) by (le)) / 1000) or histogram_quantile(0.50, sum(irate(istio_request_duration_seconds_bucket{reporter=~\"$qrep\",destination_workload=~\"$workload\", destination_workload_namespace=\"default\"}[1m])) by (le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -603,7 +355,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter=~\"$qrep\",destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le)) / 1000) or histogram_quantile(0.90, sum(irate(istio_request_duration_seconds_bucket{reporter=~\"$qrep\",destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+          "expr": "(histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter=~\"$qrep\",destination_workload=~\"$workload\", destination_workload_namespace=\"default\"}[1m])) by (le)) / 1000) or histogram_quantile(0.90, sum(irate(istio_request_duration_seconds_bucket{reporter=~\"$qrep\",destination_workload=~\"$workload\", destination_workload_namespace=\"default\"}[1m])) by (le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -662,7 +414,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 29
+        "y": 19
       },
       "id": 29,
       "options": {
@@ -682,69 +434,6 @@
       "type": "text"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "noValue": "No Data",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 500
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 5,
-        "y": 29
-      },
-      "id": 31,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "sum(rate(fastapi_http_request_size_bytes_sum{handler=\"/predict\"}[30m])) / sum(rate(fastapi_http_request_size_bytes_count{handler=\"/predict\"}[30m]))",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Request Size (WIP)",
-      "type": "stat"
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -757,9 +446,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 15,
-        "x": 9,
-        "y": 29
+        "w": 19,
+        "x": 5,
+        "y": 19
       },
       "hiddenSeries": false,
       "id": 39,
@@ -797,7 +486,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -810,7 +499,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -823,7 +512,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -937,7 +626,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 38
+        "y": 28
       },
       "id": 52,
       "options": {
@@ -957,69 +646,6 @@
       "type": "text"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "noValue": "No Data",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 500
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 5,
-        "y": 38
-      },
-      "id": 53,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "sum(rate(fastapi_http_request_size_bytes_sum{handler=\"/predict\"}[30m])) / sum(rate(fastapi_http_request_size_bytes_count{handler=\"/predict\"}[30m]))",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Response Size (WIP)",
-      "type": "stat"
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -1032,9 +658,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 15,
-        "x": 9,
-        "y": 38
+        "w": 19,
+        "x": 5,
+        "y": 28
       },
       "hiddenSeries": false,
       "id": 55,
@@ -1072,7 +698,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1085,7 +711,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1098,7 +724,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1111,7 +737,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1124,7 +750,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy!=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy!=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1137,7 +763,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy!=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy!=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1150,7 +776,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy!=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy!=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1163,7 +789,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy!=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
+          "expr": "histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter=~\"$qrep\", connection_security_policy!=\"mutual_tls\", destination_workload=~\"$workload\", destination_workload_namespace=\"default\", source_workload=~\"$srcwl\", source_workload_namespace=~\"$srcns\"}[1m])) by (source_workload, source_workload_namespace, le))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1213,7 +839,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 37
       },
       "id": 25,
       "panels": [],
@@ -1238,11 +864,11 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 48
+        "y": 38
       },
       "id": 40,
       "options": {
-        "content": "# CPU Usage\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 \n\n",
+        "content": "# CPU Usage\n\nThis visualizes CPU Usage for Specific Inference Server Deployment\n\n",
         "mode": "markdown"
       },
       "pluginVersion": "9.0.2",
@@ -1259,6 +885,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "$datasource"
       },
       "fieldConfig": {
@@ -1271,8 +898,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1288,7 +914,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 48
+        "y": 38
       },
       "id": 45,
       "interval": "1m",
@@ -1311,7 +937,7 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{cluster=\"$cluster\", namespace=\"$namespace\"}) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", resource=\"cpu\"})",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"default\", pod=~\"$workload.*\"}[1m]))",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 2,
@@ -1327,6 +953,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
+        "type": "prometheus",
         "uid": "$datasource"
       },
       "fill": 10,
@@ -1335,7 +962,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 48
+        "y": 38
       },
       "hiddenSeries": false,
       "id": 43,
@@ -1395,7 +1022,7 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{cluster=\"$cluster\", namespace=\"$namespace\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{cluster=\"$cluster\", namespace=\"default\", pod=~\"$workload.*\"}) by (pod)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{pod}}",
@@ -1406,7 +1033,7 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "scalar(kube_resourcequota{cluster=\"$cluster\", namespace=\"$namespace\", type=\"hard\",resource=\"requests.cpu\"})",
+          "expr": "scalar(kube_resourcequota{cluster=\"$cluster\", namespace=\"default\", type=\"hard\",resource=\"requests.cpu\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "quota - requests",
@@ -1417,7 +1044,7 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "scalar(kube_resourcequota{cluster=\"$cluster\", namespace=\"$namespace\", type=\"hard\",resource=\"limits.cpu\"})",
+          "expr": "scalar(kube_resourcequota{cluster=\"$cluster\", namespace=\"default\", type=\"hard\",resource=\"limits.cpu\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "quota - limits",
@@ -1465,11 +1092,11 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 57
+        "y": 47
       },
       "id": 46,
       "options": {
-        "content": "# Memory Usage\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 \n\n",
+        "content": "# Memory Usage\n\nThis visualizes Memory Usage for Inference Server Deployment\n\n",
         "mode": "markdown"
       },
       "pluginVersion": "9.0.2",
@@ -1486,6 +1113,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "$datasource"
       },
       "fieldConfig": {
@@ -1498,8 +1126,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1515,7 +1142,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 57
+        "y": 47
       },
       "id": 49,
       "interval": "1m",
@@ -1538,7 +1165,7 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", cluster=\"$cluster\", namespace=\"$namespace\",container!=\"\", image!=\"\"}) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", resource=\"memory\"})",
+          "expr": "sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", cluster=\"$cluster\", namespace=\"default\", pod=~\"$workload.*\"}) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"default\", resource=\"memory\", pod=~\"$workload.*\"})",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 2,
@@ -1554,6 +1181,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
+        "type": "prometheus",
         "uid": "$datasource"
       },
       "fill": 10,
@@ -1562,7 +1190,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 57
+        "y": 47
       },
       "hiddenSeries": false,
       "id": 51,
@@ -1622,7 +1250,7 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", cluster=\"$cluster\", namespace=\"$namespace\", container!=\"\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", cluster=\"$cluster\", namespace=\"default\", pod=~\"$workload.*\"  }) by (pod)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{pod}}",
@@ -1633,7 +1261,7 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "scalar(kube_resourcequota{cluster=\"$cluster\", namespace=\"$namespace\", type=\"hard\",resource=\"requests.memory\"})",
+          "expr": "scalar(kube_resourcequota{cluster=\"$cluster\", namespace=\"default\", type=\"hard\",resource=\"requests.memory\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "quota - requests",
@@ -1644,7 +1272,7 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "scalar(kube_resourcequota{cluster=\"$cluster\", namespace=\"$namespace\", type=\"hard\",resource=\"limits.memory\"})",
+          "expr": "scalar(kube_resourcequota{cluster=\"$cluster\", namespace=\"default\", type=\"hard\",resource=\"limits.memory\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "quota - limits",
@@ -1692,11 +1320,11 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 66
+        "y": 56
       },
       "id": 47,
       "options": {
-        "content": "# GPU Usage\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 \n\n",
+        "content": "# GPU Usage\n\nThis visualizes GPU Usage about Node that deployed Inference Server\n\n",
         "mode": "markdown"
       },
       "pluginVersion": "9.0.2",
@@ -1732,7 +1360,7 @@
         "h": 9,
         "w": 19,
         "x": 5,
-        "y": 66
+        "y": 56
       },
       "hiddenSeries": false,
       "id": 57,
@@ -1770,9 +1398,11 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "DCGM_FI_DEV_GPU_UTIL{node=~\"${gpu_node}\", gpu=~\"${gpu_per_gpu_node}\"}",
+          "editorMode": "code",
+          "expr": "DCGM_FI_DEV_GPU_UTIL{namespace=\"default\"}",
           "interval": "",
-          "legendFormat": "GPU {{gpu}}",
+          "legendFormat": "GPU {{pod}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1818,8 +1448,8 @@
       {
         "current": {
           "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "Prometheus",
+          "value": "Prometheus"
         },
         "hide": 0,
         "includeAll": false,
@@ -1828,6 +1458,7 @@
         "name": "datasource",
         "options": [],
         "query": "prometheus",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1862,41 +1493,15 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "backend",
-          "value": "backend"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${datasource}"
-        },
-        "definition": "query_result(sum(istio_requests_total) by (destination_workload_namespace) or sum(istio_tcp_sent_bytes_total) by (destination_workload_namespace))",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "namespace",
-        "options": [],
-        "query": {
-          "query": "query_result(sum(istio_requests_total) by (destination_workload_namespace) or sum(istio_tcp_sent_bytes_total) by (destination_workload_namespace))",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "/.*_namespace=\"([^\"]*).*/",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": "so1s-dev-deployment",
-          "value": "so1s-dev-deployment"
+          "selected": false,
+          "text": "resnet152gpu",
+          "value": "resnet152gpu"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "definition": "query_result((sum(istio_requests_total{destination_workload_namespace=~\"$namespace\"}) by (destination_workload) or sum(istio_requests_total{source_workload_namespace=~\"$namespace\"}) by (source_workload)) or (sum(istio_tcp_sent_bytes_total{destination_workload_namespace=~\"$namespace\"}) by (destination_workload) or sum(istio_tcp_sent_bytes_total{source_workload_namespace=~\"$namespace\"}) by (source_workload)))",
+        "definition": "query_result((sum(istio_requests_total{destination_workload_namespace=\"default\"}) by (destination_workload) or sum(istio_requests_total{source_workload_namespace=~\"$namespace\"}) by (source_workload)) or (sum(istio_tcp_sent_bytes_total{destination_workload_namespace=~\"$namespace\"}) by (destination_workload) or sum(istio_tcp_sent_bytes_total{source_workload_namespace=~\"$namespace\"}) by (source_workload)))",
         "hide": 0,
         "includeAll": false,
         "label": "Workload",
@@ -1904,7 +1509,7 @@
         "name": "workload",
         "options": [],
         "query": {
-          "query": "query_result((sum(istio_requests_total{destination_workload_namespace=~\"$namespace\"}) by (destination_workload) or sum(istio_requests_total{source_workload_namespace=~\"$namespace\"}) by (source_workload)) or (sum(istio_tcp_sent_bytes_total{destination_workload_namespace=~\"$namespace\"}) by (destination_workload) or sum(istio_tcp_sent_bytes_total{source_workload_namespace=~\"$namespace\"}) by (source_workload)))",
+          "query": "query_result((sum(istio_requests_total{destination_workload_namespace=\"default\"}) by (destination_workload) or sum(istio_requests_total{source_workload_namespace=~\"$namespace\"}) by (source_workload)) or (sum(istio_tcp_sent_bytes_total{destination_workload_namespace=~\"$namespace\"}) by (destination_workload) or sum(istio_tcp_sent_bytes_total{source_workload_namespace=~\"$namespace\"}) by (source_workload)))",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -1946,6 +1551,33 @@
       },
       {
         "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=\"default\"}) by (source_workload_namespace) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=\"default\"}) by (source_workload_namespace))",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Inbound Workload Namespace",
+        "multi": true,
+        "name": "srcns",
+        "options": [],
+        "query": {
+          "query": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=\"default\"}) by (source_workload_namespace) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=\"default\"}) by (source_workload_namespace))",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "/.*namespace=\"([^\"]*).*/",
+        "skipUrlSync": false,
+        "sort": 2,
+        "type": "query"
+      },
+      {
+        "current": {
           "selected": true,
           "text": [
             "All"
@@ -1958,34 +1590,7 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "definition": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\"}) by (source_workload_namespace) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\"}) by (source_workload_namespace))",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Inbound Workload Namespace",
-        "multi": true,
-        "name": "srcns",
-        "options": [],
-        "query": {
-          "query": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\"}) by (source_workload_namespace) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\"}) by (source_workload_namespace))",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "/.*namespace=\"([^\"]*).*/",
-        "skipUrlSync": false,
-        "sort": 2,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "definition": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload_namespace=~\"$srcns\"}) by (source_workload) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload_namespace=~\"$srcns\"}) by (source_workload))",
+        "definition": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=\"default\", source_workload_namespace=~\"$srcns\"}) by (source_workload) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=\"default\", source_workload_namespace=~\"$srcns\"}) by (source_workload))",
         "hide": 0,
         "includeAll": true,
         "label": "Inbound Workload",
@@ -1993,7 +1598,7 @@
         "name": "srcwl",
         "options": [],
         "query": {
-          "query": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload_namespace=~\"$srcns\"}) by (source_workload) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=~\"$namespace\", source_workload_namespace=~\"$srcns\"}) by (source_workload))",
+          "query": "query_result(sum(istio_requests_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=\"default\", source_workload_namespace=~\"$srcns\"}) by (source_workload) or sum(istio_tcp_sent_bytes_total{reporter=~\"$qrep\", destination_workload=\"$workload\", destination_workload_namespace=\"default\", source_workload_namespace=~\"$srcns\"}) by (source_workload))",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -2001,69 +1606,17 @@
         "skipUrlSync": false,
         "sort": 3,
         "type": "query"
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": "ip-10-0-2-192.ap-northeast-2.compute.internal",
-          "value": "ip-10-0-2-192.ap-northeast-2.compute.internal"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "definition": "label_values(DCGM_FI_DEV_GPU_UTIL, node)",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "gpu_node",
-        "options": [],
-        "query": {
-          "query": "label_values(DCGM_FI_DEV_GPU_UTIL, node)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "0",
-          "value": "0"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "definition": "label_values(DCGM_FI_DEV_GPU_UTIL{node=\"$gpu_node\"}, gpu)",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "gpu_per_gpu_node",
-        "options": [],
-        "query": {
-          "query": "label_values(DCGM_FI_DEV_GPU_UTIL{node=\"$gpu_node\"}, gpu)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "So1s Inference Server Dashboard",
-  "uid": "FrRcimH4k",
-  "version": 2,
+  "uid": "db8VpJHVz",
+  "version": 3,
   "weekStart": ""
 }

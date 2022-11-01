@@ -32,11 +32,11 @@ elasticsearch:
     resources:
       requests:
         storage: 3Gi
-  esConfig:
-    elasticsearch.yml: |
-      xpack:
-        security:
-          enabled: false
+  # esConfig:
+  #   elasticsearch.yml: |
+  #     xpack:
+  #       security:
+  #         enabled: false
 
 kibana:
   enabled: true

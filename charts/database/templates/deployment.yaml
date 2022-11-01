@@ -37,6 +37,12 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+          - name: TZ
+            valueFrom:
+              configMapKeyRef:
+                name: {{ include "database.fullname" . }}
+                key: POSTGRES_TZ
           volumeMounts:
           - name: postgresql-storage
             mountPath: /var/lib/postgresql

@@ -57,3 +57,6 @@ resources:
   requests:
     memory: "450Mi"
     cpu: "300m"
+
+postgresConfiguration:
+  POSTGRES_TZ: 'Asia/Seoul'

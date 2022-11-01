@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/So1S/deploy.git
-    targetRevision: main
+    targetRevision: SO1S-498-frontend-각-테이블-페이지-별-age-시간대-수정
     path: charts/database
 
     helm:

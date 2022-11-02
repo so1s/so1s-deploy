@@ -52,6 +52,10 @@ kibana:
   gateway:
     hosts:
       - kibana.so1s.io
+  kibanaConfig:
+    kibana.yml: |
+      elasticsearch.username: "elastic"
+      elasticsearch.password: "changeme"
 
 config:
   fluent-bit.conf: |

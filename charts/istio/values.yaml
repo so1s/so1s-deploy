@@ -9,6 +9,10 @@ ingress:
 istio-gateway: {}
 istiod: {}
 
+kiali:
+  gateway:
+    hosts:
+      - kiali.so1s.io
 
 preInstall:
   tolerations: []

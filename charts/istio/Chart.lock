@@ -8,5 +8,11 @@ dependencies:
 - name: istiod
   repository: ""
   version: 1.14.2
-digest: sha256:d468f1595fb447a9287b474e0f35023cb433885372fe97c7d21847aa54dc6261
-generated: "2022-09-05T13:01:45.35802856+09:00"
+- name: kiali-server
+  repository: https://kiali.org/helm-charts
+  version: 1.58.0
+- name: kiali-operator
+  repository: https://kiali.org/helm-charts
+  version: 1.58.0
+digest: sha256:1bdd6b1f37bec27f48aaca5fd55972c5b9200f2f2a636c8009f48730403eea97
+generated: "2022-11-03T08:10:49.346197704+09:00"

@@ -219,6 +219,8 @@ config:
         Logstash_format     off
         Trace_Output        on
         Trace_Error         on
+        tls        On
+        tls.verify Off
 
   default-log.conf: |
     [INPUT]

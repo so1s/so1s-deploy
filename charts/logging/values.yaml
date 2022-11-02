@@ -32,6 +32,7 @@ elasticsearch:
     resources:
       requests:
         storage: 3Gi
+  protocol: https
   esConfig:
     elasticsearch.yml: |
       xpack.security.enabled: true
@@ -73,11 +74,23 @@ kibana:
   gateway:
     hosts:
       - kibana.so1s.io
+  protocol: https
   kibanaConfig:
     kibana.yml: |
+      server.ssl:
+        enabled: true
+        key: /usr/share/kibana/config/certs/elastic-certificate.pem
+        certificate: /usr/share/kibana/config/certs/elastic-certificate.pem
+      elasticsearch.ssl:
+        certificateAuthorities: /usr/share/kibana/config/certs/elastic-certificate.pem
+        verificationMode: certificate
       xpack.security.encryptionKey: ${KIBANA_SECURITY_ENCRYPTION_KEY}
       xpack.reporting.encryptionKey: ${KIBANA_REPORTING_ENCRYPTION_KEY}
       xpack.encryptedSavedObjects.encryptionKey: ${KIBANA_SAVED_OBJECTS_ENCRYPTION_KEY}
+  secretMounts:
+    - name: elastic-certificate-pem
+      secretName: elastic-certificate-pem
+      path: /usr/share/kibana/config/certs
   extraEnvs:
     - name: 'ELASTICSEARCH_USERNAME'
       valueFrom:

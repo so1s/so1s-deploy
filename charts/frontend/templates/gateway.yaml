@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ include "frontend.fullname" . }}
+spec:
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+      {{ toYaml .Values.ingress.hosts | indent 4 }}
+  - port:
+      number: 9443
+      name: http-dev
+      protocol: HTTP
+    hosts:
+      {{ toYaml .Values.ingress.hosts | indent 4 }}

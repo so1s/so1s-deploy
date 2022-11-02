@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: so1s-frontend-app-dev
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: frontend=ghcr.io/so1s/frontend
+    argocd-image-updater.argoproj.io/frontend.update-strategy: latest
+    argocd-image-updater.argoproj.io/frontend.helm.image-name: image.repository
+    argocd-image-updater.argoproj.io/frontend.helm.image-tag: image.tag
+spec:
+  project: so1s-project-dev
+
+  source:
+    repoURL: https://github.com/So1S/deploy.git
+    targetRevision: main
+    path: charts/frontend
+
+    helm:
+      releaseName: frontend
+      valueFiles:
+        - dev-values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: frontend
+
+  syncPolicy:
+    automated:
+        prune: true
+        selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

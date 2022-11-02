@@ -6,6 +6,9 @@ namespaceOverride: ""
 
 replicaCount: 1
 
+istioInject:
+    enabled: false
+
 hostname: ""
 
 image:
@@ -121,3 +124,6 @@ swagger:
 pullSecret:
   enabled: false
   dockerConfigJson: ""
+
+preInstall:
+  tolerations: []

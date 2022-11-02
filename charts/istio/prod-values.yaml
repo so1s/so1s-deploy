@@ -21,13 +21,23 @@ istio-gateway:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"
 
 istiod:
+  global:
+    proxy:
+      autoInject: disabled
   pilot:
     tolerations:
       - key: kind
         operator: "Equal"
-        value: "api"
+        value: "library"
+        effect: "NoSchedule"
+
+preInstall:
+  tolerations:
+      - key: kind
+        operator: "Equal"
+        value: "library"
         effect: "NoSchedule"

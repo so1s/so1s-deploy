@@ -4,6 +4,9 @@ environment: "develop"
 
 fullnameOverride: "so1s-dev" # 중복된 ClusterRole이 생기면 안되므로 각자 이름을 써놓고 작업해주세요
 
+istioInject:
+    enabled: true
+
 image:
   repository: "ghcr.io/so1s/api-server"
   tag: "latest"
@@ -21,7 +24,7 @@ autoscaling:
 tolerations:
   - key: kind
     operator: "Equal"
-    value: "api"
+    value: "application"
     effect: "NoSchedule"
 
 resourceQuota:
@@ -39,7 +42,7 @@ resources:
 ingress:
   annotations: {}
   hosts:
-    - test-www.so1s.io
+    - test-backend.so1s.io
   paths:
     - /
   tls: []
@@ -81,7 +84,7 @@ swagger:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "application"
       effect: "NoSchedule"
 
   ingress:
@@ -96,3 +99,10 @@ swagger:
   service:
     port: 80
     targetPort: 8080
+
+preInstall:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "application"
+      effect: "NoSchedule"

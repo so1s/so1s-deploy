@@ -1,0 +1,36 @@
+name: CI
+on: pull_request
+
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Set up Helm
+        uses: azure/setup-helm@v3.3
+        with:
+          version: v3.8.2
+      - name: Helm Deps
+        run: |
+          for dir in $(ls -d charts/*); do
+            FILE="Chart.yaml"
+ 
+            if [ -e $dir/$FILE ];then
+              helm dependency update $dir;
+              helm dependency list $dir;
+            fi
+          done
+      - name: lint chart
+        run: |
+          set -e
+          FILE="Chart.yaml"
+          for dir in $(ls -d charts/*); do
+          NAME=$(echo $dir | cut -d '/' -f2)
+
+          if [ -e $dir/$FILE ];then
+              helm lint $dir --with-subcharts \
+              && helm template $NAME -n $NAME -f ./charts/$NAME/dev-values.yaml ./charts/$NAME  --create-namespace --wait > dev-$NAME-template.yaml \
+              && helm template $NAME -n $NAME -f ./charts/$NAME/prod-values.yaml ./charts/$NAME  --create-namespace --wait > prod-$NAME-template.yaml
+          fi
+          done

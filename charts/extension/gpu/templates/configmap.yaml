@@ -1,0 +1,10 @@
+{{- if .Values.binpackScheduling.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gpu-scheduler-config
+  namespace: kube-system
+data:
+  gpu-scheduler-config.yaml: |
+    {{- tpl .Values.binpackScheduling.configMap . | nindent 4 }}
+{{- end }}

@@ -16,58 +16,42 @@ serviceAccount:
   name: ""
 
 elasticsearch:
-  enabled: false
+  enabled: true
+  replicas: 1
+  minimumMasterNodes: 1
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "250m"
+      memory: "512Mi"
+  tolerations: []
+  volumeClaimTemplate:
+    accessModes: ["ReadWriteOnce"]
+    resources:
+      requests:
+        storage: 3Gi
+  # esConfig:
+  #   elasticsearch.yml: |
+  #     xpack:
+  #       security:
+  #         enabled: false
+
 kibana:
-  enabled: false
-
-resources:
-  {}
-  # limits:
-  #   memory: 200Mi
-  # requests:
-  #   cpu: 500m
-  #   memory: 100Mi
-
-nodeSelector: {}
-
-additionalTolerations: []
-
-affinity: {}
-
-serviceMonitor:
-  service:
-    type: ClusterIP
-    port: 2020
-    targetPort: 2020
-  # When set true then use a ServiceMonitor to configure scraping
-  enabled: false
-  # Set the namespace the ServiceMonitor should be deployed
-  namespace: default
-  # Set how frequently Prometheus should scrape
-  interval: 30s
-  # Set path of metrics, e.g /api/v1/metrics/prometheus
-  telemetryPath: /api/v1/metrics/prometheus
-  # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
-  labels: ""
-  # Set timeout for scrape
-  timeout: 10s
-  # Set relabel_configs as per https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
-  relabelings: []
-  # Set of labels to transfer on the Kubernetes Service onto the target.
-  targetLabels: []
-  metricRelabelings: []
-
-###############################
-#config-map
-###############################
-
-awsConfig:
-  cluster.name: ""
-  http.server: "" # "Off"
-  http.port: "" # "2020"
-  read.head: "" # "Off"
-  read.tail: "" # "On"
-  logs.region: "" # "ap-northeast-2"
+  enabled: true
+  elasticsearchHosts: "http://elasticsearch-master-headless:9200"
+  tolerations: []
+  resources:
+    requests:
+      cpu: "25m"
+      memory: "256Mi"
+    limits:
+      cpu: "25m"
+      memory: "256Mi"
+  gateway:
+    hosts:
+      - kibana.so1s.io
 
 config:
   fluent-bit.conf: |
@@ -121,17 +105,19 @@ config:
         Name                es
         Alias               logging
         Match               logging.*
-        Host                elasticsearch-master
+        Index               logging
+        Host                elasticsearch-master-headless
         Port                9200
-        Logstash_format     on
-        Replace_dots        on
+        Logstash_format     off
+        Trace_Output        on
+        Trace_Error         on
 
   api-log.conf: |
     [INPUT]
         Name                tail
         Alias               api-server
         Tag                 backend.*
-        Path                /var/log/containers/so1s-dev-deployment*
+        Path                /var/log/containers/so1s-prod-deployment*
         Parser              docker
         DB                  /var/fluent-bit/state/backend_log.db
         Mem_Buf_Limit       50MB
@@ -143,12 +129,14 @@ config:
 
     [OUTPUT]
         Name                es
-        Alias               backend
-        match               backend.*
-        Host                elasticsearch-master
+        Alias               api-server
+        Match               backend.*
+        Index               api-server
+        Host                elasticsearch-master-headless
         Port                9200
-        Logstash_format     on
-        Replace_dots        on
+        Logstash_format     off
+        Trace_Output        on
+        Trace_Error         on
 
   inference-log.conf: |
     [INPUT]
@@ -169,17 +157,19 @@ config:
         Name                es
         Alias               inference
         Match               inference.*
-        Host                elasticsearch-master
+        Index               inference
+        Host                elasticsearch-master-headless
         Port                9200
-        Logstash_format     on
-        Replace_dots        on
+        Logstash_format     off
+        Trace_Output        on
+        Trace_Error         on
 
   default-log.conf: |
     [INPUT]
         Name                tail
         Alias               default
         Tag                 application.*
-        Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-dev-deployment*, /var/log/containers/inference-*
+        Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-prod-deployment*, /var/log/containers/inference-*
         Path                /var/log/containers/*.log
         Docker_Mode         On
         Docker_Mode_Flush   5
@@ -210,10 +200,12 @@ config:
         Name                es
         Alias               default
         Match               application.*
-        Host                elasticsearch-master
+        Index               default
+        Host                elasticsearch-master-headless
         Port                9200
-        Logstash_format     on
-        Replace_dots        on
+        Logstash_format     off
+        Trace_Output        on
+        Trace_Error         on
 
   parsers.conf: |
     [PARSER]
@@ -239,3 +231,46 @@ config:
         Regex               (?<log>(?<="log":")\d{4}[\/-]\d{1,2}[\/-]\d{1,2}[ T]\d{2}:\d{2}:\d{2}(?!\.).*?)(?<!\\)".*(?<stream>(?<="stream":").*?)".*(?<time>\d{4}-\d{1,2}-\d{1,2}T\d{2}:\d{2}:\d{2}\.\w*).*(?=})
         Time_Key            time
         Time_Format         %Y-%m-%dT%H:%M:%S.%LZ
+
+resources: {}
+
+nodeSelector: {}
+
+additionalTolerations: []
+
+affinity: {}
+
+serviceMonitor:
+  service:
+    type: ClusterIP
+    port: 2020
+    targetPort: 2020
+  # When set true then use a ServiceMonitor to configure scraping
+  enabled: false
+  # Set the namespace the ServiceMonitor should be deployed
+  namespace: default
+  # Set how frequently Prometheus should scrape
+  interval: 30s
+  # Set path of metrics, e.g /api/v1/metrics/prometheus
+  telemetryPath: /api/v1/metrics/prometheus
+  # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
+  labels: ""
+  # Set timeout for scrape
+  timeout: 10s
+  # Set relabel_configs as per https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
+  relabelings: []
+  # Set of labels to transfer on the Kubernetes Service onto the target.
+  targetLabels: []
+  metricRelabelings: []
+
+###############################
+#config-map
+###############################
+
+awsConfig:
+  cluster.name: ""
+  http.server: "" # "Off"
+  http.port: "" # "2020"
+  read.head: "" # "Off"
+  read.tail: "" # "On"
+  logs.region: "" # "ap-northeast-2"

@@ -7,6 +7,20 @@ resources:
     cpu: 150m
     memory: 100Mi
 
+elasticsearch:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+
+kibana:
+  tolerations:
+    - key: kind
+      operator: "Equal"
+      value: "api"
+      effect: "NoSchedule"
+
 serviceMonitor:
   service:
     type: ClusterIP
@@ -26,197 +40,3 @@ serviceMonitor:
   # Set of labels to transfer on the Kubernetes Service onto the target.
   # targetLabels: []
   # metricRelabelings: []
-
-elasticsearch:
-  enabled: true
-  tolerations:
-    - key: kind
-      operator: "Equal"
-      value: "api"
-      effect: "NoSchedule"
-kibana:
-  enabled: true
-  tolerations:
-    - key: kind
-      operator: "Equal"
-      value: "api"
-      effect: "NoSchedule"
-
-awsConfig:
-  cluster.name: "So1s"
-  http.server: "On"
-  http.port: 2020
-  read.head: "Off"
-  read.tail: "On"
-  logs.region: "ap-northeast-2"
-
-config:
-  fluent-bit.conf: |
-    [SERVICE]
-        Flush                     5
-        Log_Level                 info
-        Daemon                    off
-        Parsers_File              parsers.conf
-        HTTP_Server               ${HTTP_SERVER}
-        HTTP_Listen               0.0.0.0
-        HTTP_Port                 ${HTTP_PORT}
-        storage.path              /var/fluent-bit/state/flb-storage/
-        storage.sync              normal
-        storage.checksum          off
-        storage.backlog.mem_limit 5M
-        
-    @INCLUDE default-log.conf
-    @INCLUDE api-log.conf
-    @INCLUDE inference-log.conf
-    @INCLUDE logging-log.conf
-
-  logging-log.conf: |
-    [INPUT]
-        Name                tail
-        Alias               fluent-bit
-        Tag                 logging.*
-        Path                /var/log/containers/fluent-bit*
-        Parser              docker
-        DB                  /var/fluent-bit/state/flb_log.db
-        Mem_Buf_Limit       5MB
-        Skip_Long_Lines     On
-        Refresh_Interval    10
-        Read_from_Head      ${READ_FROM_HEAD}
-
-    [INPUT]
-        Name                tail
-        Alias               cloudwatch-agent
-        Tag                 logging.*
-        Path                /var/log/containers/cloudwatch-agent*
-        Docker_Mode         On
-        Docker_Mode_Flush   5
-        Docker_Mode_Parser  cwagent_firstline
-        Parser              docker
-        DB                  /var/fluent-bit/state/flb_cwagent.db
-        Mem_Buf_Limit       5MB
-        Skip_Long_Lines     On
-        Refresh_Interval    10 
-        Read_from_Head      ${READ_FROM_HEAD}
-
-    [OUTPUT]
-        Name                es
-        Alias               logging
-        Match               logging.*
-        Host                elasticsearch-master
-        Port                9200
-        Logstash_format     on
-        Replace_dots        on
-
-  api-log.conf: |
-    [INPUT]
-        Name                tail
-        Alias               api-server
-        Tag                 backend.*
-        Path                /var/log/containers/so1s-prod-deployment*
-        Parser              docker
-        DB                  /var/fluent-bit/state/backend_log.db
-        Mem_Buf_Limit       50MB
-        Skip_Long_Lines     On
-        Refresh_Interval    10
-        Rotate_Wait         30
-        storage.type        filesystem
-        Read_from_Head      ${READ_FROM_HEAD}
-
-    [OUTPUT]
-        Name                es
-        Alias               api-server
-        Match               backend.*
-        Host                elasticsearch-master
-        Port                9200
-        Logstash_format     on
-        Replace_dots        on
-
-  inference-log.conf: |
-    [INPUT]
-        Name                tail
-        Alias               inference
-        Tag                 inference.*
-        Path                /var/log/containers/inference-*
-        Parser              docker
-        DB                  /var/fluent-bit/state/inference_log.db
-        Mem_Buf_Limit       50MB
-        Skip_Long_Lines     On
-        Refresh_Interval    10
-        Rotate_Wait         30
-        storage.type        filesystem
-        Read_from_Head      ${READ_FROM_HEAD}
-
-    [OUTPUT]
-        Name                es
-        Alias               inference
-        Match               inference.*
-        Host                elasticsearch-master
-        Port                9200
-        Logstash_format     on
-        Replace_dots        on
-
-  default-log.conf: |
-    [INPUT]
-        Name                tail
-        Alias               default
-        Tag                 application.*
-        Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-prod-deployment*, /var/log/containers/inference-*
-        Path                /var/log/containers/*.log
-        Docker_Mode         On
-        Docker_Mode_Flush   5
-        Docker_Mode_Parser  container_firstline
-        Parser              docker
-        DB                  /var/fluent-bit/state/flb_container.db
-        Mem_Buf_Limit       50MB
-        Skip_Long_Lines     On
-        Refresh_Interval    10
-        Rotate_Wait         30
-        storage.type        filesystem
-        Read_from_Head      ${READ_FROM_HEAD}
-
-    [FILTER]
-        Name                kubernetes
-        Match               *
-        Kube_URL            https://kubernetes.default.svc:443
-        Merge_Log           On
-        Merge_Log_Key       log
-        K8S-Logging.Parser  On
-        K8S-Logging.Exclude Off
-        Labels              Off
-        Annotations         Off
-        Use_Kubelet         On
-        Buffer_Size         0
-
-    [OUTPUT]
-        Name                es
-        Alias               default
-        Match               application.*
-        Host                elasticsearch-master
-        Port                9200
-        Logstash_format     on
-        Replace_dots        on
-
-  parsers.conf: |
-    [PARSER]
-        Name                docker
-        Format              json
-        Time_Key            time
-        Time_Format         %Y-%m-%dT%H:%M:%S.%LZ
-        Time_Keep           On
-        # Command       | Decoder   | Field | Optional Action   |
-        # ==============|===========|=======|===================|
-        Decode_Field_As   json        log
-
-    [PARSER]
-        Name                container_firstline
-        Format              regex
-        Regex               (?<log>(?<="log":")\S(?!\.).*?)(?<!\\)".*(?<stream>(?<="stream":").*?)".*(?<time>\d{4}-\d{1,2}-\d{1,2}T\d{2}:\d{2}:\d{2}\.\w*).*(?=})
-        Time_Key            time
-        Time_Format         %Y-%m-%dT%H:%M:%S.%LZ
-
-    [PARSER]
-        Name                cwagent_firstline
-        Format              regex
-        Regex               (?<log>(?<="log":")\d{4}[\/-]\d{1,2}[\/-]\d{1,2}[ T]\d{2}:\d{2}:\d{2}(?!\.).*?)(?<!\\)".*(?<stream>(?<="stream":").*?)".*(?<time>\d{4}-\d{1,2}-\d{1,2}T\d{2}:\d{2}:\d{2}\.\w*).*(?=})
-        Time_Key            time
-        Time_Format         %Y-%m-%dT%H:%M:%S.%LZ

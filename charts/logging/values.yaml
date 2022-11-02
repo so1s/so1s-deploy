@@ -15,19 +15,291 @@ serviceAccount:
   annotations: {}
   name: ""
 
+elasticsearch:
+  enabled: true
+  replicas: 1
+  minimumMasterNodes: 1
+  resources:
+    requests:
+      cpu: "1000m"
+      memory: "2Gi"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
+  tolerations: []
+  volumeClaimTemplate:
+    accessModes: ["ReadWriteOnce"]
+    resources:
+      requests:
+        storage: 3Gi
+  protocol: https
+  esConfig:
+    elasticsearch.yml: |
+      xpack.security.enabled: true
+      xpack.security.authc.api_key.enabled: true
+      xpack.security.transport.ssl.enabled: true
+      xpack.security.transport.ssl.verification_mode: certificate
+      xpack.security.transport.ssl.keystore.path: /usr/share/elasticsearch/config/certs/elastic-certificates.p12
+      xpack.security.transport.ssl.truststore.path: /usr/share/elasticsearch/config/certs/elastic-certificates.p12
+      xpack.security.http.ssl.enabled: true
+      xpack.security.http.ssl.truststore.path: /usr/share/elasticsearch/config/certs/elastic-certificates.p12
+      xpack.security.http.ssl.keystore.path: /usr/share/elasticsearch/config/certs/elastic-certificates.p12
+  extraEnvs:
+    - name: ELASTIC_USERNAME
+      value: elastic
+    - name: ELASTIC_PASSWORD
+      value: changeme
+  secretMounts:
+    - name: elastic-certificates
+      secretName: elastic-certificates
+      path: /usr/share/elasticsearch/config/certs
+
+kibana:
+  enabled: true
+  elasticsearchHosts: "https://elasticsearch-master-headless:9200"
+  tolerations: []
+  resources:
+    requests:
+      cpu: "150m"
+      memory: "500Mi"
+    limits:
+      cpu: "150m"
+      memory: "500Mi"
+  gateway:
+    hosts:
+      - kibana.so1s.io
+  protocol: https
+  kibanaConfig:
+    kibana.yml: |
+      server.ssl:
+        enabled: true
+        key: /usr/share/kibana/config/certs/elastic-certificate.pem
+        certificate: /usr/share/kibana/config/certs/elastic-certificate.pem
+      elasticsearch.ssl:
+        certificateAuthorities: /usr/share/kibana/config/certs/elastic-certificate.pem
+        verificationMode: certificate
+      xpack.security.encryptionKey: ${KIBANA_SECURITY_ENCRYPTION_KEY}
+      xpack.reporting.encryptionKey: ${KIBANA_REPORTING_ENCRYPTION_KEY}
+      xpack.encryptedSavedObjects.encryptionKey: ${KIBANA_SAVED_OBJECTS_ENCRYPTION_KEY}
+  secretMounts:
+    - name: elastic-certificate-pem
+      secretName: elastic-certificate-pem
+      path: /usr/share/kibana/config/certs
+  extraEnvs:
+    - name: 'ELASTICSEARCH_USERNAME'
+      value: elastic
+    - name: 'ELASTICSEARCH_PASSWORD'
+      value: changeme
+    - name: 'KIBANA_SECURITY_ENCRYPTION_KEY'
+      valueFrom:
+        secretKeyRef:
+          name: kibana-credentials
+          key: security-encryption-key
+    - name: 'KIBANA_REPORTING_ENCRYPTION_KEY'
+      valueFrom:
+        secretKeyRef:
+          name: kibana-credentials
+          key: reporting-encryption-key
+    - name: 'KIBANA_SAVED_OBJECTS_ENCRYPTION_KEY'
+      valueFrom:
+        secretKeyRef:
+          name: kibana-credentials
+          key: saved-objects-encryption-key
+
+config:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush                     5
+        Log_Level                 info
+        Daemon                    off
+        Parsers_File              parsers.conf
+        HTTP_Server               ${HTTP_SERVER}
+        HTTP_Listen               0.0.0.0
+        HTTP_Port                 ${HTTP_PORT}
+        storage.path              /var/fluent-bit/state/flb-storage/
+        storage.sync              normal
+        storage.checksum          off
+        storage.backlog.mem_limit 5M
+        
+    @INCLUDE default-log.conf
+    @INCLUDE api-log.conf
+    @INCLUDE inference-log.conf
+    @INCLUDE logging-log.conf
+
+  logging-log.conf: |
+    [INPUT]
+        Name                tail
+        Alias               fluent-bit
+        Tag                 logging.*
+        Path                /var/log/containers/fluent-bit*
+        Parser              docker
+        DB                  /var/fluent-bit/state/flb_log.db
+        Mem_Buf_Limit       5MB
+        Skip_Long_Lines     On
+        Refresh_Interval    10
+        Read_from_Head      ${READ_FROM_HEAD}
+
+    [INPUT]
+        Name                tail
+        Alias               cloudwatch-agent
+        Tag                 logging.*
+        Path                /var/log/containers/cloudwatch-agent*
+        Docker_Mode         On
+        Docker_Mode_Flush   5
+        Docker_Mode_Parser  cwagent_firstline
+        Parser              docker
+        DB                  /var/fluent-bit/state/flb_cwagent.db
+        Mem_Buf_Limit       5MB
+        Skip_Long_Lines     On
+        Refresh_Interval    10 
+        Read_from_Head      ${READ_FROM_HEAD}
+
+    [OUTPUT]
+        Name                es
+        Alias               logging
+        Match               logging.*
+        Index               logging
+        Host                elasticsearch-master-headless
+        Port                9200
+        Logstash_format     off
+        Trace_Output        on
+        Trace_Error         on
+        tls        On
+        tls.verify Off
+
+  api-log.conf: |
+    [INPUT]
+        Name                tail
+        Alias               api-server
+        Tag                 backend.*
+        Path                /var/log/containers/so1s-prod-deployment*
+        Parser              docker
+        DB                  /var/fluent-bit/state/backend_log.db
+        Mem_Buf_Limit       50MB
+        Skip_Long_Lines     On
+        Refresh_Interval    10
+        Rotate_Wait         30
+        storage.type        filesystem
+        Read_from_Head      ${READ_FROM_HEAD}
+
+    [OUTPUT]
+        Name                es
+        Alias               api-server
+        Match               backend.*
+        Index               api-server
+        Host                elasticsearch-master-headless
+        Port                9200
+        Logstash_format     off
+        Trace_Output        on
+        Trace_Error         on
+        tls        On
+        tls.verify Off
+
+  inference-log.conf: |
+    [INPUT]
+        Name                tail
+        Alias               inference
+        Tag                 inference.*
+        Path                /var/log/containers/inference-*
+        Parser              docker
+        DB                  /var/fluent-bit/state/inference_log.db
+        Mem_Buf_Limit       50MB
+        Skip_Long_Lines     On
+        Refresh_Interval    10
+        Rotate_Wait         30
+        storage.type        filesystem
+        Read_from_Head      ${READ_FROM_HEAD}
+
+    [OUTPUT]
+        Name                es
+        Alias               inference
+        Match               inference.*
+        Index               inference
+        Host                elasticsearch-master-headless
+        Port                9200
+        Logstash_format     off
+        Trace_Output        on
+        Trace_Error         on
+        tls        On
+        tls.verify Off
+
+  default-log.conf: |
+    [INPUT]
+        Name                tail
+        Alias               default
+        Tag                 application.*
+        Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-prod-deployment*, /var/log/containers/inference-*
+        Path                /var/log/containers/*.log
+        Docker_Mode         On
+        Docker_Mode_Flush   5
+        Docker_Mode_Parser  container_firstline
+        Parser              docker
+        DB                  /var/fluent-bit/state/flb_container.db
+        Mem_Buf_Limit       50MB
+        Skip_Long_Lines     On
+        Refresh_Interval    10
+        Rotate_Wait         30
+        storage.type        filesystem
+        Read_from_Head      ${READ_FROM_HEAD}
+
+    [FILTER]
+        Name                kubernetes
+        Match               *
+        Kube_URL            https://kubernetes.default.svc:443
+        Merge_Log           On
+        Merge_Log_Key       log
+        K8S-Logging.Parser  On
+        K8S-Logging.Exclude Off
+        Labels              Off
+        Annotations         Off
+        Use_Kubelet         On
+        Buffer_Size         0
+
+    [OUTPUT]
+        Name                es
+        Alias               default
+        Match               application.*
+        Index               default
+        Host                elasticsearch-master-headless
+        Port                9200
+        Logstash_format     off
+        Trace_Output        on
+        Trace_Error         on
+        tls        On
+        tls.verify Off
+  
+  parsers.conf: |
+    [PARSER]
+        Name                docker
+        Format              json
+        Time_Key            time
+        Time_Format         %Y-%m-%dT%H:%M:%S.%LZ
+        Time_Keep           On
+        # Command       | Decoder   | Field | Optional Action   |
+        # ==============|===========|=======|===================|
+        Decode_Field_As   json        log
+
+    [PARSER]
+        Name                container_firstline
+        Format              regex
+        Regex               (?<log>(?<="log":")\S(?!\.).*?)(?<!\\)".*(?<stream>(?<="stream":").*?)".*(?<time>\d{4}-\d{1,2}-\d{1,2}T\d{2}:\d{2}:\d{2}\.\w*).*(?=})
+        Time_Key            time
+        Time_Format         %Y-%m-%dT%H:%M:%S.%LZ
+
+    [PARSER]
+        Name                cwagent_firstline
+        Format              regex
+        Regex               (?<log>(?<="log":")\d{4}[\/-]\d{1,2}[\/-]\d{1,2}[ T]\d{2}:\d{2}:\d{2}(?!\.).*?)(?<!\\)".*(?<stream>(?<="stream":").*?)".*(?<time>\d{4}-\d{1,2}-\d{1,2}T\d{2}:\d{2}:\d{2}\.\w*).*(?=})
+        Time_Key            time
+        Time_Format         %Y-%m-%dT%H:%M:%S.%LZ
+
 resources: {}
-            # limits:
-            #   memory: 200Mi
-            # requests:
-            #   cpu: 500m
-            #   memory: 100Mi
 
 nodeSelector: {}
 
 additionalTolerations: []
 
 affinity: {}
-
 
 serviceMonitor:
   service:
@@ -52,7 +324,6 @@ serviceMonitor:
   targetLabels: []
   metricRelabelings: []
 
-
 ###############################
 #config-map
 ###############################
@@ -64,179 +335,3 @@ awsConfig:
   read.head: "" # "Off"
   read.tail: "" # "On"
   logs.region: "" # "ap-northeast-2"
-
-config:
-    fluent-bit.conf: |
-      [SERVICE]
-          Flush                     5
-          Log_Level                 info
-          Daemon                    off
-          Parsers_File              parsers.conf
-          HTTP_Server               ${HTTP_SERVER}
-          HTTP_Listen               0.0.0.0
-          HTTP_Port                 ${HTTP_PORT}
-          storage.path              /var/fluent-bit/state/flb-storage/
-          storage.sync              normal
-          storage.checksum          off
-          storage.backlog.mem_limit 5M
-          
-      @INCLUDE default-log.conf
-      @INCLUDE api-log.conf
-      @INCLUDE inference-log.conf
-      @INCLUDE logging-log.conf
-    
-
-    logging-log.conf: |
-      [INPUT]
-          Name                tail
-          Alias               fluent-bit
-          Tag                 logging.*
-          Path                /var/log/containers/fluent-bit*
-          Parser              docker
-          DB                  /var/fluent-bit/state/flb_log.db
-          Mem_Buf_Limit       5MB
-          Skip_Long_Lines     On
-          Refresh_Interval    10
-          Read_from_Head      ${READ_FROM_HEAD}
-
-      [INPUT]
-          Name                tail
-          Alias               cloudwatch-agent
-          Tag                 logging.*
-          Path                /var/log/containers/cloudwatch-agent*
-          Docker_Mode         On
-          Docker_Mode_Flush   5
-          Docker_Mode_Parser  cwagent_firstline
-          Parser              docker
-          DB                  /var/fluent-bit/state/flb_cwagent.db
-          Mem_Buf_Limit       5MB
-          Skip_Long_Lines     On
-          Refresh_Interval    10 
-          Read_from_Head      ${READ_FROM_HEAD}
-
-      [OUTPUT]
-          Name                cloudwatch_logs
-          Alias               logging
-          Match               logging.*
-          region              ${AWS_REGION}
-          log_group_name      /aws/containerinsights/${CLUSTER_NAME}/logging
-          log_stream_prefix   ${HOST_NAME}-
-          auto_create_group   true
-          extra_user_agent    container-insights
-
-    api-log.conf: |
-      [INPUT]
-          Name                tail
-          Alias               api-server
-          Tag                 backend.*
-          Path                /var/log/containers/so1s-dev-deployment*
-          Parser              docker
-          DB                  /var/fluent-bit/state/backend_log.db
-          Mem_Buf_Limit       50MB
-          Skip_Long_Lines     On
-          Refresh_Interval    10
-          Rotate_Wait         30
-          storage.type        filesystem
-          Read_from_Head      ${READ_FROM_HEAD}
-
-      [OUTPUT]
-          Name                cloudwatch_logs
-          Alias               api-server
-          Match               backend.*
-          region              ${AWS_REGION}
-          log_group_name      /aws/containerinsights/${CLUSTER_NAME}/backend
-          log_stream_prefix   ${HOST_NAME}-
-          auto_create_group   true
-          extra_user_agent    container-insights
-
-    inference-log.conf: |
-      [INPUT]
-          Name                tail
-          Alias               inference
-          Tag                 inference.*
-          Path                /var/log/containers/inference-*
-          Parser              docker
-          DB                  /var/fluent-bit/state/inference_log.db
-          Mem_Buf_Limit       50MB
-          Skip_Long_Lines     On
-          Refresh_Interval    10
-          Rotate_Wait         30
-          storage.type        filesystem
-          Read_from_Head      ${READ_FROM_HEAD}
-
-      [OUTPUT]
-          Name                cloudwatch_logs
-          Alias               inference
-          Match               inference.*
-          region              ${AWS_REGION}
-          log_group_name      /aws/containerinsights/${CLUSTER_NAME}/inference
-          log_stream_prefix   ${HOST_NAME}-
-          auto_create_group   true
-          extra_user_agent    container-insights
-
-    default-log.conf: |
-      [INPUT]
-          Name                tail
-          Alias               default
-          Tag                 application.*
-          Exclude_Path        /var/log/containers/cloudwatch-agent*, /var/log/containers/fluent-bit*, /var/log/containers/aws-node*, /var/log/containers/kube-proxy*, /var/log/containers/so1s-dev-deployment*, /var/log/containers/inference-*
-          Path                /var/log/containers/*.log
-          Docker_Mode         On
-          Docker_Mode_Flush   5
-          Docker_Mode_Parser  container_firstline
-          Parser              docker
-          DB                  /var/fluent-bit/state/flb_container.db
-          Mem_Buf_Limit       50MB
-          Skip_Long_Lines     On
-          Refresh_Interval    10
-          Rotate_Wait         30
-          storage.type        filesystem
-          Read_from_Head      ${READ_FROM_HEAD}
-
-      [FILTER]
-          Name                kubernetes
-          Match               *
-          Kube_URL            https://kubernetes.default.svc:443
-          Merge_Log           On
-          Merge_Log_Key       log
-          K8S-Logging.Parser  On
-          K8S-Logging.Exclude Off
-          Labels              Off
-          Annotations         Off
-          Use_Kubelet         On
-          Buffer_Size         0
-
-      [OUTPUT]
-          Name                cloudwatch_logs
-          Alias               default
-          Match               application.*
-          region              ${AWS_REGION}
-          log_group_name      /aws/containerinsights/${CLUSTER_NAME}/application
-          log_stream_prefix   ${HOST_NAME}-
-          auto_create_group   true
-          extra_user_agent    container-insights
-    
-    parsers.conf: |
-      [PARSER]
-          Name                docker
-          Format              json
-          Time_Key            time
-          Time_Format         %Y-%m-%dT%H:%M:%S.%LZ
-          Time_Keep           On
-          # Command       | Decoder   | Field | Optional Action   |
-          # ==============|===========|=======|===================|
-          Decode_Field_As   json        log
-
-      [PARSER]
-          Name                container_firstline
-          Format              regex
-          Regex               (?<log>(?<="log":")\S(?!\.).*?)(?<!\\)".*(?<stream>(?<="stream":").*?)".*(?<time>\d{4}-\d{1,2}-\d{1,2}T\d{2}:\d{2}:\d{2}\.\w*).*(?=})
-          Time_Key            time
-          Time_Format         %Y-%m-%dT%H:%M:%S.%LZ
-
-      [PARSER]
-          Name                cwagent_firstline
-          Format              regex
-          Regex               (?<log>(?<="log":")\d{4}[\/-]\d{1,2}[\/-]\d{1,2}[ T]\d{2}:\d{2}:\d{2}(?!\.).*?)(?<!\\)".*(?<stream>(?<="stream":").*?)".*(?<time>\d{4}-\d{1,2}-\d{1,2}T\d{2}:\d{2}:\d{2}\.\w*).*(?=})
-          Time_Key            time
-          Time_Format         %Y-%m-%dT%H:%M:%S.%LZ

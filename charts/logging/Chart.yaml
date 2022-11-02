@@ -1,6 +1,6 @@
 apiVersion: v2
 name: logging
-description: A Helm chart for So1s AWS-CloudWatch Logging 
+description: A Helm chart for So1s EFK Logging
 type: application
 maintainers:
   - name: JihoLee
@@ -9,6 +9,15 @@ maintainers:
     email: dlatqdlatq@naver.com
   - name: ShinilSeop
     email: shinilseop12@gmail.com
+dependencies:
+  - name: elasticsearch
+    repository: "https://helm.elastic.co"
+    version: 7.17.3
+    condition: elasticsearch.enabled
+  - name: kibana
+    repository: "https://helm.elastic.co"
+    version: 7.17.3
+    condition: kibana.enabled
 sources:
   - https://github.com/So1S/deploy
 

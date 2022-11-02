@@ -44,11 +44,11 @@ kibana:
   tolerations: []
   resources:
     requests:
-      cpu: "25m"
-      memory: "256Mi"
+      cpu: "150m"
+      memory: "500Mi"
     limits:
-      cpu: "25m"
-      memory: "256Mi"
+      cpu: "150m"
+      memory: "500Mi"
   gateway:
     hosts:
       - kibana.so1s.io

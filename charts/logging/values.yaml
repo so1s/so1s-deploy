@@ -163,6 +163,8 @@ config:
         Logstash_format     off
         Trace_Output        on
         Trace_Error         on
+        tls        On
+        tls.verify Off
 
   api-log.conf: |
     [INPUT]
@@ -189,6 +191,8 @@ config:
         Logstash_format     off
         Trace_Output        on
         Trace_Error         on
+        tls        On
+        tls.verify Off
 
   inference-log.conf: |
     [INPUT]
@@ -258,7 +262,9 @@ config:
         Logstash_format     off
         Trace_Output        on
         Trace_Error         on
-
+        tls        On
+        tls.verify Off
+  
   parsers.conf: |
     [PARSER]
         Name                docker

@@ -23,8 +23,6 @@ dependencies:
   - name: istiod
     version: 1.14.2
   - name: kiali-server
-    repository: "https://kiali.org/helm-charts"
     version: 1.58.0
   - name: kiali-operator
-    repository: "https://kiali.org/helm-charts"
     version: 1.58.0

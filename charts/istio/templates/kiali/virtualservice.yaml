@@ -7,7 +7,7 @@ spec:
   hosts:
     {{ toYaml .Values.kiali.gateway.hosts | indent 4 }}
   gateways:
-  - kibana
+  - kiali
   http:
   - match:
     - uri:

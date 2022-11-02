@@ -23,6 +23,6 @@ dependencies:
   - name: istiod
     version: 1.14.2
   - name: kiali-server
-    version: 1.58.0
+    version: 1.54.0
   - name: kiali-operator
-    version: 1.58.0
+    version: 1.54.0

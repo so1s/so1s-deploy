@@ -45,7 +45,7 @@ deployment:
   image_name: quay.io/kiali/kiali
   image_pull_policy: "Always"
   image_pull_secrets: []
-  image_version: v1.58.0 # version like "v1.39" (see: https://quay.io/repository/kiali/kiali?tab=tags) or a digest hash
+  image_version: v1.54.0 # version like "v1.39" (see: https://quay.io/repository/kiali/kiali?tab=tags) or a digest hash
   ingress:
     additional_labels: {}
     class_name: "nginx"
@@ -70,11 +70,10 @@ deployment:
     limits:
       memory: "1Gi"
   secret_name: "kiali"
-  security_context: {}
   service_annotations: {}
   service_type: ""
   tolerations: []
-  version_label: v1.58.0 # v1.39 # v1.39.0 # see: https://quay.io/repository/kiali/kiali?tab=tags
+  version_label: v1.54.0 # v1.39 # v1.39.0 # see: https://quay.io/repository/kiali/kiali?tab=tags
   view_only_mode: false
 
 external_services:

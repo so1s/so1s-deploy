@@ -61,7 +61,7 @@ elasticsearch:
 
 kibana:
   enabled: true
-  elasticsearchHosts: "http://elasticsearch-master-headless:9200"
+  elasticsearchHosts: "https://elasticsearch-master-headless:9200"
   tolerations: []
   resources:
     requests:

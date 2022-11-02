@@ -56,6 +56,7 @@ kibana:
     kibana.yml: |
       elasticsearch.username: "elastic"
       elasticsearch.password: "changeme"
+      xpack.encryptedSavedObjects.encryptionKey: "wgrhHHrwDHsyKQjxLSkgEFefRydtjHWdxpaGyFga"
 
 config:
   fluent-bit.conf: |

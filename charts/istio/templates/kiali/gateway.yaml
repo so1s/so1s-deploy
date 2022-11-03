@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+      {{ toYaml .Values.kiali.gateway.hosts | indent 4 }}
+  - port:
+      number: 9443
+      name: http-dev
+      protocol: HTTP
+    hosts:
+      {{ toYaml .Values.kiali.gateway.hosts | indent 4 }}

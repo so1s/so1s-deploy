@@ -9,7 +9,7 @@ spec:
   project: so1s-project-dev
 
   source:
-    repoURL: https://github.com/So1S/deploy.git
+    repoURL: https://github.com/so1s/so1s-deploy.git
     targetRevision: main
     path: charts/monitoring
 

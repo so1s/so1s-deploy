@@ -22,7 +22,7 @@ dependencies:
   version: 6.32.*
 - condition: metrics-server.enabled
   name: metrics-server
-  repository: https://kubernetes-sigs.github.io/metrics-server/
+  repository: https://kubernetes-sigs.github.io/metrics-server
   version: 3.8.*
 - condition: prometheus-adapter.enabled
   name: prometheus-adapter

@@ -8,5 +8,11 @@ dependencies:
 - name: istiod
   repository: ""
   version: 1.14.2
-digest: sha256:d468f1595fb447a9287b474e0f35023cb433885372fe97c7d21847aa54dc6261
-generated: "2022-09-05T13:01:45.35802856+09:00"
+- name: kiali-server
+  repository: ""
+  version: 1.54.0
+- name: kiali-operator
+  repository: ""
+  version: 1.54.0
+digest: sha256:de6686170700d2666d961184e6cab034c548278ff1a1577e3a7a4e257b695460
+generated: "2022-11-03T08:52:00.145235055+09:00"

@@ -9,10 +9,10 @@ dependencies:
   repository: file://./charts/grafana
   version: 6.32.2
 - name: metrics-server
-  repository: https://kubernetes-sigs.github.io/metrics-server/
+  repository: https://kubernetes-sigs.github.io/metrics-server
   version: 3.8.2
 - name: prometheus-adapter
   repository: https://prometheus-community.github.io/helm-charts
   version: 3.4.1
-digest: sha256:c147dab6943d7c27a02dfaabecf834de135a71ea5231b0053140e9752ac2f0ba
-generated: "2022-10-25T18:39:43.312251+09:00"
+digest: sha256:5bddc0e9bd90a18221818559f4c0f3ebc9531a1faef1315da880b96933cc9865
+generated: "2022-11-03T09:55:06.862309962+09:00"

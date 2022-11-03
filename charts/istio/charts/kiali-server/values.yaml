@@ -81,6 +81,8 @@ external_services:
     enabled: true
   istio:
     root_namespace: ""
+  prometheus:
+    url: http://monitoring-kube-prometheus-prometheus.monitoring:9090
 
 identity: {}
   #cert_file:

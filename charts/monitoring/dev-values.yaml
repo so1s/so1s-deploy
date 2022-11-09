@@ -42,7 +42,7 @@ prometheus-adapter:
             overrides:
               container: { resource: "pod" }
         name:
-          matches: "(.*)"
+          matches: ".*"
           as: "gpu_utilization"
         metricsQuery: (<<.Series>>{<<.LabelMatchers>>)
 

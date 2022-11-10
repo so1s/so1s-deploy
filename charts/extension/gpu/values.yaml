@@ -29,6 +29,8 @@ binpackScheduling:
               - name: memory
                 weight: 1
               type: RequestedToCapacityRatio
+      leaderElection:
+        leaderElect: false 
   
   # Default values for gpu-operator.
   # This is a YAML-formatted file.

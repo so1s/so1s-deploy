@@ -23,6 +23,14 @@ prometheus-adapter:
           matches: "istio_(.*)_bucket"
           as: "${1}"
         metricsQuery: (histogram_quantile(0.90, sum(irate(<<.Series>>{<<.LabelMatchers>>}[1m])) by (le, <<.GroupBy>>)) / 1000)
+      - seriesQuery: 'DCGM_FI_DEV_GPU_UTIL{container!=""}'
+        resources:
+            overrides:
+              container: { resource: "pod" }
+        name:
+          matches: "DCGM_FI_DEV_GPU_UTIL"
+          as: "gpu_utilization"
+        metricsQuery: (<<.Series>>{<<.LabelMatchers>>)
 
 ## Prometheus Configuration
 prometheus:

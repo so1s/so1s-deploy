@@ -5,8 +5,6 @@ clusterName: "prod-so1s"
 
 region: ap-northeast-2
 
-vpcId: vpc-002aea7b87eb44dd5
-
 tolerations:
   - key: kind
     operator: "Equal"

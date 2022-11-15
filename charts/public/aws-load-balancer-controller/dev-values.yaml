@@ -1,7 +1,7 @@
 # helm repo add aws https://aws.github.io/eks-charts
 # helm install alb -n kube-system -f charts/public/aws-load-balancer-controller/dev-values.yaml aws/aws-load-balancer-controller --create-namespace --wait
 
-clusterName: "so1s-prod"
+clusterName: "prod-so1s"
 
 region: ap-northeast-2
 

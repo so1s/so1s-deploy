@@ -12,10 +12,10 @@ metrics-server:
       operator: "Equal"
       value: "library"
       effect: "NoSchedule"
-      
+
   metrics:
     enabled: true
-  
+
   serviceMonitor:
     enabled: true
 
@@ -30,17 +30,17 @@ prometheus-adapter:
     custom:
       - seriesQuery: 'istio_request_duration_milliseconds_bucket{reporter="destination",destination_workload!="", destination_workload_namespace!=""}'
         resources:
-            overrides:
-              destination_workload_namespace: { resource: "namespace" }
-              destination_workload: { resource: "deployment" }
+          overrides:
+            destination_workload_namespace: { resource: "namespace" }
+            destination_workload: { resource: "deployment" }
         name:
           matches: "istio_(.*)_bucket"
           as: "${1}"
         metricsQuery: (histogram_quantile(0.90, sum(irate(<<.Series>>{<<.LabelMatchers>>}[1m])) by (le, <<.GroupBy>>)) / 1000)
       - seriesQuery: 'DCGM_FI_DEV_GPU_UTIL{container!=""}'
         resources:
-            overrides:
-              container: { resource: "pod" }
+          overrides:
+            container: { resource: "pod" }
         name:
           matches: "DCGM_FI_DEV_GPU_UTIL"
           as: "gpu_utilization"
@@ -401,20 +401,8 @@ alertmanager:
         operator: "Equal"
         value: "library"
         effect: "NoSchedule"
-  # service:
-  #   type: LoadBalancer
-  #   annotations:
-  #     service.beta.kubernetes.io/aws-load-balancer-type: "external"
-  #     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
-  #     service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-  ingress: # 추후에 설정 예정
-    # ingressClassName: alb
+  ingress:
     enabled: false
-    # annotations:
-    #   kubernetes.io/ingress.class: alb
-    #   alb.ingress.kubernetes.io/target-type: instance
-    #   alb.ingress.kubernetes.io/scheme: internet-facing
-    #   external-dns.alpha.kubernetes.io/hostname: dashboard.so1s.io
 
 thanosRuler:
   thanosRulerSpec:
@@ -434,7 +422,7 @@ prometheusOperator:
   admissionWebhooks:
     patch:
       podAnnotations:
-       sidecar.istio.io/inject: "false"
+        sidecar.istio.io/inject: "false"
       tolerations:
         - key: kind
           operator: "Equal"

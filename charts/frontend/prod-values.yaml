@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: "ghcr.io/so1s/frontend"
-  tag: "1.0.0"
+  tag: "1.1.0"
 
 imagePullSecrets:
   - name: so1s

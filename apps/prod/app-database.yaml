@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/so1s/so1s-deploy.git
-    targetRevision: release/v1.0.0
+    targetRevision: release/v1.1.0
     path: charts/database
 
     helm:

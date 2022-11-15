@@ -5,7 +5,7 @@ clusterName: "so1s-prod"
 
 region: ap-northeast-2
 
-vpcId: vpc-0252f7e64e41bd6d8
+vpcId: vpc-002aea7b87eb44dd5
 
 tolerations:
   - key: kind

@@ -1,4 +1,5 @@
-# helm install alb -n kube-system -f charts/public/aws-load-balancer-controller/dev-values.yaml eks/aws-load-balancer-controller --create-namespace --wait
+# helm repo add aws https://aws.github.io/eks-charts
+# helm install alb -n kube-system -f charts/public/aws-load-balancer-controller/dev-values.yaml aws/aws-load-balancer-controller --create-namespace --wait
 
 clusterName: "So1s"
 

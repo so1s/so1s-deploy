@@ -68,13 +68,11 @@ kibana:
   gateway:
     hosts:
       - kibana.so1s.io
-  protocol: https
+  protocol: http
   kibanaConfig:
     kibana.yml: |
       server.ssl:
-        enabled: true
-        key: /usr/share/kibana/config/certs/elastic-certificate.pem
-        certificate: /usr/share/kibana/config/certs/elastic-certificate.pem
+        enabled: false
       elasticsearch.ssl:
         certificateAuthorities: /usr/share/kibana/config/certs/elastic-certificate.pem
         verificationMode: certificate
@@ -86,21 +84,21 @@ kibana:
       secretName: elastic-certificate-pem
       path: /usr/share/kibana/config/certs
   extraEnvs:
-    - name: 'ELASTICSEARCH_USERNAME'
+    - name: "ELASTICSEARCH_USERNAME"
       value: elastic
-    - name: 'ELASTICSEARCH_PASSWORD'
+    - name: "ELASTICSEARCH_PASSWORD"
       value: changeme
-    - name: 'KIBANA_SECURITY_ENCRYPTION_KEY'
+    - name: "KIBANA_SECURITY_ENCRYPTION_KEY"
       valueFrom:
         secretKeyRef:
           name: kibana-credentials
           key: security-encryption-key
-    - name: 'KIBANA_REPORTING_ENCRYPTION_KEY'
+    - name: "KIBANA_REPORTING_ENCRYPTION_KEY"
       valueFrom:
         secretKeyRef:
           name: kibana-credentials
           key: reporting-encryption-key
-    - name: 'KIBANA_SAVED_OBJECTS_ENCRYPTION_KEY'
+    - name: "KIBANA_SAVED_OBJECTS_ENCRYPTION_KEY"
       valueFrom:
         secretKeyRef:
           name: kibana-credentials
@@ -267,7 +265,7 @@ config:
         Trace_Error         on
         tls        On
         tls.verify Off
-  
+
   parsers.conf: |
     [PARSER]
         Name                docker

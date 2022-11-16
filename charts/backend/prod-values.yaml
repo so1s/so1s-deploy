@@ -9,7 +9,7 @@ istioInject:
 
 image:
   repository: "ghcr.io/so1s/api-server"
-  tag: "1.1.0"
+  tag: "1.2.0"
 
 imagePullSecrets:
   - name: so1s

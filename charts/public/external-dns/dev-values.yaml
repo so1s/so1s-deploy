@@ -1,7 +1,7 @@
 # helm install external-dns -n kube-system -f charts/public/external-dns/dev-values.yaml charts/public/external-dns --create-namespace --wait
 
 serviceAccount:
-  roleArn: "arn:aws:iam::089143290485:role/external-dns"
+  roleArn: "arn:aws:iam::089143290485:role/external_dns"
 
 image:
   repository: k8s.gcr.io/external-dns/external-dns

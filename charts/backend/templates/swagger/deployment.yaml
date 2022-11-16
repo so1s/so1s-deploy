@@ -26,7 +26,7 @@ spec:
             {{- toYaml .Values.swagger.resources | nindent 12 }}
           env:
             - name: API_URL
-              value: 'https://www.so1s.io/docs/openapi3.json'
+              value: 'https://backend.so1s.io/docs/openapi3.json'
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}

@@ -11,14 +11,14 @@ elasticsearch:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"
 
 kibana:
   tolerations:
     - key: kind
       operator: "Equal"
-      value: "api"
+      value: "library"
       effect: "NoSchedule"
 
 serviceMonitor:

@@ -164,6 +164,8 @@ config:
         Trace_Error         on
         tls        On
         tls.verify Off
+        HTTP_User elastic
+        HTTP_Passwd changeme
 
   api-log.conf: |
     [INPUT]
@@ -192,6 +194,8 @@ config:
         Trace_Error         on
         tls        On
         tls.verify Off
+        HTTP_User elastic
+        HTTP_Passwd changeme
 
   inference-log.conf: |
     [INPUT]
@@ -220,6 +224,8 @@ config:
         Trace_Error         on
         tls        On
         tls.verify Off
+        HTTP_User elastic
+        HTTP_Passwd changeme
 
   default-log.conf: |
     [INPUT]
@@ -265,6 +271,8 @@ config:
         Trace_Error         on
         tls        On
         tls.verify Off
+        HTTP_User elastic
+        HTTP_Passwd changeme
 
   parsers.conf: |
     [PARSER]

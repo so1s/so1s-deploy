@@ -50,6 +50,15 @@ prometheus:
           resources:
             requests:
               storage: 32Gi
+    replicas: 3
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "4Gi"
+      requests:
+        cpu: "500m"
+        memory: "4Gi"
+
     additionalScrapeConfigs:
       - job_name: "istiod"
         kubernetes_sd_configs:

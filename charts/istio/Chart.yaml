@@ -16,13 +16,18 @@ sources:
   - https://github.com/So1S/deploy
 
 dependencies:
-  - name: istio-base
-    version: 1.14.2
-  - name: istio-gateway
-    version: 1.14.2
+  - name: istio-base # base
+    # repository: "https://istio-release.storage.googleapis.com/charts"
+    version: 1.15.3
+  - name: istio-gateway # gateway
+    # repository: "https://istio-release.storage.googleapis.com/charts"
+    version: 1.15.3
   - name: istiod
-    version: 1.14.2
+    # repository: "https://istio-release.storage.googleapis.com/charts"
+    version: 1.15.3
   - name: kiali-server
-    version: 1.54.0
+    # repository: "https://kiali.org/helm-charts"
+    version: 1.59.0
   - name: kiali-operator
-    version: 1.54.0
+    # repository: "https://kiali.org/helm-charts"
+    version: 1.59.0

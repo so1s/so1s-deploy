@@ -44,7 +44,7 @@ spec:
       containers:
         - name: istio-proxy
           # Hard-coded istio image name for prevent 'the ouroborous problem', trying to bootstrapping itself but not works
-          image: istio/proxyv2:1.15.0
+          image: istio/proxyv2:1.15.3
           args:
             - proxy
             - router

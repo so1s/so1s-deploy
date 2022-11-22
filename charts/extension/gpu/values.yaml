@@ -3,35 +3,35 @@ binpackScheduling:
   enabled: true
   tolerations: []
   configMap: |
-      apiVersion: kubescheduler.config.k8s.io/v1beta2
-      kind: KubeSchedulerConfiguration
-      profiles:
-      - schedulerName: gpu-resource-scheduler
-        plugins:
-          score:
-            enabled:
-            - name: NodeResourcesFit
-        pluginConfig:
-        - name: NodeResourcesFit
-          args: 
-            scoringStrategy:
-              requestedToCapacityRatio:
-                shape:
-                - utilization: 0
-                  score: 0
-                - utilization: 100
-                  score: 10
-              resources:
-              - name: nvidia.com/gpu
-                weight: 100
-              - name: cpu
-                weight: 1
-              - name: memory
-                weight: 1
-              type: RequestedToCapacityRatio
-      leaderElection:
-        leaderElect: false 
-  
+    apiVersion: kubescheduler.config.k8s.io/v1beta2
+    kind: KubeSchedulerConfiguration
+    profiles:
+    - schedulerName: gpu-resource-scheduler
+      plugins:
+        score:
+          enabled:
+          - name: NodeResourcesFit
+      pluginConfig:
+      - name: NodeResourcesFit
+        args: 
+          scoringStrategy:
+            requestedToCapacityRatio:
+              shape:
+              - utilization: 0
+                score: 0
+              - utilization: 100
+                score: 10
+            resources:
+            - name: nvidia.com/gpu
+              weight: 100
+            - name: cpu
+              weight: 1
+            - name: memory
+              weight: 1
+            type: RequestedToCapacityRatio
+    leaderElection:
+      leaderElect: false
+
   # Default values for gpu-operator.
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
@@ -53,9 +53,9 @@ gpu-operator:
   daemonsets:
     priorityClassName: system-node-critical
     tolerations:
-    - key: nvidia.com/gpu
-      operator: Exists
-      effect: NoSchedule
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
     # configuration for controlling update strategy("OnDelete" or "RollingUpdate") of GPU Operands
     updateStrategy: "RollingUpdate"
     # configuration for controlling rolling update of GPU Operands
@@ -101,10 +101,10 @@ gpu-operator:
       version: 11.7.1-base-ubi8
       imagePullPolicy: IfNotPresent
     tolerations:
-    - key: "node-role.kubernetes.io/master"
-      operator: "Equal"
-      value: ""
-      effect: "NoSchedule"
+      - key: "node-role.kubernetes.io/master"
+        operator: "Equal"
+        value: ""
+        effect: "NoSchedule"
     annotations:
       openshift.io/scc: restricted-readonly
     affinity:
@@ -356,7 +356,7 @@ gpu-operator:
     enabled: true
     repository: nvcr.io/nvidia
     image: kubevirt-gpu-device-plugin
-    version: v1.2.1
+    version: v1.3.0
     imagePullPolicy: IfNotPresent
     imagePullSecrets: []
     args: []
@@ -366,26 +366,26 @@ gpu-operator:
   node-feature-discovery:
     worker:
       tolerations:
-      - key: "node-role.kubernetes.io/master"
-        operator: "Equal"
-        value: ""
-        effect: "NoSchedule"
-      - key: "nvidia.com/gpu"
-        operator: "Equal"
-        value: "present"
-        effect: "NoSchedule"
+        - key: "node-role.kubernetes.io/master"
+          operator: "Equal"
+          value: ""
+          effect: "NoSchedule"
+        - key: "nvidia.com/gpu"
+          operator: "Equal"
+          value: "present"
+          effect: "NoSchedule"
 
       config:
         sources:
           pci:
             deviceClassWhitelist:
-            - "02"
-            - "0200"
-            - "0207"
-            - "0300"
-            - "0302"
+              - "02"
+              - "0200"
+              - "0207"
+              - "0300"
+              - "0302"
             deviceLabelFields:
-            - vendor
+              - vendor
 
     master:
       extraLabelNs:

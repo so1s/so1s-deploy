@@ -44,7 +44,7 @@ spec:
       containers:
         - name: istio-proxy
           # Hard-coded istio image name for prevent 'the ouroborous problem', trying to bootstrapping itself with istiod
-          # but it fails because theirs peer-dependency graph is bidirectional
+          # But it fails because theirs peer-dependency graph is bidirectional
           image: istio/proxyv2:1.15.3
           args:
             - proxy

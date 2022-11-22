@@ -171,14 +171,3 @@ Determine the root namespace - default is where Kiali is installed.
   {{- .Release.Namespace }}
 {{- end }}
 {{- end }}
-
-{{/*
-Determine the prometheus url - customized for so1s.
-*/}}
-{{- define "kiali-server.external_services.prometheus.url" -}}
-{{- if .Values.external_services.prometheus.url }}
-  {{- .Values.external_services.prometheus.url }}
-{{- else }}
-  {{- "http://prometheus.istio-system:9090" }}
-{{- end }}
-{{- end }}

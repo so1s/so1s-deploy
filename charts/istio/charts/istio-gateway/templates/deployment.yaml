@@ -32,7 +32,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "gateway.serviceAccountName" . }}
-      restartPolicy: Always
       securityContext:
       {{- if .Values.securityContext }}
         {{- toYaml .Values.securityContext | nindent 8 }}
@@ -43,70 +42,9 @@ spec:
           value: "0"
       {{- end }}
       containers:
-        - args:
-            - proxy
-            - router
-            - '--domain'
-            - $(POD_NAMESPACE).svc.cluster.local
-            - '--proxyLogLevel=warning'
-            - '--proxyComponentLogLevel=misc:error'
-            - '--log_output_level=default:info'
-          env:
-            - name: JWT_POLICY
-              value: third-party-jwt
-            - name: PILOT_CERT_PROVIDER
-              value: istiod
-            - name: CA_ADDR
-              value: 'istiod.istio-system.svc:15012'
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.name
-            - name: POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
-            - name: INSTANCE_IP
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: status.podIP
-            - name: SERVICE_ACCOUNT
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: spec.serviceAccountName
-            - name: HOST_IP
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: status.hostIP
-            - name: PROXY_CONFIG
-              value: |
-                {}
-            - name: ISTIO_META_POD_PORTS
-              value: |-
-                [
-                    {"name":"http-envoy-prom","containerPort":15090,"protocol":"TCP"}
-                ]
-            - name: ISTIO_META_APP_CONTAINERS
-            - name: ISTIO_META_CLUSTER_ID
-              value: Kubernetes
-            - name: ISTIO_META_INTERCEPTION_MODE
-              value: REDIRECT
-            - name: ISTIO_META_WORKLOAD_NAME
-              value: istio
-            - name: ISTIO_META_OWNER
-              value: 'kubernetes://apis/apps/v1/namespaces/istio-system/deployments/istio'
-            - name: ISTIO_META_MESH_ID
-              value: cluster.local
-            - name: TRUST_DOMAIN
-              value: cluster.local
-          name: istio-proxy
+        - name: istio-proxy
           # "auto" will be populated at runtime by the mutating webhook. See https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#customizing-injection
-          image: istio/proxyv2:1.15.0
+          image: auto
           securityContext:
           {{- if .Values.containerSecurityContext }}
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
@@ -158,5 +96,9 @@ spec:
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
         {{- toYaml . | nindent 8 }}
       {{- end }}

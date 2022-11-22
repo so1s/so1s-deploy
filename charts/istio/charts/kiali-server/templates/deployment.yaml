@@ -25,7 +25,6 @@ spec:
         {{- toYaml .Values.deployment.pod_labels | nindent 8 }}
         {{- end }}
       annotations:
-        sidecar.istio.io/inject: "true"
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         {{- if .Values.server.metrics_enabled }}
         prometheus.io/scrape: "true"
@@ -62,10 +61,17 @@ spec:
         - "-config"
         - "/kiali-configuration/config.yaml"
         securityContext:
+        {{- if .Values.deployment.security_context}}
+        {{- toYaml .Values.deployment.security_context | nindent 10 }}
+        {{- else }}
           allowPrivilegeEscalation: false
           privileged: false
           readOnlyRootFilesystem: true
           runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+        {{- end }}
         ports:
         - name: api-port
           containerPort: {{ .Values.server.port | default 20001 }}

@@ -12,20 +12,15 @@ pilot:
   hub: ""
   tag: ""
 
-  tolerations: []
-
   # Can be a full hub/image:tag
   image: pilot
   traceSampling: 1.0
 
   # Resources for a small pilot install
   resources:
-    limits:
-      cpu: 200m
-      memory: 512Mi
     requests:
-      cpu: 200m
-      memory: 512Mi
+      cpu: 500m
+      memory: 2048Mi
 
   env: {}
 
@@ -240,7 +235,7 @@ global:
   # Dev builds from prow are on gcr.io
   hub: docker.io/istio
   # Default tag for Istio images.
-  tag: 1.14.2
+  tag: 1.15.3
 
   # Specify image pull policy if default behavior isn't desired.
   # Default behavior: latest images will be Always else IfNotPresent.
@@ -354,8 +349,8 @@ global:
         cpu: 100m
         memory: 128Mi
       limits:
-        cpu: 100m
-        memory: 128Mi
+        cpu: 2000m
+        memory: 1024Mi
 
     # Default port for Pilot agent health checks. A value of 0 will disable health checking.
     statusPort: 15020
@@ -370,13 +365,6 @@ global:
   proxy_init:
     # Base name for the proxy_init container, used to configure iptables.
     image: proxyv2
-    resources:
-      limits:
-        cpu: 10m
-        memory: 10Mi
-      requests:
-        cpu: 10m
-        memory: 10Mi
 
   # configure remote pilot and istiod service and endpoint
   remotePilotAddress: ""
@@ -396,7 +384,7 @@ global:
   # discovery charts are enabled.
   externalIstiod: false
 
-  #  Configure a remote cluster as the config cluster for an external istiod.
+  # Configure a remote cluster as the config cluster for an external istiod.
   configCluster: false
 
   # Configure the policy for validating JWT.

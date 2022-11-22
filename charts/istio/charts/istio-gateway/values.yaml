@@ -36,20 +36,20 @@ containerSecurityContext: ~
 
 service:
   # Type of service. Set to "None" to disable the service entirely
-  type: ClusterIP
+  type: LoadBalancer
   ports:
-    - name: status-port
-      port: 15021
-      protocol: TCP
-      targetPort: 15021
-    - name: http2
-      port: 80
-      protocol: TCP
-      targetPort: 80
-    - name: https
-      port: 443
-      protocol: TCP
-      targetPort: 443
+  - name: status-port
+    port: 15021
+    protocol: TCP
+    targetPort: 15021
+  - name: http2
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
   annotations: {}
   loadBalancerIP: ""
   loadBalancerSourceRanges: []
@@ -82,6 +82,8 @@ annotations: {}
 nodeSelector: {}
 
 tolerations: []
+
+topologySpreadConstraints: []
 
 affinity: {}
 

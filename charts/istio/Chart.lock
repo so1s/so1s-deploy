@@ -1,18 +1,18 @@
 dependencies:
-- name: istio-base
-  repository: ""
-  version: 1.14.2
-- name: istio-gateway
-  repository: ""
-  version: 1.14.2
+- name: base
+  repository: https://istio-release.storage.googleapis.com/charts
+  version: 1.15.3
+- name: gateway
+  repository: https://istio-release.storage.googleapis.com/charts
+  version: 1.15.3
 - name: istiod
-  repository: ""
-  version: 1.14.2
+  repository: https://istio-release.storage.googleapis.com/charts
+  version: 1.15.3
 - name: kiali-server
-  repository: ""
-  version: 1.54.0
+  repository: https://kiali.org/helm-charts
+  version: 1.59.0
 - name: kiali-operator
-  repository: ""
-  version: 1.54.0
-digest: sha256:de6686170700d2666d961184e6cab034c548278ff1a1577e3a7a4e257b695460
-generated: "2022-11-03T08:52:00.145235055+09:00"
+  repository: https://kiali.org/helm-charts
+  version: 1.59.0
+digest: sha256:9c5a3c02d46c975c9f50194ff713a53be2f71aea41c0f8b61ae16f12fb863db5
+generated: "2022-11-23T01:34:39.915212824+09:00"

@@ -31,6 +31,9 @@ spec:
           requests:
             cpu: 50m
             memory: 100Mi
+          limits:
+            cpu: 50m
+            memory: 100Mi
         command: ["/bin/bash", "-c"]
         args:
           - kubectl label ns default istio-injection=enabled --overwrite;

@@ -19,8 +19,8 @@ pilot:
   # Resources for a small pilot install
   resources:
     requests:
-      cpu: 500m
-      memory: 2048Mi
+      cpu: 200m
+      memory: 512Mi
 
   env: {}
 
@@ -349,8 +349,8 @@ global:
         cpu: 100m
         memory: 128Mi
       limits:
-        cpu: 2000m
-        memory: 1024Mi
+        cpu: 100m
+        memory: 128Mi
 
     # Default port for Pilot agent health checks. A value of 0 will disable health checking.
     statusPort: 15020
@@ -365,6 +365,13 @@ global:
   proxy_init:
     # Base name for the proxy_init container, used to configure iptables.
     image: proxyv2
+    resources:
+      limits:
+        cpu: 10m
+        memory: 10Mi
+      requests:
+        cpu: 10m
+        memory: 10Mi
 
   # configure remote pilot and istiod service and endpoint
   remotePilotAddress: ""

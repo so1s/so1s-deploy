@@ -29,7 +29,7 @@ deployment:
   # This only limits what Kiali will attempt to see, but Kiali Service Account has permissions to see everything.
   # For more control over what the Kial Service Account can see, use the Kiali Operator
   accessible_namespaces:
-  - "**"
+    - "**"
   additional_service_yaml: {}
   affinity:
     node: {}
@@ -82,8 +82,11 @@ external_services:
     enabled: true
   istio:
     root_namespace: ""
+  prometheus:
+    url: http://monitoring-kube-prometheus-prometheus.monitoring:9090
 
-identity: {}
+identity:
+  {}
   #cert_file:
   #private_key_file:
 
@@ -91,8 +94,8 @@ kiali_feature_flags:
   certificates_information_indicators:
     enabled: true
     secrets:
-    - cacerts
-    - istio-ca-secret
+      - cacerts
+      - istio-ca-secret
   clustering:
     enabled: true
   disabled_features: []

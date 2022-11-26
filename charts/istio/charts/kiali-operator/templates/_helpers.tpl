@@ -54,3 +54,14 @@ app.kubernetes.io/name: {{ include "kiali-operator.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
+
+{{/*
+Determine the prometheus url - customized for so1s.
+*/}}
+{{- define "kiali-server.external_services.prometheus.url" -}}
+{{- if .Values.external_services.prometheus.url }}
+  {{- .Values.external_services.prometheus.url }}
+{{- else }}
+  {{- "http://prometheus.istio-system:9090" }}
+{{- end }}
+{{- end }}

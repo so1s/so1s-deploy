@@ -63,12 +63,19 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode
 
+# Sealed-secrets related
+
 secrets.env
 secrets.json
+
+registry.env
+registry-secret.json
 
 docker-config.json
 docker-pull-secret.json
 
 cert.yaml
+
+# Helm template temporary output
 
 *-template.yaml

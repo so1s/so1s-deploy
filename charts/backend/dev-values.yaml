@@ -2,10 +2,10 @@ vender: "AWS" # AWS | on-premise
 
 environment: "develop"
 
-fullnameOverride: "so1s-dev" # 중복된 ClusterRole이 생기면 안되므로 각자 이름을 써놓고 작업해주세요
+fullnameOverride: "so1s-dev"
 
 istioInject:
-    enabled: true
+  enabled: true
 
 image:
   repository: "ghcr.io/so1s/api-server"

@@ -4,8 +4,7 @@ image:
   repository: "ghcr.io/so1s/frontend"
   tag: "latest"
 
-imagePullSecrets:
-  - name: so1s
+imagePullSecrets: []
 
 imagePullPolicy: Always
 

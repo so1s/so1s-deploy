@@ -11,8 +11,7 @@ image:
   repository: "ghcr.io/so1s/api-server"
   tag: "latest"
 
-imagePullSecrets:
-  - name: so1s
+imagePullSecrets: []
 
 imagePullPolicy: Always
 
@@ -68,8 +67,7 @@ swagger:
     repository: swaggerapi/swagger-ui
     tag: v4.13.2
 
-  imagePullSecrets:
-    - name: so1s
+  imagePullSecrets: []
 
   imagePullPolicy: Always
 

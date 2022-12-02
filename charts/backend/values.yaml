@@ -7,7 +7,7 @@ namespaceOverride: ""
 replicaCount: 1
 
 istioInject:
-    enabled: false
+  enabled: false
 
 hostname: ""
 
@@ -27,18 +27,9 @@ serviceAccount:
   annotations: {}
   name: ""
 
-podSecurityContext:
-  {}
-  # fsGroup: 2000
+podSecurityContext: {}
 
-securityContext:
-  {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext: {}
 
 serviceMonitor:
   # When set true then use a ServiceMonitor to configure scraping
@@ -50,7 +41,7 @@ serviceMonitor:
   # Set path of metrics, e.g /api/v1/metrics/prometheus
   telemetryPath: /actuator/prometheus
   # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
-  labels: 
+  labels:
     release: monitoring
   # Set timeout for scrape
   timeout: 10s

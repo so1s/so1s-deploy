@@ -3,7 +3,7 @@
 
 ## Tasks
 
-- [x]  User 인터페이스 DTO 보강
+- [x] User 인터페이스 DTO 보강
 
 
 ## Discussion

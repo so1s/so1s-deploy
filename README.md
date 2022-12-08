@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/so1s/.github/main/static/logo.png" alt="So1s Logo" height="250px" />
+<img src="https://raw.githubusercontent.com/so1s/.github/main/static/logo.png" alt="So1s Logo" width="50%" />
 
 # So1s Helm Chart
 

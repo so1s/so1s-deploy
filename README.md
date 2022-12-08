@@ -10,7 +10,7 @@ Kubernetes, Helm 기반 Application 배포 패키지
 
 </div>
 
-## 기능
+## 주요 기능
 
 ## 사용 기술
 

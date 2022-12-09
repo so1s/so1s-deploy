@@ -32,8 +32,7 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 - Promtheus Custom Metrics를 기반으로 한 HPA Rules 구성 기능 제공
 - Bin Packing 알고리즘을 통한 Kubernetes Scheduler Plugin 구현, GPU 스케줄링 효율 개선
 - External DNS를 통한 Ingress - Route 53 DNS 연동
-- Wildcard DNS 기반 Ingress 구성, Istio Service Mesh를 사용한 zero downtime 서브도메인 라우팅 & ELB 비용 절약
-  - 개발 클러스터 기준 ELB 비용 월 226달러 -> 4달러로 감소
+- Wildcard DNS 기반 Ingress 구성, Istio Service Mesh를 사용한 zero downtime 서브도메인 라우팅 & ELB 비용 절약 (개발 클러스터 기준 ELB 비용 월 226달러 -> 4달러로 감소)
 - EFK Stack을 활용한 로깅 수집, 대시보드 지원
 - Fluent Bit를 활용한 메모리 효율적인 로깅 메트릭 수집 지원
 - Kiali를 통한 실시간 트래픽 Tracing 대시보드 지원

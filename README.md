@@ -63,8 +63,8 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 Git에는 반영되지 않으니, 안심하셔도 됩니다.
 
 ```
-# 64바이트 이상의 JWT 암호화용 키
-jwt-secret=<>
+# 64바이트 이상의 JWT 암호화용 키. 임의로 정하시면 됩니다
+jwt-secret=${JWT_SECRET}
 
 # S3 접근 권한이 있는 IAM 유저의 access key
 aws-s3-access-key=${S3_USER_ACCESS_KEY}
@@ -98,8 +98,8 @@ POSTGRES_PASSWORD=${DB_PASSWORD}
 ./generate-sealed-secrets.sh
 ```
 
-파일이 제대로 생성되었으면 커밋하시면 됩니다.
-클러스터의 공개 키를 사용해서 암호화되었기 때문에 git 레포에 반영되어도 안전합니다.
+파일이 제대로 생성되었으면 커밋하신 뒤, 포크된 리모트에 반영하시면 됩니다.
+클러스터의 공개 키를 사용해서 암호화되었기 때문에 Git 레포에 반영되어도 안전합니다.
 
 ### Argo CD Root Application 프로비저닝
 

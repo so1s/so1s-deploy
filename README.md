@@ -14,7 +14,7 @@ Kubernetes, Helm 기반 Application 배포 패키지
 
 ## 주요 기능
 
-- Batteries included Helm Chart 지원
+- Batteries included Helm Chart 구성
 - Grafana 기반 빌링 대시보드 제공
 - Grafana 기반 SLI / SLO 대시보드 제공
 - Grafana 기반 API / 인퍼런스 서버 대시보드 제공
@@ -26,6 +26,7 @@ Kubernetes, Helm 기반 Application 배포 패키지
 - EFK Stack을 활용한 로깅 수집, 대시보드 지원
 - Fluent bit를 활용한 메모리 효율적인 로깅 메트릭 수집 지원
 - Kiali를 통한 실시간 트래픽 Tracing 대시보드 지원
+- Sealed-Secrets를 활용한 git 기반 비대칭 암호화된 Secret 관리 지원
 
 ## 사용 기술
 

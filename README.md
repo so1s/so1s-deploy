@@ -15,6 +15,7 @@ Kubernetes, Helm 기반 Application 배포 패키지
 ## 주요 기능
 
 - Batteries included Helm Chart 구성
+- GPU Operator 구성을 통한 Node GPU Discovery 기능 제공
 - Grafana 기반 빌링 대시보드 제공
 - Grafana 기반 SLI / SLO 대시보드 제공
 - Grafana 기반 API / 인퍼런스 서버 대시보드 제공
@@ -24,9 +25,18 @@ Kubernetes, Helm 기반 Application 배포 패키지
 - Bin Packing 알고리즘을 통한 Kubernetes Scheduler Plugin 구현, GPU 스케줄링 효율 개선
 - Wildcard DNS 기반 Ingress 구성, Istio Service Mesh를 사용한 Zero downtime 라우팅 & ELB 비용 절약
 - EFK Stack을 활용한 로깅 수집, 대시보드 지원
-- Fluent bit를 활용한 메모리 효율적인 로깅 메트릭 수집 지원
+- Fluent Bit를 활용한 메모리 효율적인 로깅 메트릭 수집 지원
 - Kiali를 통한 실시간 트래픽 Tracing 대시보드 지원
-- Sealed-Secrets를 활용한 git 기반 비대칭 암호화된 Secret 관리 지원
+- Sealed-Secrets를 활용한 비대칭 암호화된 Secret git 기반 관리 지원
 
 ## 사용 기술
+
+- Kubernetes
+- Helm
+- Istio
+- Prometheus / Grafana
+- ElasticSearch / Fluent Bit / Kibana
+- Kiali
+- Sealed-Secrets
+- GPU Operator
 

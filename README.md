@@ -44,7 +44,6 @@ Kubernetes, Helm 기반 Application 배포 패키지
 - Elasticsearch / Fluent Bit / Kibana
 - Sealed Secrets
 
-
 ## 사용 방법
 
 이 레포는 Public Template으로 제공됩니다. 보일러플레이트로 사용하시려면 상단의 `Use This Template` 버튼을 눌러주세요!
@@ -101,3 +100,12 @@ POSTGRES_PASSWORD=${DB_PASSWORD}
 
 파일이 제대로 생성되었으면 커밋하시면 됩니다.
 클러스터의 공개 키를 사용해서 암호화되었기 때문에 git 레포에 반영되어도 안전합니다.
+
+### Argo CD Root Application 프로비저닝
+
+```bash
+# dev 환경일 경우
+kubectl apply -f ./root-dev.yaml
+# prod 환경일 경우
+kubectl apply -f ./root-prod.yaml
+```

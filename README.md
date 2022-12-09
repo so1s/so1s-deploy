@@ -51,8 +51,53 @@ Kubernetes, Helm 기반 Application 배포 패키지
 
 Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와 연관된 Secrets를 정의하시고 깃에 반영하셔야 합니다.
 
-### Sealed Secrets 인증서 가져오기
+### Sealed Secrets 인증서 가져오기 (선택)
 
 클러스터를 여러번 프로비저닝할 경우 현재 클러스터에 있는 Sealed Secrets 인증서를 가져와서 보관한 뒤, 인증서를 다른 클러스터에 적용해야 합니다. 
 
 [Infra 매뉴얼의 해당 인스트럭션](https://github.com/so1s/so1s-infra/blob/main/live/README.md#sealed-secrets-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B3%B4%EA%B4%80--%EC%9E%AC%EC%82%AC%EC%9A%A9)을 참고해주세요!
+
+### Secrets env 파일 작성
+
+로컬 Deploy 루트 디렉토리에 secrets.env 파일을 작성합니다.
+
+Git에는 반영되지 않으니, 안심하셔도 됩니다.
+
+```
+# 64바이트 이상의 JWT 암호화용 키
+jwt-secret=<>
+
+# S3 접근 권한이 있는 IAM 유저의 access key
+aws-s3-access-key=${S3_USER_ACCESS_KEY}
+# S3 접근 권한이 있는 IAM 유저의 secret key
+aws-s3-secret-key=${S3_USER_SECRET_KEY}
+# S3 bucket name
+aws-s3-bucket=${S3_BUCKET_NAME}
+
+# S3 버킷의 AWS 리전
+aws-region=ap-northeast-2
+
+# DB 엔드포인트. 기본값은 클러스터 Postgres이며, jdbc 포맷을 지킨다면 다른 외부 DB와 연동도 가능
+aws-aurora-endpoint=jdbc:postgresql://so1s-database/so1s
+# DB 사용자명. 클러스터 Postgres를 사용한다면 임의로 바꿀 수 있음
+aws-aurora-username=so1s
+# DB 사용자 패스워드. 클러스터 Postgres를 사용한다면 임의로 바꿀 수 있음
+aws-aurora-password=${DB_PASSWORD}
+
+# 클러스터 Postgres 데이터베이스명. 백엔드와 연동한다면 DB 엔드포인트 마지막 path와 동일하게
+POSTGRES_DB=so1s
+# 클러스터 Postgres 사용자명. 백엔드와 연동한다면 aws-aurora-username과 동일하게
+POSTGRES_USER=so1s
+# 클러스터 Postgres 사용자 패스워드. 백엔드와 연동한다면 aws-aurora-password와 동일하게
+POSTGRES_PASSWORD=${DB_PASSWORD}
+```
+
+
+### Sealed Secrets로 변환
+
+```bash
+./generate-sealed-secrets.sh
+```
+
+파일이 제대로 생성되었으면 커밋하시면 됩니다.
+클러스터의 공개 키를 사용해서 암호화되었기 때문에 git 레포에 반영되어도 안전합니다.

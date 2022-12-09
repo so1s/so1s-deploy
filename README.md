@@ -27,16 +27,14 @@ Kubernetes, Helm 기반 Application 배포 패키지
 - EFK Stack을 활용한 로깅 수집, 대시보드 지원
 - Fluent Bit를 활용한 메모리 효율적인 로깅 메트릭 수집 지원
 - Kiali를 통한 실시간 트래픽 Tracing 대시보드 지원
-- Sealed-Secrets를 활용한 비대칭 암호화된 Secret git 기반 관리 지원
+- Sealed-Secrets를 활용한 Secret 비대칭 암호화 및 git 기반 관리 지원
 
 ## 사용 기술
 
 - Kubernetes
 - Helm
-- Istio
+- Istio / Kiali
 - Prometheus / Grafana
 - ElasticSearch / Fluent Bit / Kibana
-- Kiali
 - Sealed-Secrets
 - GPU Operator
-

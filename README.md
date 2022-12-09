@@ -73,7 +73,7 @@ aws-s3-secret-key=${S3_USER_SECRET_KEY}
 # S3 bucket name
 aws-s3-bucket=${S3_BUCKET_NAME}
 
-# S3 버킷의 AWS 리전
+# S3 버킷의 AWS 리전. 한국의 경우 ap-northeast-2
 aws-region=ap-northeast-2
 
 # DB 엔드포인트. 기본값은 클러스터 Postgres이며, jdbc 포맷을 지킨다면 다른 외부 DB와 연동도 가능

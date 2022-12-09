@@ -21,6 +21,8 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 
 - Batteries included Helm Chart 구성
 - Argo CD App of Apps 패턴을 통한 부트스트래핑 지원
+- API 서버 / 백오피스 대시보드 구성
+- Postgres와 Local Storage Provisioner를 통한 클러스터 내 백엔드 DB 구성
 - GPU Operator 구성을 통한 Node GPU Discovery 기능 제공
 - Grafana 기반 빌링 대시보드 제공
 - Grafana 기반 SLI / SLO 대시보드 제공

@@ -19,7 +19,7 @@ Kubernetes, Helm 기반 Application 배포 패키지
 - GPU Operator 구성을 통한 Node GPU Discovery 기능 제공
 - Grafana 기반 빌링 대시보드 제공
 - Grafana 기반 SLI / SLO 대시보드 제공
-- Grafana 기반 API / 인퍼런스 서버 대시보드 제공
+- Grafana 기반 API / 인퍼런스 서버 메트릭 대시보드 제공
 - Grafana 기반 Kubernetes CPU / Memory / GPU 모니터링 대시보드 제공
 - DCGM Exporter를 기반으로 한 Prometheus GPU Metrics 기능 제공
 - Promtheus Custom Metrics를 기반으로 한 HPA Rules 구성 기능 제공

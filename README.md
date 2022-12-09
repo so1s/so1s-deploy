@@ -14,7 +14,7 @@ Application Helm Chart
 
 - Batteries included Helm Chart 구성
 - Argo CD App of Apps 패턴을 통한 부트스트래핑 지원
-- API 서버 / 백오피스 대시보드 구성
+- API 서버 백엔드 / 백오피스 프론트엔드 구성
 - Postgres와 Local Storage Provisioner를 통한 클러스터 내 백엔드 DB 구성
 - GPU Operator 구성을 통한 Node GPU Discovery 기능 제공
 - Grafana 기반 빌링 대시보드 제공
@@ -26,7 +26,7 @@ Application Helm Chart
 - Bin Packing 알고리즘을 통한 Kubernetes Scheduler Plugin 구현, GPU 스케줄링 효율 개선
 - External DNS를 통한 Ingress - Route 53 DNS 연동
 - Wildcard DNS 기반 Ingress 구성, Istio Service Mesh를 사용한 zero downtime 서브도메인 라우팅
-  - Use Case) Istio 도입을 통한 ELB 비용 월 226달러 -> 4달러로 감소
+  - Use case) Istio 도입을 통한 ELB 비용 월 226달러 -> 4달러로 감소
 - EFK Stack을 활용한 로깅 수집, 대시보드 지원
 - Fluent Bit를 활용한 메모리 효율적인 로깅 메트릭 수집 지원
 - Kiali를 통한 실시간 트래픽 Tracing 대시보드 지원
@@ -98,6 +98,7 @@ POSTGRES_PASSWORD=${DB_PASSWORD}
 ```
 
 파일이 제대로 생성되었으면 커밋하신 뒤, 포크된 리모트에 반영하시면 됩니다.
+
 클러스터의 공개 키를 사용해서 암호화되었기 때문에 Git 레포에 반영되어도 안전합니다.
 
 ### Argo CD Root Application 프로비저닝

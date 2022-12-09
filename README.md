@@ -12,6 +12,11 @@ Kubernetes, Helm 기반 Application 배포 패키지
 
 ## 사용 방법
 
+이 레포는 Public Template으로 제공됩니다. 보일러플레이트로 사용하시려면 상단의 `Use This Template` 버튼을 눌러주세요!
+
+Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와 연관된 Secrets를 정의하시고 깃에 반영하셔야 합니다. 
+
+
 ## 주요 기능
 
 - Batteries included Helm Chart 구성

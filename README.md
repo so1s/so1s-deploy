@@ -91,7 +91,6 @@ POSTGRES_USER=so1s
 POSTGRES_PASSWORD=${DB_PASSWORD}
 ```
 
-
 ### Sealed Secrets로 변환
 
 ```bash

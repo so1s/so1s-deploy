@@ -48,5 +48,5 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 - External DNS
 - Istio / Kiali
 - NVIDIA GPU Operator / DCGM Exporter
-- ElasticSearch / Fluent Bit / Kibana
+- Elasticsearch / Fluent Bit / Kibana
 - Sealed Secrets

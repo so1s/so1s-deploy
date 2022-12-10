@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: so1s-image-updater-dev
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: so1s-project-dev
 
@@ -12,8 +10,8 @@ spec:
     repoURL: https://github.com/argoproj/argo-helm.git
     targetRevision: 48bf6d4a3808636b76ff793a68b50e613e6f009f # Release v0.12.0
     path: charts/argocd-image-updater
-    
-    helm: 
+
+    helm:
       releaseName: argocd-image-updater
       values: |
         tolerations:
@@ -39,14 +37,13 @@ spec:
               prefix: ghcr.io
               credentials: pullsecret:argocd/so1s
 
-
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
 
   syncPolicy:
     automated:
-        prune: true
-        selfHeal: true
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

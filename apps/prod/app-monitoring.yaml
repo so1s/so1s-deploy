@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: so1s-monitoring-app-prod
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: so1s-project-prod
 

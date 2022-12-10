@@ -5,6 +5,8 @@ metadata:
   # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
   # Add this finalizer ONLY if you want these to cascade delete.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   # The project the application belongs to.
   project: so1s-project-dev

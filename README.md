@@ -25,7 +25,7 @@ Application Helm Chart
 - Promtheus Custom Metrics를 기반으로 한 HPA Rules 구성 기능 제공
 - GPU 스케줄링 효율 개선을 위한 Bin Packing 알고리즘을 통한 Kubernetes Scheduler Plugin 구현
 - External DNS를 활용한 Service Subdomain Annotation - Route 53 DNS 연동
-- Wildcard DNS 기반 Ingress 구성, Istio Service Mesh를 사용한 zero downtime 서브도메인 라우팅
+- Wildcard DNS 기반 Ingress 구성, Istio Service Mesh를 사용한 zero downtime 서브도메인 라우팅 기능 제공
   - Use case) Istio 도입을 통한 ELB 비용 월 226달러 -> 4달러로 감소
 - EFK Stack을 활용한 로깅 수집, 대시보드 지원
 - Fluent Bit를 활용한 메모리 효율적인 로깅 메트릭 수집 기능 제공

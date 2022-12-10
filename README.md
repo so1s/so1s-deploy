@@ -62,33 +62,32 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 
 Git에는 반영되지 않으니, 안심하셔도 됩니다.
 
+|변수명|설명|기본값|
+|---|---|---|
+|jwt-secret|64바이트 이상의 JWT 암호화용 키. 임의로 정하시면 됩니다|None|
+|aws-s3-access-key|S3 접근 권한이 있는 IAM 사용자의 access key|None|
+|aws-s3-secret-key|S3 접근 권한이 있는 IAM 유저의 secret key|None|
+|aws-s3-bucket|S3 bucket name|None|
+|aws-region|S3 버킷의 AWS 리전|ap-northeast-2|
+|aws-aurora-endpoint|DB 엔드포인트. 기본값은 클러스터 Postgres이며, jdbc 포맷을 지킨다면 다른 외부 DB와 연동도 가능|jdbc:postgresql://so1s-database/so1s|
+|aws-aurora-username|DB 사용자명. 클러스터 Postgres를 사용한다면 임의로 바꿀 수 있음|so1s|
+|aws-aurora-password|DB 사용자 패스워드. 클러스터 Postgres를 사용한다면 임의로 바꿀 수 있음|None|
+|POSTGRES_DB|클러스터 Postgres 데이터베이스명. 백엔드와 연동한다면 DB 엔드포인트 마지막 path와 동일하게|so1s|
+|POSTGRES_USER|클러스터 Postgres 사용자명. 백엔드와 연동한다면 aws-aurora-username과 동일하게|so1s|
+|POSTGRES_PASSWORD|클러스터 Postgres 사용자 패스워드. 백엔드와 연동한다면 aws-aurora-password와 동일하게|None|
+
 ```
-# 64바이트 이상의 JWT 암호화용 키. 임의로 정하시면 됩니다
-jwt-secret=${JWT_SECRET}
-
-# S3 접근 권한이 있는 IAM 유저의 access key
-aws-s3-access-key=${S3_USER_ACCESS_KEY}
-# S3 접근 권한이 있는 IAM 유저의 secret key
-aws-s3-secret-key=${S3_USER_SECRET_KEY}
-# S3 bucket name
-aws-s3-bucket=${S3_BUCKET_NAME}
-
-# S3 버킷의 AWS 리전. 한국의 경우 ap-northeast-2
+jwt-secret=
+aws-s3-access-key=
+aws-s3-secret-key=
+aws-s3-bucket=
 aws-region=ap-northeast-2
-
-# DB 엔드포인트. 기본값은 클러스터 Postgres이며, jdbc 포맷을 지킨다면 다른 외부 DB와 연동도 가능
 aws-aurora-endpoint=jdbc:postgresql://so1s-database/so1s
-# DB 사용자명. 클러스터 Postgres를 사용한다면 임의로 바꿀 수 있음
 aws-aurora-username=so1s
-# DB 사용자 패스워드. 클러스터 Postgres를 사용한다면 임의로 바꿀 수 있음
-aws-aurora-password=${DB_PASSWORD}
-
-# 클러스터 Postgres 데이터베이스명. 백엔드와 연동한다면 DB 엔드포인트 마지막 path와 동일하게
+aws-aurora-password=
 POSTGRES_DB=so1s
-# 클러스터 Postgres 사용자명. 백엔드와 연동한다면 aws-aurora-username과 동일하게
 POSTGRES_USER=so1s
-# 클러스터 Postgres 사용자 패스워드. 백엔드와 연동한다면 aws-aurora-password와 동일하게
-POSTGRES_PASSWORD=${DB_PASSWORD}
+POSTGRES_PASSWORD=
 ```
 
 ### Sealed Secrets로 변환

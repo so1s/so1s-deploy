@@ -4,7 +4,7 @@
 
 # So1s Helm Chart
 
-Kubernetes 배포용 Helm Chart
+Kubernetes Deployment Helm Chart
 
 [프로젝트 소개 페이지로 돌아가기](https://github.com/so1s)
 

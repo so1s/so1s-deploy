@@ -23,7 +23,7 @@ Kubernetes Deployment Helm Chart
 - Grafana 기반 Kubernetes CPU / Memory / GPU 모니터링 대시보드 제공
 - DCGM Exporter를 기반으로 한 Prometheus GPU Metrics 기능 제공
 - Promtheus Custom Metrics를 기반으로 한 HPA Rules 구성 기능 제공
-- GPU 스케줄링 효율 개선을 위한 Bin Packing 알고리즘을 통한 Kubernetes Scheduler Plugin 구현
+- GPU 스케줄링 효율 개선을 위한 Bin Packing 알고리즘을 사용하는 Kubernetes Scheduler Plugin 구현
 - External DNS를 활용한 Service Subdomain Annotation - Route 53 DNS 연동
 - Wildcard DNS 기반 Ingress 구성, Istio Service Mesh를 사용한 zero downtime 서브도메인 라우팅 기능 제공
   - Use case) Istio 도입을 통한 ELB 비용 월 226달러 -> 4달러로 감소
@@ -90,7 +90,7 @@ POSTGRES_USER=so1s
 POSTGRES_PASSWORD=
 ```
 
-### Sealed Secrets로 변환
+### Sealed Secrets를 통한 암호화
 
 ```bash
 ./generate-sealed-secrets.sh

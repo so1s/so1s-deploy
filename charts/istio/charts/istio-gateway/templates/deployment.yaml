@@ -43,8 +43,9 @@ spec:
       {{- end }}
       containers:
         - name: istio-proxy
-          # Hard-coded istio image name for prevent 'the ouroboros problem', trying to bootstrapping itself with istiod
+          # Hard-coded istio image name for avoid circular dependency, trying to bootstrapping itself with istiod
           # But it fails because theirs peer-dependency graph is bidirectional
+          # FIXME: Initial CA cert injection failure
           image: istio/proxyv2:1.15.3
           args:
             - proxy

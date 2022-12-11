@@ -51,6 +51,20 @@ Kubernetes Deployment Helm Chart
 
 Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와 연관된 Secrets를 정의하시고 깃에 반영하셔야 합니다.
 
+### Terraform을 사용한 EKS 클러스터 프로비저닝 (선택)
+
+개발, 프로덕션용 EKS 클러스터를 Terraform으로 프로비저닝 하실 수 있습니다.
+
+[Infra 매뉴얼](https://github.com/so1s/so1s-infra/blob/main/live/README.md)을 참고해 주세요!
+
+### 기존 클러스터 내 의존성 차트 프로비저닝 (선택)
+
+Terraform을 사용하지 않으실 경우, 필요한 의존성인 Argo CD, Sealed Secrets, External DNS, AWS LB Controller를 스크립트 기반으로 프로비저닝하실 수 있습니다.
+
+```bash
+./install-dependencies.sh
+```
+
 ### Sealed Secrets 인증서 가져오기 (선택)
 
 클러스터를 여러번 프로비저닝할 경우 현재 클러스터에 있는 Sealed Secrets 인증서를 가져와서 보관한 뒤, 인증서를 다른 클러스터에 적용해야 합니다. 
@@ -124,4 +138,13 @@ App Sync를 통해 이러한 문제를 해결할 수 있습니다.
 
 ```bash
 ./fix-istio.sh
+```
+
+### Application 제거
+
+```bash
+# Dev 환경
+./clean-up-dev.sh
+# Prod 환경
+./clean-up-prod.sh
 ```

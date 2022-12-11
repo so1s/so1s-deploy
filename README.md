@@ -17,6 +17,7 @@ Kubernetes Deployment Helm Chart
 - API 서버 백엔드 / 백오피스 프론트엔드 구성
 - Postgres와 Local Storage Provisioner를 통한 클러스터 내 백엔드 DB 구성
 - GPU Operator 구성을 활용한 Node GPU Discovery 기능 제공
+- Prometheus Multiple Replica Sharding 기능 제공
 - Grafana 기반 빌링 대시보드 제공
 - Grafana 기반 SLI / SLO 대시보드 제공
 - Grafana 기반 API / 인퍼런스 서버 메트릭 대시보드 제공

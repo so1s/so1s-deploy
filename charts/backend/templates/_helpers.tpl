@@ -51,27 +51,6 @@ app.kubernetes.io/name: {{ include "backend.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
-
-{{/*
-Common labels
-*/}}
-{{- define "swagger.labels" -}}
-helm.sh/chart: {{ include "backend.chart" . }}
-{{ include "swagger.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-kind: swagger-ui
-{{- end }}
-
-{{/*
-Selector labels
-*/}}
-{{- define "swagger.selectorLabels" -}}
-tier: swagger-ui
-{{- end }}
-
 {{/*
 Create the name of the service account to use
 */}}

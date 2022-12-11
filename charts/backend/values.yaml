@@ -83,35 +83,6 @@ tolerations: []
 
 affinity: {}
 
-swagger:
-  image:
-    repository: swaggerapi/swagger-ui
-    tag: v4.13.2
-  imagePullSecrets: []
-  imagePullPolicy: Always
-
-  replicaCount: 1
-
-  istioInject:
-    enabled: true
-
-  resources: {}
-  tolerations: []
-
-  ingress:
-    enabled: false
-    annotations: {}
-    labels: {}
-    hosts: []
-    paths: []
-    tls: []
-    pathType: ""
-    servicePort: 80
-
-  service:
-    port: 80
-    targetPort: 8080
-
 pullSecret:
   enabled: false
   dockerConfigJson: ""

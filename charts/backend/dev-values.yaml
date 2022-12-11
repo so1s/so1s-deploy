@@ -59,45 +59,6 @@ serviceMonitor:
     release: monitoring
   timeout: 10s
 
-swagger:
-  istioInject:
-    enabled: true
-
-  image:
-    repository: swaggerapi/swagger-ui
-    tag: v4.13.2
-
-  imagePullSecrets: []
-
-  imagePullPolicy: Always
-
-  resources:
-    limits:
-      memory: "50Mi"
-      cpu: "25m"
-    requests:
-      memory: "50Mi"
-      cpu: "25m"
-
-  tolerations:
-    - key: kind
-      operator: "Equal"
-      value: "application"
-      effect: "NoSchedule"
-
-  ingress:
-    enabled: false
-    annotations: {}
-    hosts:
-      - test-swagger.so1s.io
-    paths:
-      - /
-    tls: []
-
-  service:
-    port: 80
-    targetPort: 8080
-
 preInstall:
   tolerations:
     - key: kind

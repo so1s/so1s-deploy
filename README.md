@@ -111,6 +111,16 @@ POSTGRES_PASSWORD=
 
 ### Istio CA Cert 관련 문제 해결
 
-Circular Dependency 문제로 인해 생성 직후 Istio Gateway 내부에 Istiod가 제공하는 CA Cert가 연동되지 않아, Failed 상태가 됩니다.
+Circular Dependency 문제로 인해 생성 직후 Istio Gateway 내부에 Istiod가 제공하는 CA Cert가 연동되지 않아, App이 Failed 상태가 됩니다.
 
-이 문제를 해결하기 위해 App Sync를 해주셔야 합니다. 자동화 스크립트로는 [Infra 매뉴얼의 해당 인스트럭션](https://github.com/so1s/so1s-infra/blob/main/live/README.md#istio-app-ca-cert-%EA%B4%80%EB%A0%A8-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0)을 참고해 주세요!
+App Sync를 통해 이러한 문제를 해결할 수 있습니다.
+
+의존성으로 Nix 패키지 관리자가 필요합니다.
+
+```bash
+./install-nix.sh
+```
+
+```bash
+./fix-istio-ca-cert.sh
+```

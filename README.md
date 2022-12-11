@@ -123,5 +123,5 @@ App Sync를 통해 이러한 문제를 해결할 수 있습니다.
 ```
 
 ```bash
-./fix-istio-ca-cert.sh
+./fix-istio.sh
 ```

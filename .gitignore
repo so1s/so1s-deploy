@@ -79,3 +79,5 @@ cert.yaml
 # Helm template temporary output
 
 *-template.yaml
+
+argocd-password

@@ -10,7 +10,7 @@ spec:
 
   source:
     repoURL: https://github.com/so1s/so1s-deploy.git
-    targetRevision: v1.3.1
+    targetRevision: v1.4.0
     path: charts/logging
 
     helm:

@@ -54,7 +54,7 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 
 클러스터를 여러번 프로비저닝할 경우 현재 클러스터에 있는 Sealed Secrets 인증서를 가져와서 보관한 뒤, 인증서를 다른 클러스터에 적용해야 합니다. 
 
-[Infra 매뉴얼의 해당 인스트럭션](https://github.com/so1s/so1s-infra/blob/main/live/README.md#sealed-secrets-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B3%B4%EA%B4%80--%EC%9E%AC%EC%82%AC%EC%9A%A9)을 참고해주세요!
+[Infra 매뉴얼의 해당 인스트럭션](https://github.com/so1s/so1s-infra/blob/main/live/README.md#sealed-secrets-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B3%B4%EA%B4%80--%EC%9E%AC%EC%82%AC%EC%9A%A9)을 참고해 주세요!
 
 ### Secrets env 파일 작성
 
@@ -103,8 +103,14 @@ POSTGRES_PASSWORD=
 ### Argo CD Root Application 프로비저닝
 
 ```bash
-# dev 환경일 경우
-kubectl apply -f ./root-dev.yaml
-# prod 환경일 경우
-kubectl apply -f ./root-prod.yaml
+# Dev 환경
+./bootstrap-dev.sh
+# Prod 환경
+./bootstrap-prod.sh
 ```
+
+### Istio CA Cert 관련 문제 해결
+
+Circular Dependency 문제로 인해 생성 직후 Istio Gateway 내부에 Istiod가 제공하는 CA Cert가 연동되지 않아, Failed 상태가 됩니다.
+
+이 문제를 해결하기 위해 App Sync를 해주셔야 합니다. 자동화 스크립트로는 [Infra 매뉴얼의 해당 인스트럭션](https://github.com/so1s/so1s-infra/blob/main/live/README.md#istio-app-ca-cert-%EA%B4%80%EB%A0%A8-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0)을 참고해 주세요!

@@ -65,6 +65,8 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.22.16+k3s1 sh -
 ```
 
+인증 정보등 추가 조치는 [간단하게 Kubernetes 환경 구축하기](https://si.mpli.st/dev/2020-01-01-easy-k8s-with-k3s/) 블로그를 참고해 주세요!
+
 ### 기존 클러스터 내 의존성 차트 프로비저닝 (선택)
 
 Terraform을 사용하지 않으실 경우, 필요한 의존성인 Argo CD, Sealed Secrets, External DNS, AWS LB Controller를 스크립트 기반으로 프로비저닝하실 수 있습니다.

@@ -81,5 +81,6 @@ cert.yaml
 *-template.yaml
 
 argocd-password
+kiali-token
 
 nix.sh

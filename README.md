@@ -146,6 +146,18 @@ App Sync를 통해 이러한 문제를 해결할 수 있습니다.
 ./scripts/fix-istio.sh
 ```
 
+### Argo CD 패스워드 확인 (선택)
+
+```bash
+./scripts/get-argocd-password.sh
+```
+
+### Kiali 토큰 확인 (선택)
+
+```bash
+./scripts/get-kiali-token.sh
+```
+
 ### Application 제거
 
 ```bash

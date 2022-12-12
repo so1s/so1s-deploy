@@ -8,7 +8,9 @@ export backendPassword=$(kubectl -n backend get secret backend-admin-secret -o j
 
 export argocdPassword=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo)
 
-export kialiToken=$(kubectl get secret -n istio-system $(kubectl get secret -n istio-system --no-headers -o custom-columns=":metadata.name" | grep kiali-token) -o jsonpath={.data.token} | base64 -d)
+export kialiToken=$(kubectl get secret -n istio-system -o jsonpath={.data.token} \
+                        $(kubectl get secret -n istio-system --no-headers -o custom-columns=":metadata.name" | grep kiali-token) \
+                    | base64 -d ; echo)
 
 export grafanaUser=$(kubectl -n monitoring get secret grafana-admin-secret -o jsonpath="{.data.grafana-user}" | base64 -d; echo)
 export grafanaPassword=$(kubectl -n monitoring get secret grafana-admin-secret -o jsonpath="{.data.grafana-password}" | base64 -d; echo)

@@ -1,4 +1,4 @@
-## GPU Operator Configuration
+## GPU Operator Configuration - Prod
 
 # Use Custom Pod Scheduling that suited GPU Node
 binpackScheduling:
@@ -13,14 +13,14 @@ gpu-operator:
   enabled: true
   daemonsets:
     tolerations:
-    - key: "kind"
-      value: "inference"
-      operator: "Equal"
-      effect: "NoSchedule"
-    - key: "kind"
-      value: "model-builder"
-      operator: "Equal"
-      effect: "NoSchedule"
+      - key: "kind"
+        value: "inference"
+        operator: "Equal"
+        effect: "NoSchedule"
+      - key: "kind"
+        value: "model-builder"
+        operator: "Equal"
+        effect: "NoSchedule"
 
   operator:
     repository: nvcr.io/nvidia
@@ -35,14 +35,14 @@ gpu-operator:
       version: 11.7.1-base-ubi8
       imagePullPolicy: IfNotPresent
     tolerations:
-    - key: "kind"
-      value: "inference"
-      operator: "Equal"
-      effect: "NoSchedule"
-    - key: "kind"
-      value: "model-builder"
-      operator: "Equal"
-      effect: "NoSchedule"
+      - key: "kind"
+        value: "inference"
+        operator: "Equal"
+        effect: "NoSchedule"
+      - key: "kind"
+        value: "model-builder"
+        operator: "Equal"
+        effect: "NoSchedule"
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -142,26 +142,26 @@ gpu-operator:
   node-feature-discovery:
     worker:
       tolerations:
-      - key: "kind"
-        value: "inference"
-        operator: "Equal"
-        effect: "NoSchedule"
-      - key: "kind"
-        value: "model-builder"
-        operator: "Equal"
-        effect: "NoSchedule"
+        - key: "kind"
+          value: "inference"
+          operator: "Equal"
+          effect: "NoSchedule"
+        - key: "kind"
+          value: "model-builder"
+          operator: "Equal"
+          effect: "NoSchedule"
 
       config:
         sources:
           pci:
             deviceClassWhitelist:
-            - "02"
-            - "0200"
-            - "0207"
-            - "0300"
-            - "0302"
+              - "02"
+              - "0200"
+              - "0207"
+              - "0300"
+              - "0302"
             deviceLabelFields:
-            - vendor
+              - vendor
 
     master:
       extraLabelNs:

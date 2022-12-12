@@ -53,6 +53,7 @@ config:
       }
 
       location /api {
+        resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-prod.backend.svc.cluster.local:80";
 
         proxy_pass $target;
@@ -62,6 +63,7 @@ config:
       }
 
       location /swagger-ui {
+        resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-prod.backend.svc.cluster.local:80";
 
         proxy_pass $target;
@@ -71,6 +73,7 @@ config:
       }
 
       location /swagger-resources {
+        resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-prod.backend.svc.cluster.local:80";
 
         proxy_pass $target;
@@ -80,6 +83,7 @@ config:
       }
 
       location /v3/api-docs {
+        resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-prod.backend.svc.cluster.local:80";
 
         proxy_pass $target;
@@ -89,6 +93,7 @@ config:
       }
 
       location /webjars {
+        resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-prod.backend.svc.cluster.local:80";
 
         proxy_pass $target;
@@ -98,6 +103,7 @@ config:
       }
 
       location /dashboard {
+        resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://monitoring-grafana.monitoring.svc.cluster.local:80";
 
         proxy_pass $target;
@@ -107,6 +113,7 @@ config:
       }
 
       location /kiali {
+        resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://kiali.logging.svc.cluster.local:20001";
 
         proxy_pass $target;
@@ -116,6 +123,7 @@ config:
       }
 
       location /kibana {
+        resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://logging-kibana.logging.svc.cluster.local:5601";
 
         proxy_pass $target;

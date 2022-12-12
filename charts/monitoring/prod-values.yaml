@@ -433,7 +433,10 @@ grafana:
       operator: "Equal"
       value: "library"
       effect: "NoSchedule"
-  adminPassword: password1234
+  admin:
+    existingSecret: grafana-admin-secret
+    userKey: grafana-user
+    passwordKey: grafana-password
   service:
     type: ClusterIP
     annotations: {}

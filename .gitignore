@@ -71,6 +71,9 @@ secrets.json
 registry.env
 registry-secret.json
 
+grafana.env
+grafana-secret.json
+
 docker-config.json
 docker-pull-secret.json
 

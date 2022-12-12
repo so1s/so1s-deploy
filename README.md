@@ -111,6 +111,22 @@ POSTGRES_USER=so1s
 POSTGRES_PASSWORD=
 ```
 
+### Grafana Secrets env 파일 작성
+
+로컬 Deploy 루트 디렉토리에 grafana.env 파일을 작성합니다.
+
+Git에는 반영되지 않으니, 안심하셔도 됩니다.
+
+|변수명|설명|기본값|
+|---|---|---|
+|grafana-user|Grafana 어드민 사용자명|admin|
+|grafana-password|Grafana 어드민 패스워드|None|
+
+```
+grafana-user=admin
+grafana-password=
+```
+
 ### Sealed Secrets를 통한 암호화
 
 ```bash

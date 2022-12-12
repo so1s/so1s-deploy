@@ -15,7 +15,7 @@ Kubernetes Deployment Helm Chart
 - Batteries included Helm Chart 구성
 - Argo CD App of Apps 패턴을 통한 부트스트래핑 지원
 - API 서버 백엔드 / 백오피스 프론트엔드 구성
-- Postgres와 Local Storage Provisioner를 통한 클러스터 내 백엔드 DB 구성
+- Postgres를 통한 클러스터 내 백엔드 DB 구성
 - GPU Operator 구성을 활용한 Node GPU Discovery 기능 제공
 - Prometheus Multiple Replicas Sharding 기능 제공
 - Grafana 기반 빌링 대시보드 제공

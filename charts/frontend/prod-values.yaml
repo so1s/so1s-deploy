@@ -59,6 +59,27 @@ config:
         proxy_http_version 1.1;
       }
 
+      location /dashboard {
+        proxy_pass http://monitoring-grafana.monitoring.svc.cluster.local:80;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /kiali {
+        proxy_pass http://kiali.logging.svc.cluster.local:20001;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /kibana {
+        proxy_pass http://logging-kibana.logging.svc.cluster.local:5601;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
       location /healthz {
         return 200;
       }

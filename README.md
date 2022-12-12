@@ -64,11 +64,11 @@ Terraform을 사용하지 않으실 경우, 필요한 의존성인 Argo CD, Seal
 의존성으로 Nix 패키지 관리자가 필요합니다.
 
 ```bash
-./install-nix.sh
+./scripts/install-nix.sh
 ```
 
 ```bash
-./install-dependencies.sh
+./scripts/install-dependencies.sh
 ```
 
 ### Sealed Secrets 인증서 가져오기 (선택)
@@ -114,7 +114,7 @@ POSTGRES_PASSWORD=
 ### Sealed Secrets를 통한 암호화
 
 ```bash
-./generate-sealed-secrets.sh
+./scripts/generate-sealed-secrets.sh
 ```
 
 파일이 제대로 생성되었으면 커밋하신 뒤, 포크된 리모트에 반영하시면 됩니다.
@@ -125,9 +125,9 @@ POSTGRES_PASSWORD=
 
 ```bash
 # Dev 환경
-./bootstrap-dev.sh
+./scripts/bootstrap-dev.sh
 # Prod 환경
-./bootstrap-prod.sh
+./scripts/bootstrap-prod.sh
 ```
 
 ### Istio CA Cert 관련 문제 해결
@@ -139,18 +139,18 @@ App Sync를 통해 이러한 문제를 해결할 수 있습니다.
 의존성으로 Nix 패키지 관리자가 필요합니다.
 
 ```bash
-./install-nix.sh
+./scripts/install-nix.sh
 ```
 
 ```bash
-./fix-istio.sh
+./scripts/fix-istio.sh
 ```
 
 ### Application 제거
 
 ```bash
 # Dev 환경
-./clean-up-dev.sh
+./scripts/clean-up-dev.sh
 # Prod 환경
-./clean-up-prod.sh
+./scripts/clean-up-prod.sh
 ```

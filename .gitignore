@@ -81,3 +81,5 @@ cert.yaml
 *-template.yaml
 
 argocd-password
+
+nix.sh

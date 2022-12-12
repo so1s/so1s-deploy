@@ -57,9 +57,9 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 
 [Infra 매뉴얼](https://github.com/so1s/so1s-infra/blob/main/live/README.md)을 참고해 주세요!
 
-### K3s 기반 개발용 로컬 클러스터 프로비저닝 (선택)
+### K3s 기반 온프레미스 클러스터 프로비저닝 (선택)
 
-로컬 / 온프레미스 머신을 기반으로 K3s 싱글 클러스터를 프로비저닝 하실 수 있습니다.
+로컬 / 온프레미스 머신을 기반으로 K3s 싱글 노드 클러스터를 프로비저닝 하실 수 있습니다.
 
 ```bash
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.22.16+k3s1 sh -

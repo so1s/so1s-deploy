@@ -84,3 +84,5 @@ argocd-password
 kiali-token
 
 nix.sh
+
+auth-credentials.yaml

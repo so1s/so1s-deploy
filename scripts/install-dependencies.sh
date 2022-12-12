@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash kubectl helm argocd
+#!nix-shell -i bash -p bash kubectl kubernetes-helm-wrapped argocd
 
 set -x
 

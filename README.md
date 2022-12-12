@@ -61,6 +61,12 @@ Template의 형태로 복제하신 뒤, 포크된 레포에서 Sealed-Secrets와
 
 Terraform을 사용하지 않으실 경우, 필요한 의존성인 Argo CD, Sealed Secrets, External DNS, AWS LB Controller를 스크립트 기반으로 프로비저닝하실 수 있습니다.
 
+의존성으로 Nix 패키지 관리자가 필요합니다.
+
+```bash
+./install-nix.sh
+```
+
 ```bash
 ./install-dependencies.sh
 ```

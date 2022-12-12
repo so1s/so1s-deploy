@@ -3,8 +3,7 @@ kind: Application
 metadata:
   name: so1s-frontend-app-dev
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  finalizers: []
   annotations:
     argocd-image-updater.argoproj.io/image-list: frontend=ghcr.io/so1s/frontend
     argocd-image-updater.argoproj.io/frontend.update-strategy: latest
@@ -29,7 +28,7 @@ spec:
 
   syncPolicy:
     automated:
-        prune: true
-        selfHeal: true
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

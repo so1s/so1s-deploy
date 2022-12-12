@@ -3,8 +3,7 @@ kind: Application
 metadata:
   name: so1s-monitoring-app-dev
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  finalizers: []
 spec:
   project: so1s-project-dev
 
@@ -24,7 +23,7 @@ spec:
 
   syncPolicy:
     automated:
-        prune: true
-        selfHeal: true
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

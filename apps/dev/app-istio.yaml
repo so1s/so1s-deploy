@@ -3,8 +3,7 @@ kind: Application
 metadata:
   name: so1s-istio-app-dev
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  finalizers: []
 spec:
   project: so1s-project-dev
 

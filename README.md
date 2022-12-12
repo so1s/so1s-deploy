@@ -44,6 +44,7 @@ Kubernetes Deployment Helm Chart
 - NVIDIA GPU Operator / DCGM Exporter
 - Elasticsearch / Fluent Bit / Kibana
 - Sealed Secrets
+- Nix / Bash
 
 ## 사용 방법
 

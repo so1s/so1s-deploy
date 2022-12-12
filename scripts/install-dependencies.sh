@@ -13,9 +13,5 @@ helm install external-dns -n kube-system -f ./charts/public/external-dns/dev-val
 helm install alb -n kube-system -f ./charts/public/aws-load-balancer-controller/dev-values.yaml aws/aws-load-balancer-controller --create-namespace --wait
 helm install gpu -n gpu -f ./charts/extension/gpu/dev-values.yaml ./charts/extension/gpu --create-namespace --wait
 
-argoCDPassword=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo)
-rm -f ./argocd-password
-echo $argoCDPassword > ./argocd-password
-
 kubectl apply -f ./project/project-dev.yaml --wait
 kubectl apply -f ./apps/dev/app-sealed-secrets.yaml --wait

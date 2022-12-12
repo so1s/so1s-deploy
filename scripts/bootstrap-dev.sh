@@ -2,7 +2,7 @@
 
 set -x
 
-rootDir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd ..
 
-kubectl apply -f $rootDir/project/project-dev.yaml --wait
-kubectl apply -f $rootDir/root-apps/root-dev.yaml --wait
+kubectl apply -f ./project/project-dev.yaml --wait
+kubectl apply -f ./root-apps/root-dev.yaml --wait

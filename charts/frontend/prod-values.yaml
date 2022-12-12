@@ -53,28 +53,72 @@ config:
       }
 
       location /api {
-        proxy_pass http://so1s-prod.backend.svc.cluster.local:80;
+        set $target "http://so1s-prod.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /swagger-ui {
+        set $target "http://so1s-prod.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /swagger-resources {
+        set $target "http://so1s-prod.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /v3/api-docs {
+        set $target "http://so1s-prod.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /webjars {
+        set $target "http://so1s-prod.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
         proxy_http_version 1.1;
       }
 
       location /dashboard {
-        proxy_pass http://monitoring-grafana.monitoring.svc.cluster.local:80;
+        set $target "http://monitoring-grafana.monitoring.svc.cluster.local:80";
+
+        proxy_pass $target;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
         proxy_http_version 1.1;
       }
 
       location /kiali {
-        proxy_pass http://kiali.logging.svc.cluster.local:20001;
+        set $target "http://kiali.logging.svc.cluster.local:20001";
+
+        proxy_pass $target;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
         proxy_http_version 1.1;
       }
 
       location /kibana {
-        proxy_pass http://logging-kibana.logging.svc.cluster.local:5601;
+        set $target "http://logging-kibana.logging.svc.cluster.local:5601";
+
+        proxy_pass $target;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
         proxy_http_version 1.1;

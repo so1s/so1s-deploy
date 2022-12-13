@@ -170,7 +170,7 @@ App Sync를 통해 이러한 문제를 해결할 수 있습니다.
 ```
 
 ```bash
-./scripts/fix-istio.sh
+./scripts/fix-istio-app.sh
 ```
 
 ### 인증 정보 확인

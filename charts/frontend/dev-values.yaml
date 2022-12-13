@@ -48,15 +48,8 @@ config:
       include /etc/nginx/mime.types;
       client_max_body_size 0;
       listen 80;
-      
-      location / {
-        root   /usr/share/nginx/html;
-        index  index.html index.htm;
 
-        try_files $uri /index.html;
-      }
-
-      location /api {
+      location ~ /api {
         resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-dev.backend.svc.cluster.local:80";
 
@@ -66,7 +59,7 @@ config:
         proxy_http_version 1.1;
       }
 
-      location /swagger-ui {
+      location ~ /swagger-ui {
         resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-dev.backend.svc.cluster.local:80";
 
@@ -76,7 +69,7 @@ config:
         proxy_http_version 1.1;
       }
 
-      location /swagger-resources {
+      location ~ /swagger-resources {
         resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-dev.backend.svc.cluster.local:80";
 
@@ -86,7 +79,7 @@ config:
         proxy_http_version 1.1;
       }
 
-      location /v3/api-docs {
+      location ~ /v3/api-docs {
         resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-dev.backend.svc.cluster.local:80";
 
@@ -96,7 +89,7 @@ config:
         proxy_http_version 1.1;
       }
 
-      location /webjars {
+      location ~ /webjars {
         resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://so1s-dev.backend.svc.cluster.local:80";
 
@@ -106,7 +99,7 @@ config:
         proxy_http_version 1.1;
       }
 
-      location /dashboard {
+      location ~ /dashboard/ {
         resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://monitoring-grafana.monitoring.svc.cluster.local:80";
 
@@ -116,7 +109,7 @@ config:
         proxy_http_version 1.1;
       }
 
-      location /kiali {
+      location ~ /kiali/ {
         resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://kiali.logging.svc.cluster.local:20001";
 
@@ -126,7 +119,7 @@ config:
         proxy_http_version 1.1;
       }
 
-      location /kibana {
+      location ~ /kibana/ {
         resolver kube-dns.kube-system.svc.cluster.local;
         set $target "http://logging-kibana.logging.svc.cluster.local:5601";
 
@@ -136,8 +129,15 @@ config:
         proxy_http_version 1.1;
       }
 
-      location /healthz {
+      location ~ /healthz {
         return 200;
+      }
+      
+      location ~ / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+
+        try_files $uri /index.html;
       }
 
       error_page   500 502 503 504  /50x.html;

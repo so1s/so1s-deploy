@@ -54,7 +54,7 @@ config:
       set $backend http://so1s-dev.backend.svc.cluster.local:80;
       set $grafana http://monitoring-grafana.monitoring.svc.cluster.local:80;
       set $kibana http://logging-kibana.logging.svc.cluster.local:5601;
-      set $kiali http://kiali.logging.svc.cluster.local:20001;
+      set $kiali http://kiali.logging.svc.cluster.local:20001/kiali;
 
       location / {
         root   /usr/share/nginx/html;
@@ -99,6 +99,8 @@ config:
       }
 
       location /grafana {
+        rewrite  ^/grafana/(.*)  /$1 break;
+
         proxy_pass $grafana;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
@@ -106,6 +108,8 @@ config:
       }
 
       location /kiali {
+        rewrite  ^/kiali/(.*)  /$1 break;
+
         proxy_pass $kiali;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
@@ -113,6 +117,8 @@ config:
       }
 
       location /kibana {
+        rewrite  ^/kibana/(.*)  /$1 break;
+
         proxy_pass $kibana;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;

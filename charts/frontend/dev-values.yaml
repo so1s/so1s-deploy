@@ -49,95 +49,99 @@ config:
       client_max_body_size 0;
       listen 80;
 
-      location ~ /api {
-        resolver kube-dns.kube-system.svc.cluster.local;
-        set $target "http://so1s-dev.backend.svc.cluster.local:80";
-
-        proxy_pass $target;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-      }
-
-      location ~ /swagger-ui {
-        resolver kube-dns.kube-system.svc.cluster.local;
-        set $target "http://so1s-dev.backend.svc.cluster.local:80";
-
-        proxy_pass $target;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-      }
-
-      location ~ /swagger-resources {
-        resolver kube-dns.kube-system.svc.cluster.local;
-        set $target "http://so1s-dev.backend.svc.cluster.local:80";
-
-        proxy_pass $target;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-      }
-
-      location ~ /v3/api-docs {
-        resolver kube-dns.kube-system.svc.cluster.local;
-        set $target "http://so1s-dev.backend.svc.cluster.local:80";
-
-        proxy_pass $target;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-      }
-
-      location ~ /webjars {
-        resolver kube-dns.kube-system.svc.cluster.local;
-        set $target "http://so1s-dev.backend.svc.cluster.local:80";
-
-        proxy_pass $target;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-      }
-
-      location ~ /dashboard/ {
-        resolver kube-dns.kube-system.svc.cluster.local;
-        set $target "http://monitoring-grafana.monitoring.svc.cluster.local:80";
-
-        proxy_pass $target;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-      }
-
-      location ~ /kiali/ {
-        resolver kube-dns.kube-system.svc.cluster.local;
-        set $target "http://kiali.logging.svc.cluster.local:20001";
-
-        proxy_pass $target;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-      }
-
-      location ~ /kibana/ {
-        resolver kube-dns.kube-system.svc.cluster.local;
-        set $target "http://logging-kibana.logging.svc.cluster.local:5601";
-
-        proxy_pass $target;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-      }
-
-      location ~ /healthz {
-        return 200;
-      }
-      
-      location ~ / {
+      location / {
         root   /usr/share/nginx/html;
         index  index.html index.htm;
 
         try_files $uri /index.html;
+      }
+
+      location /api {
+        resolver kube-dns.kube-system.svc.cluster.local;
+        set $target "http://so1s-dev.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /swagger-ui {
+        resolver kube-dns.kube-system.svc.cluster.local;
+        set $target "http://so1s-dev.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /swagger-resources {
+        resolver kube-dns.kube-system.svc.cluster.local;
+        set $target "http://so1s-dev.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /v3/api-docs {
+        resolver kube-dns.kube-system.svc.cluster.local;
+        set $target "http://so1s-dev.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /webjars {
+        resolver kube-dns.kube-system.svc.cluster.local;
+        set $target "http://so1s-dev.backend.svc.cluster.local:80";
+
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /dashboard {
+        rewrite ^/dashboard(.*) /$1 break;
+
+        resolver kube-dns.kube-system.svc.cluster.local;
+
+        proxy_pass http://monitoring-grafana.monitoring.svc.cluster.local:80;
+        proxy_pass $target;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /kiali {
+        rewrite ^/kiali(.*) /$1 break;
+
+        resolver kube-dns.kube-system.svc.cluster.local;
+
+        proxy_pass http://kiali.logging.svc.cluster.local:20001;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /kibana {
+        rewrite ^/kibana(.*) /$1 break;
+
+        resolver kube-dns.kube-system.svc.cluster.local;
+
+        proxy_pass http://logging-kibana.logging.svc.cluster.local:5601;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+      }
+
+      location /healthz {
+        return 200;
       }
 
       error_page   500 502 503 504  /50x.html;

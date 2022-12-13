@@ -82,12 +82,21 @@ Terraform을 사용하지 않으실 경우, 필요한 의존성인 Argo CD, Seal
 ./scripts/install-dependencies.sh
 ```
 
-### Sealed Secrets 인증서 가져오기 (선택)
+### Sealed Secrets 인증서 백업 (선택)
 
-클러스터를 여러번 프로비저닝할 경우 현재 클러스터에 있는 Sealed Secrets 인증서를 가져와서 보관한 뒤, 인증서를 다른 클러스터에 적용해야 합니다. 
+여러번의 클러스터 프로비저닝을 하며, 같은 인증서로 암호화된 Sealed Secrets를 복호화하기 위해서는 현재 클러스터의 인증서를 로컬에 보관해야 합니다.
 
-[Infra 매뉴얼의 해당 인스트럭션](https://github.com/so1s/so1s-infra/blob/main/live/README.md#sealed-secrets-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B3%B4%EA%B4%80--%EC%9E%AC%EC%82%AC%EC%9A%A9)을 참고해 주세요!
+```bash
+./scripts/save-sealed-secrets-certificate.sh
+```
 
+### Sealed Secrets 인증서 적용 (선택)
+
+백업된 인증서를 사용 중인 클러스터에 적용할 수 있습니다.
+
+```bash
+./scripts/inject-sealed-secrets-certificate.sh
+```
 ### Secrets env 파일 작성
 
 로컬 Deploy 루트 디렉토리에 secrets.env 파일을 작성합니다.

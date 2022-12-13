@@ -51,12 +51,10 @@ config:
 
       resolver kube-dns.kube-system.svc.cluster.local;
 
-      # https://serverfault.com/a/870620/996543
-
       set $backend http://so1s-dev.backend.svc.cluster.local:80;
-      set $grafana http://monitoring-grafana.monitoring.svc.cluster.local:80/;
-      set $kibana http://logging-kibana.logging.svc.cluster.local:5601/;
-      set $kiali http://kiali.logging.svc.cluster.local:20001/kiali/;
+      set $grafana http://monitoring-grafana.monitoring.svc.cluster.local:80;
+      set $kibana http://logging-kibana.logging.svc.cluster.local:5601;
+      set $kiali http://kiali.logging.svc.cluster.local:20001;
 
       location / {
         root   /usr/share/nginx/html;
@@ -93,16 +91,25 @@ config:
       location /grafana {
         proxy_pass $grafana;
         proxy_http_version 1.1;
-      }
 
-      location /kiali {
-        proxy_pass $kiali;
-        proxy_http_version 1.1;
+        proxy_redirect / /grafana/;
+        proxy_redirect $grafana/ /grafana/;
       }
 
       location /kibana {
         proxy_pass $kibana;
         proxy_http_version 1.1;
+
+        proxy_redirect / /kibana/;
+        proxy_redirect $kibana/ /kibana/;
+      }
+
+      location /kiali {
+        proxy_pass $kiali;
+        proxy_http_version 1.1;
+
+        proxy_redirect / /kiali/;
+        proxy_redirect $kiali/ /kiali/;
       }
 
       location /healthz {

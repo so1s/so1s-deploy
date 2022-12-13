@@ -111,6 +111,7 @@ config:
       location /grafana {
         proxy_pass $grafana;
 
+        proxy_redirect / /grafana/;
         proxy_redirect $grafana/ /grafana/;
 
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -122,6 +123,7 @@ config:
       location /kibana {
         proxy_pass $kibana;
 
+        proxy_redirect / /kibana/;
         proxy_redirect $kibana/ /kibana/;
 
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -133,6 +135,7 @@ config:
       location /kiali {
         proxy_pass $kiali;
 
+        proxy_redirect / /kiali/;
         proxy_redirect $kiali/ /kiali/;
 
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
